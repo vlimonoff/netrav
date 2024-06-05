@@ -1,3 +1,7 @@
 from django.contrib import admin
+from artists.models import Artist, ArtMovement, Association
 
-# Register your models here.
+
+admin.site.register(Artist)
+admin.site.register(ArtMovement)
+admin.site.register(Association)
