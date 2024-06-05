@@ -13,7 +13,7 @@ class ArtMovementSerializer(serializers.ModelSerializer):
 
 
 class ArtistSerializer(serializers.ModelSerializer):
-    art_movements = serializers.PrimaryKeyRelatedField(
+    artMovements = serializers.PrimaryKeyRelatedField(
         many=True, queryset=ArtMovement.objects.all()
     )
 
