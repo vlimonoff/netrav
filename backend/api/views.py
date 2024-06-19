@@ -4,6 +4,7 @@ from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 from api.serializers import ArtMovementSerializer, ArtistSerializer, AssociationSerializer
 from artists.models import ArtMovement, Artist, Association
 from api.filters import ArtMovementFilter
+from api.pagination import CustomPagination
 
 
 class ArtMovementsViewSet(ReadOnlyModelViewSet):
@@ -17,8 +18,10 @@ class ArtMovementsViewSet(ReadOnlyModelViewSet):
 class ArtistsViewSet(ModelViewSet):
     queryset = Artist.objects.all()
     serializer_class = ArtistSerializer
+    pagination_class = CustomPagination
 
 
 class AssociationViewSet(ModelViewSet):
     queryset = Association.objects.all()
     serializer_class = AssociationSerializer
+    pagination_class = CustomPagination

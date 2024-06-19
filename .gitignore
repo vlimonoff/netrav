@@ -133,3 +133,9 @@ dmypy.json
 
 # node-modules
 /frontend/node_modules
+
+
+
+
+#other
+/csv
