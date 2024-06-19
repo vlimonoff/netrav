@@ -10,6 +10,9 @@ export const styles = {
     margin: '0 0 24px 0',
     backgroundColor: (theme: Theme) => theme.palette.background.default,
     height: '80px',
+    position: 'sticky',
+    top: '0',
+    zIndex: '1000',
   },
 
   button: {

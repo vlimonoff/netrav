@@ -15,6 +15,7 @@ import { Navigation } from './components/navigation/navigation';
 import { ArtistsList } from './components/artists-list';
 
 import './styles.css';
+import { Manual } from './pages/manual';
 
 // how to use theme in components
 
@@ -25,15 +26,17 @@ import './styles.css';
 // const colorMode = useContext(ColorModeContext);
 
 const App = () => {
-  const [mode, setMode] = useState<PaletteMode>('dark');
+  const [mode, setMode] = useState<PaletteMode>('light');
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        setMode((prevMode: PaletteMode) =>
+          prevMode === 'light' ? 'dark' : 'light'
+        );
       },
     }),
-    [],
+    []
   );
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
@@ -44,13 +47,14 @@ const App = () => {
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
           <ThemeProvider theme={theme}>
             <BrowserRouter>
-              <Paper className="root-wrapper">
+              <Paper className='root-wrapper'>
                 <Navigation />
 
                 <Routes>
-                  <Route path="/" element={<ArtistsList />} />
-                  <Route path="/form" element={<Form />} />
-                  <Route path="*" element={<ArtistsList />} />
+                  <Route path='/' element={<ArtistsList />} />
+                  <Route path='/form' element={<Form />} />
+                  <Route path='/manual' element={<Manual />} />
+                  <Route path='*' element={<ArtistsList />} />
                 </Routes>
               </Paper>
             </BrowserRouter>
@@ -61,5 +65,7 @@ const App = () => {
   );
 };
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
 root.render(<App />);

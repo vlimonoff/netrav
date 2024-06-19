@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
 
 html,
 body,
@@ -6,14 +8,29 @@ body,
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: 'Lava Pro', regular;
 }
 
 .root-wrapper {
-  height: 100%;
+  minHeight: 100%;
+}
+
+.MuiPaper-root {
+  font-family: 'Lava Pro', regular;
 }
 
 .MuiPaper-root * {
   font-family: 'Montserrat', sans-serif !important;
   font-optical-sizing: auto !important;
   font-style: normal !important;
+
+  /* font-family: 'Lora', serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: <weight>;
+  font-style: normal !important; */
+
+  /* font-family: 'Raleway', sans-serif !important;
+  font-optical-sizing: auto !important;
+  font-weight: <weight>;
+  font-style: normal !important; */
 }
