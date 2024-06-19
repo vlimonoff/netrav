@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 
 volumes:
   pg_data:
@@ -15,7 +15,7 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    image: bogachevvova/foodgram_backend
+    image: bogachevvova/netrav_backend
     env_file: .env
     volumes:
       - static:/app/static/
@@ -24,7 +24,7 @@ services:
       - db
 
   gateway:
-    image: bogachevvova/foodgram_gateway
+    image: bogachevvova/netrav_gateway
     env_file: .env
     ports:
       - "8000:80"
