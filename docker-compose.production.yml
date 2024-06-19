@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 volumes:
   pg_data:
@@ -15,28 +15,22 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    image: ${{ secrets.DOCKER_USERNAME }}/netrav_backend:latest
+    image: bogachevvova/foodgram_backend
     env_file: .env
     volumes:
       - static:/app/static/
       - media:/app/media/
-      - docs:/app/api/docs/
     depends_on:
       - db
 
-  nginx:
-    image: ${{ secrets.DOCKER_USERNAME }}/netrav_gateway:latest
+  gateway:
+    image: bogachevvova/foodgram_gateway
     env_file: .env
     ports:
-      - 80:80
+      - "8000:80"
     volumes:
-      - ../frontend/build:/usr/share/nginx/html/
-      - ../docs/:/usr/share/nginx/html/api/docs/
-      - ../csv/Artists.csv
-      - ../csv/Association_Members.csv
-      - ../csv/Association_Owners.csv
-      - ../csv/Associations.csv
       - static:/var/html/static/
       - media:/var/html/media/
+      - ../docs/:/usr/share/nginx/html/api/docs/
     depends_on:
       - backend
