@@ -1,0 +1,36 @@
+version: '3.3'
+
+volumes:
+  pg_data:
+  static:
+  media:
+
+services:
+  db:
+    image: postgres:13.10
+    env_file: .env
+    ports:
+      - 5432:5432
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+  backend:
+    image: bogachevvova/netrav_backend
+    env_file: .env
+    volumes:
+      - static:/app/static/
+      - media:/app/media/
+    depends_on:
+      - db
+
+  gateway:
+    image: bogachevvova/netrav_gateway
+    env_file: .env
+    ports:
+      - "8000:80"
+    volumes:
+      - static:/var/html/static/
+      - media:/var/html/media/
+      - ../docs/:/usr/share/nginx/html/api/docs/
+    depends_on:
+      - backend
