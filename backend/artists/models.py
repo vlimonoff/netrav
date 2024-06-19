@@ -9,8 +9,9 @@ class Artist(models.Model):
         null=True,
     )
     isArtist = models.BooleanField(default=True)
-    birthDate = models.DateField(blank=True, null=True)
-    deathDate = models.DateField(blank=True, null=True)
+    birthDate = models.CharField(max_length=255,
+                                 blank=True, null=True)
+    deathDate = models.CharField(max_length=255, blank=True, null=True)
     birthPlace = models.CharField(
         max_length=255,
         blank=True,
@@ -43,13 +44,14 @@ class ArtMovement(models.Model):
 
 class Association(models.Model):
     title = models.CharField(max_length=255)
-    workStart = models.IntegerField(blank=True, null=True)
-    workEnd = models.IntegerField(blank=True, null=True)
+    workStart = models.CharField(max_length=255, blank=True, null=True)
+    workEnd = models.CharField(max_length=255, blank=True, null=True)
     status = models.CharField(max_length=255, blank=True, null=True)
     city = models.CharField(max_length=255, blank=True, null=True)
     url = models.TextField(blank=True, null=True)
-    members = models.ManyToManyField(Artist, related_name='member_associations', blank=True)
-    owners = models.ManyToManyField(Artist, related_name='owner_associations', blank=True)
+    members = models.ManyToManyField(Artist, related_name='Association_Members', blank=True)
+    owners = models.ManyToManyField(Artist, related_name='Association_Owners', blank=True)
+    otherInfo = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.title
