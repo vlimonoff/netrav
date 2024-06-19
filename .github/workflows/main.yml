@@ -59,17 +59,19 @@ jobs:
       run: |
         ls -l ./docker-compose.production.yml
         ls -l ./backend/.env
-    - name: Copy docker-compose.production.yml and .env via ssh
-      uses: appleboy/scp-action@master
+    - name: Copy files via SSH
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: |
-          docker-compose.production.yml
-          backend/.env
-        target: ~/netrav
+        script: |
+          mkdir -p ~/netrav
+          echo "${{ secrets.SSH_KEY }}" > ~/netrav/ssh_key
+          chmod 600 ~/netrav/ssh_key
+          scp -i ~/netrav/ssh_key -o StrictHostKeyChecking=no docker-compose.production.yml ${{ secrets.USER }}@${{ secrets.HOST }}:~/netrav/docker-compose.production.yml
+          scp -i ~/netrav/ssh_key -o StrictHostKeyChecking=no backend/.env ${{ secrets.USER }}@${{ secrets.HOST }}:~/netrav/.env
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
