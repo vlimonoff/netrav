@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 
 volumes:
   pg_data:
@@ -15,22 +15,28 @@ services:
       - pg_data:/var/lib/postgresql/data
 
   backend:
-    image: bogachevvova/netrav_backend
+    image: ${{ secrets.DOCKER_USERNAME }}/netrav_backend:latest
     env_file: .env
     volumes:
       - static:/app/static/
       - media:/app/media/
+      - docs:/app/api/docs/
     depends_on:
       - db
 
-  gateway:
-    image: bogachevvova/netrav_gateway
+  nginx:
+    image: ${{ secrets.DOCKER_USERNAME }}/netrav_gateway:latest
     env_file: .env
     ports:
-      - "8000:80"
+      - 80:80
     volumes:
+      - ../frontend/build:/usr/share/nginx/html/
+      - ../docs/:/usr/share/nginx/html/api/docs/
+      - ../csv/Artists.csv
+      - ../csv/Association_Members.csv
+      - ../csv/Association_Owners.csv
+      - ../csv/Associations.csv
       - static:/var/html/static/
       - media:/var/html/media/
-      - ../docs/:/usr/share/nginx/html/api/docs/
     depends_on:
       - backend
