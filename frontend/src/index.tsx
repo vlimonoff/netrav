@@ -16,6 +16,7 @@ import { ArtistsList } from './components/artists-list';
 
 import './styles.css';
 import { Manual } from './pages/manual';
+import { Graph1, Graph2, Graph3, Graph4 } from './pages/graphs';
 
 // how to use theme in components
 
@@ -52,6 +53,10 @@ const App = () => {
 
                 <Routes>
                   <Route path='/' element={<ArtistsList />} />
+                  <Route path='/graph1' element={<Graph1 />} />
+                  <Route path='/graph2' element={<Graph2 />} />
+                  <Route path='/graph3' element={<Graph3 />} />
+                  <Route path='/graph4' element={<Graph4 />} />
                   <Route path='/form' element={<Form />} />
                   <Route path='/manual' element={<Manual />} />
                   <Route path='*' element={<ArtistsList />} />
