@@ -16,8 +16,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Копируем весь проект
 COPY . .
 
-# Копируем .env файл
-COPY .env .env
+# # Копируем .env файл
+# COPY .env .env
 
 # Устанавливаем переменные окружения
 ENV DJANGO_SETTINGS_MODULE=netrav.settings
