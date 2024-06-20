@@ -1,4 +1,4 @@
-const API_URL = 'http://127.0.0.1:8000';
+const API_URL = 'https://netrav.ru';
 
 const ARTISTS_API = '/api/artists/';
 const ART_MOVEMENTS = '/api/artmovements/';
