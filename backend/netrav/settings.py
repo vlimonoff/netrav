@@ -30,7 +30,11 @@ SECRET_KEY = '9$k_b312co5odug(k2(z7!&ekr6$=_8g(*5-a4p9=s28flq$)#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.netrav.ru', 'netrav.ru', '217.18.62.176', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['www.netrav.ru', 
+                 'netrav.ru',
+                 '217.18.62.176',
+                 '127.0.0.1',
+                 'localhost']
 
 
 # Application definition
