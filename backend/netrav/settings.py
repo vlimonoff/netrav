@@ -69,6 +69,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_URLS_REGEX = r'^/api/.*$'
 
+CSRF_TRUSTED_ORIGINS = ['https://netrav.ru', 'https://www.netrav.ru']
+
 ROOT_URLCONF = 'netrav.urls'
 
 TEMPLATES = [
