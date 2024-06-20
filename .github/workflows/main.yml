@@ -84,7 +84,12 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "docker-compose.production.yml"
+        source: |
+          docker-compose.production.yml
+          csv/Artists.csv
+          csv/Association_Members.csv
+          csv/Association_Owners.csv
+          csv/Associations.csv
         target: "netrav"
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
