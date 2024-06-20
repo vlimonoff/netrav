@@ -17,40 +17,31 @@ interface Column {
   minWidth?: number;
 }
 
-// interface IRow {
-//   artMovements: Array<number>;
-//   lastName: string;
-//   firstName: string;
-//   patronymic: string;
-//   isArtist: boolean;
-//   birthDate: string;
-//   deathDate: string;
-//   birthPlace: string;
-//   deathPlace: string;
-//   otherInfo: string;
-//   wikiUrl: string;
-// }
-
 const columns: readonly Column[] = [
   {
-    id: 'firstName',
-    label: 'Имя',
-    minWidth: 170,
+    id: 'title',
+    label: 'Наименование',
+    minWidth: 100,
   },
   {
-    id: 'lastName',
-    label: 'Фамилия',
-    minWidth: 170,
+    id: 'workStart',
+    label: 'Дата начала работы',
+    minWidth: 50,
   },
   {
-    id: 'birthDate',
-    label: 'Дата рождения',
-    minWidth: 170,
+    id: 'workEnd',
+    label: 'Дата окончания работы',
+    minWidth: 50,
   },
   {
-    id: 'deathDate',
-    label: 'Дата смерти',
-    minWidth: 170,
+    id: 'status',
+    label: 'Статус',
+    minWidth: 100,
+  },
+  {
+    id: 'city',
+    label: 'Город',
+    minWidth: 100,
   },
   {
     id: 'otherInfo',
@@ -59,7 +50,7 @@ const columns: readonly Column[] = [
   },
 ];
 
-export const ArtistsList = () => {
+export const AssociationsList = () => {
   const [rows, setRows] = useState([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -67,7 +58,7 @@ export const ArtistsList = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch(endpoints.ARTISTS);
+      const response = await fetch(endpoints.ASSOCIATIONS);
 
       const data = await response.json();
 
@@ -103,12 +94,12 @@ export const ArtistsList = () => {
           </TableHead>
           <TableBody>
             {rows.map((row, idx) => {
+              console.log(row);
+
               return (
                 <TableRow hover role='checkbox' tabIndex={-1} key={idx}>
                   {columns.map((column) => (
-                    <TableCell key={column.id}>
-                      {row[column.id] || '-'}
-                    </TableCell>
+                    <TableCell key={column.id}>{row[column.id]}</TableCell>
                   ))}
                 </TableRow>
               );

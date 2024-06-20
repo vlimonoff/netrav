@@ -9,14 +9,11 @@ import { PaletteMode, Paper, createTheme } from '@mui/material';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import ruLocale from 'date-fns/locale/ru';
 import DateFnsUtils from '@date-io/date-fns';
-
-import { Form } from './pages/form/form';
 import { Navigation } from './components/navigation/navigation';
-import { ArtistsList } from './components/artists-list';
-
 import './styles.css';
 import { Manual } from './pages/manual';
 import { Graph1, Graph2, Graph3, Graph4 } from './pages/graphs';
+import { Data } from './pages/data';
 
 // how to use theme in components
 
@@ -52,14 +49,13 @@ const App = () => {
                 <Navigation />
 
                 <Routes>
-                  <Route path='/' element={<ArtistsList />} />
+                  <Route path='/data' element={<Data />} />
                   <Route path='/graph1' element={<Graph1 />} />
                   <Route path='/graph2' element={<Graph2 />} />
                   <Route path='/graph3' element={<Graph3 />} />
                   <Route path='/graph4' element={<Graph4 />} />
-                  <Route path='/form' element={<Form />} />
                   <Route path='/manual' element={<Manual />} />
-                  <Route path='*' element={<ArtistsList />} />
+                  <Route path='*' element={<Data />} />
                 </Routes>
               </Paper>
             </BrowserRouter>

@@ -9,10 +9,11 @@ export const styles = {
     gap: '16px',
     margin: '0',
     backgroundColor: (theme: Theme) => theme.palette.background.default,
-    height: '80px',
+    height: '50px',
     position: 'sticky',
     top: '0',
     zIndex: '1000',
+    fontSize: '16px',
   },
 
   button: {

@@ -1,4 +1,5 @@
 export const dictionary: Record<string, string> = {
+  header: 'Добавление художника:',
   lastName: 'Фамилия',
   firstName: 'Имя',
   patronymic: 'Отчество',
@@ -12,4 +13,5 @@ export const dictionary: Record<string, string> = {
   isArtist: 'Художник',
   reset: 'Очистить',
   save: 'Сохранить',
+  success: 'Художник успешно добавлен!',
 };
