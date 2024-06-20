@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@mui/material';
 import { endpoints } from '../../endpoints';
+import { Loader } from '../loader/loader';
 
 interface Column {
   id: string;
@@ -37,7 +46,8 @@ const columns: readonly Column[] = [
     id: 'artMovements',
     label: 'Направления',
     minWidth: 100,
-    format: (values: string | Array<number>) => (typeof values === 'object' ? values.join(', ') : values),
+    format: (values: string | Array<number>) =>
+      typeof values === 'object' ? values.join(', ') : values,
   },
   {
     id: 'birthDate',
@@ -53,8 +63,11 @@ const columns: readonly Column[] = [
 
 export const ArtistsList = () => {
   const [rows, setRows] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchArtists = async () => {
+    setIsLoading(true);
+
     try {
       const response = await fetch(endpoints.ARTISTS);
 
@@ -64,6 +77,8 @@ export const ArtistsList = () => {
         setRows(data);
       }
     } catch (error) {}
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -72,12 +87,17 @@ export const ArtistsList = () => {
 
   return (
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+      {isLoading && <Loader />}
+
       <TableContainer sx={{ maxHeight: 440 }}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
               {columns.map((column) => (
-                <TableCell key={column.id} style={{ minWidth: column.minWidth }}>
+                <TableCell
+                  key={column.id}
+                  style={{ minWidth: column.minWidth }}
+                >
                   {column.label}
                 </TableCell>
               ))}
@@ -88,10 +108,14 @@ export const ArtistsList = () => {
               console.log(row);
 
               return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
+                <TableRow hover role='checkbox' tabIndex={-1} key={idx}>
                   {columns.map((column) => {
                     const value = row[column.id];
-                    return <TableCell key={column.id}>{column.format ? column.format(value) : value}</TableCell>;
+                    return (
+                      <TableCell key={column.id}>
+                        {column.format ? column.format(value) : value}
+                      </TableCell>
+                    );
                   })}
                 </TableRow>
               );

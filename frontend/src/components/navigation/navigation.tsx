@@ -19,12 +19,11 @@ export const Navigation = () => {
     navigate(link);
   };
 
-  // TODO: написать функцию для определения варианта отображения кнопки, вынести в utils
-
   return (
     <Box sx={styles.wrapper}>
       {routes.map((route) => (
         <Button
+          key={route.source}
           sx={styles.button}
           onClick={() => handleClick(route.source)}
           color={location.pathname === route.source ? 'primary' : 'secondary'}

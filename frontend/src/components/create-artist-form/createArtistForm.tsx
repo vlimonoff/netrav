@@ -1,26 +1,28 @@
 import React, { FC, useEffect, useState } from 'react';
 import {
+  Alert,
   Autocomplete,
   Box,
   Button,
   Checkbox,
+  Collapse,
   FormControlLabel,
+  IconButton,
   TextField,
 } from '@mui/material';
+import { CheckBoxOutlineBlank, CheckBox, Close } from '@mui/icons-material';
 import { IArtMovement, IBaseForm, IBaseFormProps, Props } from './types';
 import { styles } from './styles';
 import { useFormik } from 'formik';
 import { dictionary } from './dictionary';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { endpoints } from '../../endpoints';
 import { validationSchema } from './validationSchema';
-
-const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
-const checkedIcon = <CheckBoxIcon fontSize='small' />;
+import { Loader } from '../loader';
 
 export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
   const [artMovements, setArtMovements] = useState<Array<IArtMovement>>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
@@ -37,6 +39,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       wikiUrl: '',
     },
     validationSchema,
+
     onSubmit: async ({
       artMovements,
       lastName,
@@ -50,6 +53,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       otherInfo,
       wikiUrl,
     }) => {
+      setIsLoading(true);
+
       try {
         const response = await fetch(endpoints.ARTISTS, {
           method: 'POST',
@@ -71,16 +76,18 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           },
         });
 
-        const data = await response.json();
+        await response.json();
 
-        if (data) {
-          setArtMovements(data);
-        }
+        setOpen(true);
       } catch (error) {}
+
+      setIsLoading(false);
     },
   });
 
   const fetchArtMovements = async () => {
+    setIsLoading(true);
+
     try {
       const response = await fetch(endpoints.ART_MOVEMENTS);
       const data = await response.json();
@@ -89,6 +96,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
         setArtMovements(data);
       }
     } catch (error) {}
+
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -102,6 +111,28 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       autoComplete='off'
       onSubmit={baseForm.submitForm}
     >
+      {isLoading && <Loader />}
+
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label='close'
+              color='inherit'
+              size='small'
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <Close fontSize='inherit' />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Художник успешно добавлен!
+        </Alert>
+      </Collapse>
+
       <Box sx={styles.row}>
         <TextField
           name='lastName'
@@ -196,8 +227,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           renderOption={(props, option, { selected }) => (
             <li key={option.title} {...props}>
               <Checkbox
-                icon={icon}
-                checkedIcon={checkedIcon}
+                icon={<CheckBoxOutlineBlank fontSize='small' />}
+                checkedIcon={<CheckBox fontSize='small' />}
                 style={{ marginRight: 8 }}
                 checked={selected}
               />
