@@ -48,20 +48,28 @@ export const Manual = () => {
   return (
     <Box>
       <Box sx={styles.navigation}>
+        <Typography fontWeight={600} fontSize={24} mb={2}>Навигация</Typography>
+
         <Typography onClick={() => executeScroll(ref7)}>Предисловие</Typography>
+
         <Typography onClick={() => executeScroll(ref1)}>
           Понятийный аппарат
         </Typography>
+
         <Typography onClick={() => executeScroll(ref2)}>
           Техническая часть
         </Typography>
+
         <Typography onClick={() => executeScroll(ref3)}>
           Глобальные характеристики
         </Typography>
+
         <Typography onClick={() => executeScroll(ref4)}>
           Этический момент
         </Typography>
+
         <Typography onClick={() => executeScroll(ref5)}>Заключение</Typography>
+
         <Typography onClick={() => executeScroll(ref6)}>
           Case studies
         </Typography>
@@ -644,7 +652,7 @@ export const Manual = () => {
           это будет влиять на ваш проект, будет ли это как-то отражаться в нем,
           а самое главное, будет ли это искажать реальность или, наоборот,
           приоткрывать, занавес. Необходимо продумать, какими средствами будет
-          это все реализовано.{' '}
+          это все реализовано.
         </Typography>
 
         <Typography variant='body1' mb={10}>

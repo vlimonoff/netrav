@@ -5,7 +5,7 @@ interface IRoute {
 
 export const routes: Array<IRoute> = [
   { source: '/data/artists', title: 'Данные' },
-  { source: '/manual', title: 'Методичка' },
+  { source: '/', title: 'Методичка' },
   { source: '/graph1', title: 'Граф №1' },
   { source: '/graph2', title: 'Граф №2' },
   { source: '/graph3', title: 'Граф №3' },

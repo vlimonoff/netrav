@@ -49,12 +49,12 @@ const App = () => {
                 <Navigation />
 
                 <Routes>
+                  <Route path='/' element={<Manual />} />
                   <Route path='/data' element={<Data />} />
                   <Route path='/graph1' element={<Graph1 />} />
                   <Route path='/graph2' element={<Graph2 />} />
                   <Route path='/graph3' element={<Graph3 />} />
                   <Route path='/graph4' element={<Graph4 />} />
-                  <Route path='/manual' element={<Manual />} />
                   <Route path='*' element={<Data />} />
                 </Routes>
               </Paper>
