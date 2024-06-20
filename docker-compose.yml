@@ -24,6 +24,12 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build: ./frontend/
+    env_file: .env
+    volumes:
+      - ../frontend/:/app/result_build/
+
   gateway:
     image: ./infra/
     env_file: .env
@@ -40,4 +46,4 @@ services:
       - media:/var/html/media/
     depends_on:
       - backend
-      # - frontend
+      - frontend

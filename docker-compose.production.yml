@@ -22,6 +22,11 @@ services:
       - media:/app/media/
     depends_on:
       - db
+  
+  frontend:
+    image: bogachevvova/netrav_frontend
+    volumes:
+      - ../frontend/:/app/result_build/
 
   gateway:
     image: bogachevvova/netrav_gateway
@@ -33,3 +38,4 @@ services:
       - media:/var/html/media/
     depends_on:
       - backend
+      - frontend
