@@ -1,47 +1,32 @@
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object().shape({
-  receivableAccount: Yup.string()
+  title: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
 
-  artMovements: Yup.string()
+  workStart: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
 
-  lastName: Yup.string()
+  workEnd: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
 
-  firstName: Yup.string()
+  status: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
 
-  patronymic: Yup.string()
+  city: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
 
-  birthDate: Yup.string()
-    .trim('Пробелы недопустимы в начале и конце строки')
-    .strict(true)
-    .required('Обязательное поле'),
-
-  deathDate: Yup.string()
-    .trim('Пробелы недопустимы в начале и конце строки')
-    .strict(true)
-    .required('Обязательное поле'),
-
-  birthPlace: Yup.string()
-    .trim('Пробелы недопустимы в начале и конце строки')
-    .strict(true)
-    .required('Обязательное поле'),
-
-  deathPlace: Yup.string()
+  url: Yup.string()
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
@@ -50,9 +35,4 @@ export const validationSchema = Yup.object().shape({
     .trim('Пробелы недопустимы в начале и конце строки')
     .strict(true)
     .required('Обязательное поле'),
-
-  wikiUrl: Yup.string()
-    .trim('Пробелы недопустимы в начале и конце строки')
-    .strict(true)
-    .required('Обязательное поле'),
-});
+  });
