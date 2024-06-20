@@ -4,6 +4,7 @@ volumes:
   pg_data:
   static:
   media:
+  csv_data:
 
 services:
   db:
@@ -20,6 +21,7 @@ services:
     volumes:
       - static:/app/static/
       - media:/app/media/
+      - csv_data:/app/data/
     depends_on:
       - db
   
