@@ -20,7 +20,7 @@ services:
     volumes:
       - static:/app/static/
       - media:/app/media/
-      - ../csv:/app/data
+      - ../csv/:/app/data/
     depends_on:
       - db
   
