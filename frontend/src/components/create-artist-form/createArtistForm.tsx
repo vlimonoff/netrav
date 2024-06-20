@@ -1,19 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
-import { Autocomplete, Box, Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import {
+  Autocomplete,
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  TextField,
+} from '@mui/material';
 import { IArtMovement, IBaseForm, IBaseFormProps, Props } from './types';
 import { styles } from './styles';
 import { useFormik } from 'formik';
-// import { validationSchema } from './validationSchema';
 import { dictionary } from './dictionary';
-import { DatePicker } from '@mui/x-date-pickers';
-import dayjs from 'dayjs';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-import { DATE_FORMAT_DMY } from './constants';
 import { endpoints } from '../../endpoints';
+import { validationSchema } from './validationSchema';
 
-const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
-const checkedIcon = <CheckBoxIcon fontSize="small" />;
+const icon = <CheckBoxOutlineBlankIcon fontSize='small' />;
+const checkedIcon = <CheckBoxIcon fontSize='small' />;
 
 export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
   const [artMovements, setArtMovements] = useState<Array<IArtMovement>>([]);
@@ -32,7 +36,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       otherInfo: '',
       wikiUrl: '',
     },
-    // validationSchema,
+    validationSchema,
     onSubmit: async ({
       artMovements,
       lastName,
@@ -47,7 +51,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       wikiUrl,
     }) => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/artists/', {
+        const response = await fetch(endpoints.ARTISTS, {
           method: 'POST',
           body: JSON.stringify({
             artMovements: artMovements.map((movement) => movement.id),
@@ -55,8 +59,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
             firstName,
             patronymic,
             isArtist,
-            birthDate: dayjs(birthDate).format('YYYY-MM-DD'),
-            deathDate: dayjs(deathDate).format('YYYY-MM-DD'),
+            birthDate,
+            deathDate,
             birthPlace,
             deathPlace,
             otherInfo,
@@ -91,14 +95,17 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
     fetchArtMovements();
   }, []);
 
-  // TODO: уменьшить размер полей для ввода даты
-
   return (
-    <Box component="form" sx={styles.form} autoComplete="off" onSubmit={baseForm.submitForm}>
+    <Box
+      component='form'
+      sx={styles.form}
+      autoComplete='off'
+      onSubmit={baseForm.submitForm}
+    >
       <Box sx={styles.row}>
         <TextField
-          name="lastName"
-          variant="outlined"
+          name='lastName'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.lastName}
           error={baseForm.touched.lastName && !!baseForm.errors.lastName}
@@ -108,8 +115,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
         />
 
         <TextField
-          name="firstName"
-          variant="outlined"
+          name='firstName'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.firstName}
           error={baseForm.touched.firstName && !!baseForm.errors.firstName}
@@ -119,8 +126,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
         />
 
         <TextField
-          name="patronymic"
-          variant="outlined"
+          name='patronymic'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.patronymic}
           error={baseForm.touched.patronymic && !!baseForm.errors.patronymic}
@@ -131,25 +138,20 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       </Box>
 
       <Box sx={styles.row}>
-        <DatePicker
-          sx={styles.field}
+        <TextField
+          name='birthDate'
+          variant='outlined'
+          onChange={baseForm.handleChange}
+          value={baseForm.values.birthDate}
+          error={baseForm.touched.birthDate && !!baseForm.errors.birthDate}
           label={dictionary.birthDate}
-          format={DATE_FORMAT_DMY}
-          value={dayjs(baseForm.values.birthDate) || null}
-          onChange={(date) => {
-            baseForm.setFieldValue('birthDate', date, true);
-          }}
-          slotProps={{
-            textField: {
-              error: Boolean(baseForm.touched.birthDate && baseForm.errors.birthDate),
-              helperText: baseForm.touched.birthDate && baseForm.errors.birthDate,
-            },
-          }}
+          helperText={baseForm.touched.birthDate && baseForm.errors.birthDate}
+          sx={styles.field}
         />
 
         <TextField
-          name="birthPlace"
-          variant="outlined"
+          name='birthPlace'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.birthPlace}
           error={baseForm.touched.birthPlace && !!baseForm.errors.birthPlace}
@@ -160,25 +162,20 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       </Box>
 
       <Box sx={styles.row}>
-        <DatePicker
-          sx={styles.field}
+        <TextField
+          name='deathDate'
+          variant='outlined'
+          onChange={baseForm.handleChange}
+          value={baseForm.values.deathDate}
+          error={baseForm.touched.deathDate && !!baseForm.errors.deathDate}
           label={dictionary.deathDate}
-          format={DATE_FORMAT_DMY}
-          value={dayjs(baseForm.values.deathDate) || null}
-          onChange={(date) => {
-            baseForm.setFieldValue('deathDate', date, true);
-          }}
-          slotProps={{
-            textField: {
-              error: Boolean(baseForm.touched.deathDate && baseForm.errors.deathDate),
-              helperText: baseForm.touched.deathDate && baseForm.errors.deathDate,
-            },
-          }}
+          helperText={baseForm.touched.deathDate && baseForm.errors.deathDate}
+          sx={styles.field}
         />
 
         <TextField
-          name="deathPlace"
-          variant="outlined"
+          name='deathPlace'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.deathPlace}
           error={baseForm.touched.deathPlace && !!baseForm.errors.deathPlace}
@@ -192,14 +189,18 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
         <Autocomplete
           multiple
           fullWidth
-          id="artMovements"
-          // sx={styles.autocomplete}
+          id='artMovements'
           options={artMovements}
           disableCloseOnSelect
           getOptionLabel={(option) => option.title}
           renderOption={(props, option, { selected }) => (
             <li key={option.title} {...props}>
-              <Checkbox icon={icon} checkedIcon={checkedIcon} style={{ marginRight: 8 }} checked={selected} />
+              <Checkbox
+                icon={icon}
+                checkedIcon={checkedIcon}
+                style={{ marginRight: 8 }}
+                checked={selected}
+              />
               {option.title}
             </li>
           )}
@@ -210,16 +211,16 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           }}
           renderInput={(params) => (
             <TextField
-              name="artMovements"
-              variant="outlined"
+              name='artMovements'
+              variant='outlined'
               {...params}
-              // onChange={baseForm.handleChange}
-              // value={baseForm.values.direction}
-              // error={baseForm.touched.direction && !!baseForm.errors.direction}
+              error={
+                baseForm.touched.artMovements && !!baseForm.errors.artMovements
+              }
               label={dictionary.artMovements}
-              // helperText={baseForm.touched.direction && baseForm.errors.direction}
-              // rows={4}
-              // multiline
+              helperText={
+                baseForm.touched.artMovements && !!baseForm.errors.artMovements
+              }
               sx={styles.field}
             />
           )}
@@ -228,8 +229,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
       <Box sx={styles.row}>
         <TextField
-          name="otherInfo"
-          variant="outlined"
+          name='otherInfo'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.otherInfo}
           error={baseForm.touched.otherInfo && !!baseForm.errors.otherInfo}
@@ -243,8 +244,8 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
       <Box sx={styles.row}>
         <TextField
-          name="wikiUrl"
-          variant="outlined"
+          name='wikiUrl'
+          variant='outlined'
           onChange={baseForm.handleChange}
           value={baseForm.values.wikiUrl}
           error={baseForm.touched.wikiUrl && !!baseForm.errors.wikiUrl}
@@ -269,10 +270,18 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
       </Box>
 
       <Box sx={styles.buttonsWrapper}>
-        <Button variant="outlined" sx={styles.button} onClick={() => baseForm.resetForm()}>
+        <Button
+          variant='outlined'
+          sx={styles.button}
+          onClick={() => baseForm.resetForm()}
+        >
           {dictionary.reset}
         </Button>
-        <Button variant="contained" sx={styles.button} onClick={() => baseForm.handleSubmit()}>
+        <Button
+          variant='contained'
+          sx={styles.button}
+          onClick={() => baseForm.handleSubmit()}
+        >
           {dictionary.save}
         </Button>
       </Box>
