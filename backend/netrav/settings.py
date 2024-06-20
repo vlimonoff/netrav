@@ -69,7 +69,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_URLS_REGEX = r'^/api/.*$'
 
-CSRF_TRUSTED_ORIGINS = ['https://netrav.ru', 'https://www.netrav.ru']
+CSRF_TRUSTED_ORIGINS = ['https://*.netrav.ru','https://*.127.0.0.1', 'https://*.217.18.62.176']
 
 ROOT_URLCONF = 'netrav.urls'
 
