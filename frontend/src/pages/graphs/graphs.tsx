@@ -1,3 +1,6 @@
+import { Outlet } from "react-router-dom";
+import { GraphNavigation } from "../../components/graph-navigation";
+
 export const Graph1 = () => {
   return (
     <iframe
@@ -37,3 +40,12 @@ export const Graph4 = () => {
     />
   );
 };
+
+export const Graphs = () => {  
+  return (
+    <>
+      <GraphNavigation />
+      <Outlet />
+    </>
+  )
+}

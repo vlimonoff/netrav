@@ -235,8 +235,6 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
               </li>
             )}
             onChange={(e, value) => {
-              console.log(value);
-
               baseForm.setFieldValue('artMovements', value);
             }}
             renderInput={(params) => (

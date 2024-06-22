@@ -12,8 +12,13 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Navigation } from './components/navigation/navigation';
 import './styles.css';
 import { Manual } from './pages/manual';
-import { Graph1, Graph2, Graph3, Graph4 } from './pages/graphs';
+import { Graph1, Graph2, Graph3, Graph4, Graphs } from './pages/graphs';
 import { Data } from './pages/data';
+import { ArtistsList } from './components/artists-list';
+import { CreateArtistForm } from './components';
+import { AssociationsList } from './components/associations-list';
+import { CreateAssociationForm } from './components/create-association-form';
+import { About } from './pages/about';
 
 // how to use theme in components
 
@@ -50,12 +55,26 @@ const App = () => {
 
                 <Routes>
                   <Route path='/' element={<Manual />} />
-                  <Route path='/data' element={<Data />} />
-                  <Route path='/graph1' element={<Graph1 />} />
-                  <Route path='/graph2' element={<Graph2 />} />
-                  <Route path='/graph3' element={<Graph3 />} />
-                  <Route path='/graph4' element={<Graph4 />} />
-                  <Route path='*' element={<Data />} />
+                  <Route path='/about' element={<About />} />
+                  <Route path='/data' element={<Data />}>
+                    <Route path='/data/artists' element={<ArtistsList />} />
+                    <Route path='/data/artists/create' element={<CreateArtistForm />} />
+                    <Route
+                      path='/data/associations'
+                      element={<AssociationsList />}
+                    />
+                    <Route
+                      path='/data/associations/create'
+                      element={<CreateAssociationForm />}
+                    />
+                  </Route>
+                  <Route path='/graphs' element={<Graphs />}>
+                    <Route path='/graphs/graph1' element={<Graph1 />} />
+                    <Route path='/graphs/graph2' element={<Graph2 />} />
+                    <Route path='/graphs/graph3' element={<Graph3 />} />
+                    <Route path='/graphs/graph4' element={<Graph4 />} />
+                  </Route>
+                  <Route path='*' element={<Manual />} />
                 </Routes>
               </Paper>
             </BrowserRouter>

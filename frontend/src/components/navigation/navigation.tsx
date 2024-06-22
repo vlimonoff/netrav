@@ -26,7 +26,7 @@ export const Navigation = () => {
           key={route.source}
           sx={styles.button}
           onClick={() => handleClick(route.source)}
-          color={location.pathname === route.source ? 'primary' : 'secondary'}
+          color={route.source.indexOf('data') >= 0 ? (location.pathname.indexOf('data') >= 0 ? 'primary' : 'secondary') : location.pathname === route.source ? 'primary' : 'secondary'}
           size='small'
         >
           {route.title}

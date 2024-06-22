@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { endpoints } from '../../endpoints';
 import { Loader } from '../loader/loader';
+import { IArtist } from '../../types';
 
 interface Column {
   id: string;
@@ -17,50 +18,31 @@ interface Column {
   minWidth?: number;
 }
 
-// interface IRow {
-//   artMovements: Array<number>;
-//   lastName: string;
-//   firstName: string;
-//   patronymic: string;
-//   isArtist: boolean;
-//   birthDate: string;
-//   deathDate: string;
-//   birthPlace: string;
-//   deathPlace: string;
-//   otherInfo: string;
-//   wikiUrl: string;
-// }
-
 const columns: readonly Column[] = [
-  {
-    id: 'firstName',
-    label: 'Имя',
-    minWidth: 170,
-  },
   {
     id: 'lastName',
     label: 'Фамилия',
-    minWidth: 170,
+  },
+  {
+    id: 'firstName',
+    label: 'Имя',
+  },
+  {
+    id: 'patronymic',
+    label: 'Отчество',
   },
   {
     id: 'birthDate',
     label: 'Дата рождения',
-    minWidth: 170,
   },
   {
     id: 'deathDate',
     label: 'Дата смерти',
-    minWidth: 170,
-  },
-  {
-    id: 'otherInfo',
-    label: 'Дополнительная информация',
-    minWidth: 100,
   },
 ];
 
 export const ArtistsList = () => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<Array<IArtist> | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchArtists = async () => {
@@ -87,7 +69,7 @@ export const ArtistsList = () => {
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: '80vh' }}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
@@ -102,14 +84,18 @@ export const ArtistsList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, idx) => {
+            {rows?.map((row: IArtist, idx) => {
+              const {
+                lastName, firstName, patronymic, birthDate, deathDate, birthPlace, deathPlace
+              } = row;
+
               return (
-                <TableRow hover role='checkbox' tabIndex={-1} key={idx}>
-                  {columns.map((column) => (
-                    <TableCell key={column.id}>
-                      {row[column.id] || '-'}
-                    </TableCell>
-                  ))}
+                <TableRow hover tabIndex={-1} key={idx}>
+                  <TableCell>{lastName || '-'}</TableCell>
+                  <TableCell>{firstName || '-'}</TableCell>
+                  <TableCell>{patronymic || '-'}</TableCell>
+                  <TableCell>{`${birthDate || '-'}${birthPlace ? `\n(${birthPlace})` : ''}`}</TableCell>
+                  <TableCell>{`${deathDate || '-'}${deathPlace ? `\n(${deathPlace})` : ''}`}</TableCell>
                 </TableRow>
               );
             })}

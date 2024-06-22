@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { endpoints } from '../../endpoints';
 import { Loader } from '../loader/loader';
+import { IArtist, IAssociation } from '../../types';
 
 interface Column {
   id: string;
@@ -21,37 +22,37 @@ const columns: readonly Column[] = [
   {
     id: 'title',
     label: 'Наименование',
-    minWidth: 100,
   },
   {
     id: 'workStart',
-    label: 'Дата начала работы',
-    minWidth: 50,
-  },
-  {
-    id: 'workEnd',
-    label: 'Дата окончания работы',
-    minWidth: 50,
+    label: 'Период работы',
+    minWidth: 100,
   },
   {
     id: 'status',
     label: 'Статус',
-    minWidth: 100,
   },
   {
     id: 'city',
     label: 'Город',
-    minWidth: 100,
   },
   {
     id: 'otherInfo',
     label: 'Дополнительная информация',
-    minWidth: 100,
+    minWidth: 300,
+  },
+  {
+    id: 'owners',
+    label: 'Основатели',
+  },
+  {
+    id: 'members',
+    label: 'Участники',
   },
 ];
 
 export const AssociationsList = () => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState<Array<IAssociation> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const fetchArtists = async () => {
@@ -78,7 +79,7 @@ export const AssociationsList = () => {
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: 440 }}>
+      <TableContainer sx={{ maxHeight: '80vh' }}>
         <Table stickyHeader aria-label='sticky table'>
           <TableHead>
             <TableRow>
@@ -93,14 +94,18 @@ export const AssociationsList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, idx) => {
-              console.log(row);
+            {rows?.map((row: IAssociation, idx) => {
+              const { title, workStart, workEnd, status, city, members, otherInfo, owners } = row;
 
               return (
                 <TableRow hover role='checkbox' tabIndex={-1} key={idx}>
-                  {columns.map((column) => (
-                    <TableCell key={column.id}>{row[column.id]}</TableCell>
-                  ))}
+                  <TableCell>{title || '-'}</TableCell>
+                  <TableCell>{`${workStart || '?'}-${workEnd || '?'}`}</TableCell>
+                  <TableCell>{status || '-'}</TableCell>
+                  <TableCell>{city || '-'}</TableCell>
+                  <TableCell>{otherInfo || '-'}</TableCell>
+                  <TableCell>{owners?.map((owner: IArtist) => `${owner.lastName} ${owner.firstName?.[0]}.${owner.patronymic ? `${owner.patronymic[0]}.` : ''}`).join(', ') || '-'}</TableCell>
+                  <TableCell>{members?.map((member: IArtist) => `${member.lastName} ${member.firstName?.[0]}.${member.patronymic ? `${member.patronymic[0]}.` : ''}`).join(', ') || '-'}</TableCell>
                 </TableRow>
               );
             })}
