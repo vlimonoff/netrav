@@ -15,6 +15,8 @@ export const dataRoutes: Array<IRoute> = [
   { source: '/data/artists/create', title: 'Добавить художника' },
   { source: '/data/associations', title: 'Объединения' },
   { source: '/data/associations/create', title: 'Добавить объединение' },
+  { source: '/data/artmovements', title: 'Направления' },
+  { source: '/data/artmovements/create', title: 'Добавить направление' },
 ];
 
 export const graphRoutes: Array<IRoute> = [

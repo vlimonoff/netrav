@@ -24,6 +24,11 @@ export interface IArtist {
       url: string | null;
       otherInfo: string | null;
   }
+  export interface IArtmovements {
+      id: string;
+      title: string | null;
+      info: string | null;
+  }
 
 //   TODO: разобраться потом почему ошибка экспорта
   export {};

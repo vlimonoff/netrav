@@ -18,6 +18,8 @@ import { ArtistsList } from './components/artists-list';
 import { CreateArtistForm } from './components';
 import { AssociationsList } from './components/associations-list';
 import { CreateAssociationForm } from './components/create-association-form';
+import { ArtMovementsList } from './components/artmovements-list';
+import { CreateArtMovementsForm } from './components/create-artmovements-form';
 import { About } from './pages/about';
 
 // how to use theme in components
@@ -66,6 +68,14 @@ const App = () => {
                     <Route
                       path='/data/associations/create'
                       element={<CreateAssociationForm />}
+                    />
+                     <Route
+                      path='/data/artmovements'
+                      element={<ArtMovementsList />}
+                    />
+                    <Route
+                      path='/data/artmovements/create'
+                      element={<CreateArtMovementsForm />}
                     />
                   </Route>
                   <Route path='/graphs' element={<Graphs />}>

@@ -1,0 +1,8 @@
+export const dictionary: Record<string, string> = {
+    header: 'Добавить направление:',
+    title: 'Наименование',
+    info: 'Определение',
+    reset: 'Очистить',
+    save: 'Сохранить',
+    success: 'Направление успешно добавлено!',
+  };
