@@ -96,7 +96,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
   }, []);
 
   return (
-    <Box sx={{ margin: '24px 20vw' }}>
+    <Box sx={styles.container}>
       <Typography variant='h6' fontWeight={600} marginLeft='16px'>
         {dictionary.header}
       </Typography>

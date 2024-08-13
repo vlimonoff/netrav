@@ -1,1 +1,1 @@
-export const dictionary: Record<string, string> = {};
+export const dictionary = {};

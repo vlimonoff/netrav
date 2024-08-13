@@ -1,6 +1,10 @@
 import { outlinedInputClasses } from '@mui/material';
 
 export const styles = {
+  container: {
+    margin: "24px 20vw",
+  },
+  
   form: {
     display: 'flex',
     flexDirection: 'column',

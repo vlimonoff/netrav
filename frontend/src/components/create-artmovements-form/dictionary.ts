@@ -1,4 +1,4 @@
-export const dictionary: Record<string, string> = {
+export const dictionary = {
     header: 'Добавить направление:',
     title: 'Наименование',
     info: 'Определение',

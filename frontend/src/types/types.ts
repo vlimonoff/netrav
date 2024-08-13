@@ -30,5 +30,8 @@ export interface IArtist {
       info: string | null;
   }
 
-//   TODO: разобраться потом почему ошибка экспорта
-  export {};
+  export interface IColumn {
+    id: string;
+    label: string;
+    minWidth?: number;
+  }

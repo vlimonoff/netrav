@@ -5,34 +5,19 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from "@mui/material";
 import { endpoints } from "../../endpoints";
-import { Loader } from "../loader/loader";
+import { Loader } from "../loader";
 import { IArtmovements } from "../../types";
-
-interface Column {
-  id: string;
-  label: string;
-  minWidth?: number;
-}
-
-const columns: readonly Column[] = [
-  {
-    id: "title",
-    label: "Наименование",
-  },
-  {
-    id: "info",
-    label: "Определение",
-    minWidth: 300,
-  },
-];
+import { columns } from "./constants";
+import { styles } from "./styles";
+import { TableHeader } from "../tableHeader";
 
 export const ArtMovementsList = () => {
   const [rows, setRows] = useState<Array<IArtmovements> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const fetchArtmovements = async () => {
     setIsLoading(true);
 
@@ -54,23 +39,12 @@ export const ArtMovementsList = () => {
   }, []);
 
   return (
-    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+    <Paper sx={styles.paper}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: "80vh" }}>
+      <TableContainer sx={styles.container}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+          <TableHeader columns={columns}/>
           <TableBody>
             {rows?.map((row: IArtmovements, idx) => {
               const { title, info } = row;

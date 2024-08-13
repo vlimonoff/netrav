@@ -18,6 +18,7 @@ import { styles } from './styles';
 
 export const CreateArtMovementsForm: FC<Props> = (): React.ReactElement => {
     const [open, setOpen] = useState<boolean>(false);
+    
     const baseForm: IBaseFormProps = useFormik<IBaseForm>({
         initialValues: {
           title: '',
@@ -41,8 +42,9 @@ export const CreateArtMovementsForm: FC<Props> = (): React.ReactElement => {
           } catch (error) {}
         },
       });
+
       return (
-        <Box sx={{ margin: '24px 20vw' }}>
+        <Box sx={styles.container}>
           <Typography variant='h6' fontWeight={600} marginLeft='16px'>
             {dictionary.header}
           </Typography>

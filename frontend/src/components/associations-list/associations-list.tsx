@@ -5,51 +5,15 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableHead,
   TableRow,
 } from '@mui/material';
 import { endpoints } from '../../endpoints';
-import { Loader } from '../loader/loader';
+import { Loader } from '../loader';
 import { IArtist, IAssociation } from '../../types';
+import { columns } from './constants';
+import { styles } from "./styles";
+import { TableHeader } from "../tableHeader";
 
-interface Column {
-  id: string;
-  label: string;
-  minWidth?: number;
-}
-
-const columns: readonly Column[] = [
-  {
-    id: 'title',
-    label: 'Наименование',
-  },
-  {
-    id: 'workStart',
-    label: 'Период работы',
-    minWidth: 100,
-  },
-  {
-    id: 'status',
-    label: 'Статус',
-  },
-  {
-    id: 'city',
-    label: 'Город',
-  },
-  {
-    id: 'otherInfo',
-    label: 'Дополнительная информация',
-    minWidth: 300,
-  },
-  {
-    id: 'owners',
-    label: 'Основатели',
-  },
-  {
-    id: 'members',
-    label: 'Участники',
-  },
-];
 
 export const AssociationsList = () => {
   const [rows, setRows] = useState<Array<IAssociation> | null>(null);
@@ -76,23 +40,12 @@ export const AssociationsList = () => {
   }, []);
 
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={styles.paper}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: '80vh' }}>
+      <TableContainer sx={styles.container}>
         <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+          <TableHeader columns={columns}/>
           <TableBody>
             {rows?.map((row: IAssociation, idx) => {
               const { title, workStart, workEnd, status, city, members, otherInfo, owners } = row;
