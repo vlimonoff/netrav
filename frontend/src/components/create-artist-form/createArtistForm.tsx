@@ -224,7 +224,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
             disableCloseOnSelect
             getOptionLabel={(option) => option.title}
             renderOption={(props, option, { selected }) => (
-              <li key={option.title} {...props}>
+              <li {...props}>
                 <Checkbox
                   icon={<CheckBoxOutlineBlank fontSize='small' />}
                   checkedIcon={<CheckBox fontSize='small' />}
