@@ -32,7 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['www.netrav.ru', 
                  'netrav.ru',
-                 '217.18.62.176',
+                 '188.225.57.140',
                  '127.0.0.1',
                  'localhost']
 
@@ -69,7 +69,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 CORS_URLS_REGEX = r'^/api/.*$'
 
-CSRF_TRUSTED_ORIGINS = ['https://*.netrav.ru','https://*.127.0.0.1', 'https://*.217.18.62.176']
+CSRF_TRUSTED_ORIGINS = ['https://*.netrav.ru','https://*.127.0.0.1', 'https://*.188.225.57.140']
 
 ROOT_URLCONF = 'netrav.urls'
 
