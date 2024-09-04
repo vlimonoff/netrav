@@ -45,7 +45,7 @@ export const AssociationsList = () => {
 
       <TableContainer sx={styles.container}>
         <Table stickyHeader aria-label='sticky table'>
-          <TableHeader columns={columns}/>
+          {/* <TableHeader columns={columns}/> */}
           <TableBody>
             {rows?.map((row: IAssociation, idx) => {
               const { title, workStart, workEnd, status, city, members, otherInfo, owners } = row;

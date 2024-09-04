@@ -44,7 +44,7 @@ export const ArtMovementsList = () => {
 
       <TableContainer sx={styles.container}>
         <Table stickyHeader aria-label="sticky table">
-          <TableHeader columns={columns}/>
+          {/* <TableHeader columns={columns}/> */}
           <TableBody>
             {rows?.map((row: IArtmovements, idx) => {
               const { title, info } = row;

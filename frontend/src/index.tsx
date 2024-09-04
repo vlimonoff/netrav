@@ -21,6 +21,7 @@ import { CreateAssociationForm } from './components/create-association-form';
 import { ArtMovementsList } from './components/artmovements-list';
 import { CreateArtMovementsForm } from './components/create-artmovements-form';
 import { About } from './pages/about';
+import { ScrollToTop } from './components/scrollToTop';
 
 // how to use theme in components
 
@@ -82,6 +83,7 @@ const App = () => {
           <ThemeProvider theme={theme}>
             <BrowserRouter>
               <Paper className='root-wrapper'>
+              <ScrollToTop />
                 <Navigation />
 
                 <Routes>

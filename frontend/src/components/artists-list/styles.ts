@@ -6,4 +6,7 @@ export const styles = {
     container: {
       maxHeight: "80vh",
     },
+    modalContainer: {
+      borderRadius: '30px',
+    },
   };

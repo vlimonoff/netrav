@@ -1,4 +1,5 @@
 export interface IArtist {
+  id: number;
     artMovements: Array<number>;
     lastName: string | null;
     firstName: string | null;
@@ -32,6 +33,6 @@ export interface IArtist {
 
   export interface IColumn {
     id: string;
-    label: string;
+    label: string | JSX.Element;
     minWidth?: number;
   }

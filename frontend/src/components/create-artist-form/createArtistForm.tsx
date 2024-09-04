@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from "react";
 import {
   Alert,
   Autocomplete,
@@ -10,32 +10,37 @@ import {
   IconButton,
   TextField,
   Typography,
-} from '@mui/material';
-import { CheckBoxOutlineBlank, CheckBox, Close } from '@mui/icons-material';
-import { IArtMovement, IBaseForm, IBaseFormProps, Props } from './types';
-import { styles } from './styles';
-import { useFormik } from 'formik';
-import { dictionary } from './dictionary';
-import { endpoints } from '../../endpoints';
-import { validationSchema } from './validationSchema';
+} from "@mui/material";
+import { CheckBoxOutlineBlank, CheckBox, Close } from "@mui/icons-material";
+import { IArtMovement, IBaseForm, IBaseFormProps, Props } from "./types";
+import { styles } from "./styles";
+import { useFormik } from "formik";
+import { dictionary } from "./dictionary";
+import { endpoints } from "../../endpoints";
+import { validationSchema } from "./validationSchema";
 
-export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
+export const CreateArtistForm: FC<Props> = ({
+  row,
+  action,
+}): React.ReactElement => {
   const [artMovements, setArtMovements] = useState<Array<IArtMovement>>([]);
   const [open, setOpen] = useState<boolean>(false);
 
+  console.log(row?.artMovements);
+
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
-      lastName: '',
-      firstName: '',
-      patronymic: '',
-      isArtist: true,
-      birthDate: '',
-      birthPlace: '',
-      deathDate: '',
-      deathPlace: '',
+      lastName: row?.lastName || "",
+      firstName: row?.firstName || "",
+      patronymic: row?.patronymic || "",
+      isArtist: row?.isArtist || true,
+      birthDate: row?.birthDate || "",
+      birthPlace: row?.birthPlace || "",
+      deathDate: row?.deathDate || "",
+      deathPlace: row?.deathPlace || "",
       artMovements: [],
-      otherInfo: '',
-      wikiUrl: '',
+      otherInfo: row?.otherInfo || "",
+      wikiUrl: row?.wikiUrl || "",
     },
     validationSchema,
 
@@ -54,7 +59,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
     }) => {
       try {
         const response = await fetch(endpoints.ARTISTS, {
-          method: 'POST',
+          method: "POST",
           body: JSON.stringify({
             artMovements: artMovements.map((movement) => movement.id),
             lastName,
@@ -69,7 +74,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
             wikiUrl,
           }),
           headers: {
-            'content-type': 'application/json;charset=UTF-8',
+            "content-type": "application/json;charset=UTF-8",
           },
         });
 
@@ -80,7 +85,7 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
     },
   });
 
-  const fetchArtMovements = async () => {
+  const fetchArtMovements = useCallback(async () => {
     try {
       const response = await fetch(endpoints.ART_MOVEMENTS);
       const data = await response.json();
@@ -89,36 +94,52 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
         setArtMovements(data);
       }
     } catch (error) {}
-  };
+  }, []);
 
   useEffect(() => {
     fetchArtMovements();
-  }, []);
+  }, [fetchArtMovements]);
+
+  useEffect(() => {
+    console.log(1);
+
+    baseForm.setFieldValue(
+      "artMovements",
+      artMovements.filter((artmovement) =>{
+        console.log(artmovement.id);
+        console.log(row?.artMovements.includes(artmovement.id));
+        return row?.artMovements.includes(artmovement.id)}
+      )
+    );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [artMovements, row?.artMovements]);
 
   return (
-    <Box sx={styles.container}>
-      <Typography variant='h6' fontWeight={600} marginLeft='16px'>
-        {dictionary.header}
-      </Typography>
-      
+    <Box>
+      {/* {!row && !action && (
+        <Typography variant="h6" fontWeight={600} marginLeft="16px">
+          {dictionary.header}
+        </Typography>
+      )} */}
+
       <Box
-        component='form'
+        component="form"
         sx={styles.form}
-        autoComplete='off'
+        autoComplete="off"
         onSubmit={baseForm.submitForm}
       >
         <Collapse in={open}>
           <Alert
             action={
               <IconButton
-                aria-label='close'
-                color='inherit'
-                size='small'
+                aria-label="close"
+                color="inherit"
+                size="small"
                 onClick={() => {
                   setOpen(false);
                 }}
               >
-                <Close fontSize='inherit' />
+                <Close fontSize="inherit" />
               </IconButton>
             }
           >
@@ -128,10 +149,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
         <Box sx={styles.row}>
           <TextField
-            name='lastName'
-            variant='outlined'
+            name="lastName"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.lastName}
+            value={action ? baseForm.initialValues.lastName : baseForm.values.lastName}
             error={baseForm.touched.lastName && !!baseForm.errors.lastName}
             label={dictionary.lastName}
             helperText={baseForm.touched.lastName && baseForm.errors.lastName}
@@ -139,10 +160,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           />
 
           <TextField
-            name='firstName'
-            variant='outlined'
+            name="firstName"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.firstName}
+            value={action ? "" : baseForm.values.firstName}
             error={baseForm.touched.firstName && !!baseForm.errors.firstName}
             label={dictionary.firstName}
             helperText={baseForm.touched.firstName && baseForm.errors.firstName}
@@ -150,10 +171,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           />
 
           <TextField
-            name='patronymic'
-            variant='outlined'
+            name="patronymic"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.patronymic}
+            value={action ? "" : baseForm.values.patronymic}
             error={baseForm.touched.patronymic && !!baseForm.errors.patronymic}
             label={dictionary.patronymic}
             helperText={
@@ -165,10 +186,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
         <Box sx={styles.row}>
           <TextField
-            name='birthDate'
-            variant='outlined'
+            name="birthDate"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.birthDate}
+            value={action ? "" : baseForm.values.birthDate}
             error={baseForm.touched.birthDate && !!baseForm.errors.birthDate}
             label={dictionary.birthDate}
             helperText={baseForm.touched.birthDate && baseForm.errors.birthDate}
@@ -176,10 +197,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           />
 
           <TextField
-            name='birthPlace'
-            variant='outlined'
+            name="birthPlace"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.birthPlace}
+            value={action ? "" : baseForm.values.birthPlace}
             error={baseForm.touched.birthPlace && !!baseForm.errors.birthPlace}
             label={dictionary.birthPlace}
             helperText={
@@ -191,10 +212,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
         <Box sx={styles.row}>
           <TextField
-            name='deathDate'
-            variant='outlined'
+            name="deathDate"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.deathDate}
+            value={action ? "" : baseForm.values.deathDate}
             error={baseForm.touched.deathDate && !!baseForm.errors.deathDate}
             label={dictionary.deathDate}
             helperText={baseForm.touched.deathDate && baseForm.errors.deathDate}
@@ -202,10 +223,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           />
 
           <TextField
-            name='deathPlace'
-            variant='outlined'
+            name="deathPlace"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.deathPlace}
+            value={action ? "" : baseForm.values.deathPlace}
             error={baseForm.touched.deathPlace && !!baseForm.errors.deathPlace}
             label={dictionary.deathPlace}
             helperText={
@@ -219,15 +240,16 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           <Autocomplete
             multiple
             fullWidth
-            id='artMovements'
+            id="artMovements"
             options={artMovements}
             disableCloseOnSelect
+            value={baseForm.values.artMovements}
             getOptionLabel={(option) => option.title}
             renderOption={(props, option, { selected }) => (
               <li key={option.title} {...props}>
                 <Checkbox
-                  icon={<CheckBoxOutlineBlank fontSize='small' />}
-                  checkedIcon={<CheckBox fontSize='small' />}
+                  icon={<CheckBoxOutlineBlank fontSize="small" />}
+                  checkedIcon={<CheckBox fontSize="small" />}
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
@@ -235,12 +257,14 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
               </li>
             )}
             onChange={(e, value) => {
-              baseForm.setFieldValue('artMovements', value);
+              console.log(value);
+              
+              baseForm.setFieldValue("artMovements", value);
             }}
             renderInput={(params) => (
               <TextField
-                name='artMovements'
-                variant='outlined'
+                name="artMovements"
+                variant="outlined"
                 {...params}
                 error={
                   baseForm.touched.artMovements &&
@@ -259,10 +283,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
         <Box sx={styles.row}>
           <TextField
-            name='otherInfo'
-            variant='outlined'
+            name="otherInfo"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.otherInfo}
+            value={action ? "" : baseForm.values.otherInfo}
             error={baseForm.touched.otherInfo && !!baseForm.errors.otherInfo}
             label={dictionary.otherInfo}
             helperText={baseForm.touched.otherInfo && baseForm.errors.otherInfo}
@@ -274,10 +298,10 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
 
         <Box sx={styles.row}>
           <TextField
-            name='wikiUrl'
-            variant='outlined'
+            name="wikiUrl"
+            variant="outlined"
             onChange={baseForm.handleChange}
-            value={baseForm.values.wikiUrl}
+            value={action ? "" : baseForm.values.wikiUrl}
             error={baseForm.touched.wikiUrl && !!baseForm.errors.wikiUrl}
             label={dictionary.wikiUrl}
             helperText={baseForm.touched.wikiUrl && baseForm.errors.wikiUrl}
@@ -289,9 +313,9 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={baseForm.values.isArtist}
+                checked={action ? true : baseForm.values.isArtist}
                 onChange={(e) => {
-                  baseForm.setFieldValue('isArtist', e.target.checked, true);
+                  baseForm.setFieldValue("isArtist", e.target.checked, true);
                 }}
               />
             }
@@ -299,22 +323,24 @@ export const CreateArtistForm: FC<Props> = (): React.ReactElement => {
           />
         </Box>
 
-        <Box sx={styles.buttonsWrapper}>
-          <Button
-            variant='outlined'
-            sx={styles.button}
-            onClick={() => baseForm.resetForm()}
-          >
-            {dictionary.reset}
-          </Button>
-          <Button
-            variant='contained'
-            sx={styles.button}
-            onClick={() => baseForm.handleSubmit()}
-          >
-            {dictionary.save}
-          </Button>
-        </Box>
+        {!row && !action && (
+          <Box sx={styles.buttonsWrapper}>
+            <Button
+              variant="outlined"
+              sx={styles.button}
+              onClick={() => baseForm.resetForm()}
+            >
+              {dictionary.reset}
+            </Button>
+            <Button
+              variant="contained"
+              sx={styles.button}
+              onClick={() => baseForm.handleSubmit()}
+            >
+              {dictionary.save}
+            </Button>
+          </Box>
+        )}
       </Box>
     </Box>
   );
