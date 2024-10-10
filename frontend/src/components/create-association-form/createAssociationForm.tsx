@@ -6,7 +6,6 @@ import {
   Collapse,
   IconButton,
   TextField,
-  Typography,
 } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { IBaseForm, IBaseFormProps, Props } from './types';
@@ -16,18 +15,21 @@ import { dictionary } from './dictionary';
 import { endpoints } from '../../endpoints';
 import { validationSchema } from './validationSchema';
 
-export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
+export const CreateAssociationForm: FC<Props> = ({
+  row,
+  action,
+}): React.ReactElement => {
   const [open, setOpen] = useState<boolean>(false);
 
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
-      title: '',
-      workStart: '',
-      workEnd: '',
-      status: '',
-      city: '',
-      url: '',
-      otherInfo: '',
+      title: row?.title || '',
+      workStart: row?.workStart || '',
+      workEnd: row?.workEnd || '',
+      status: row?.status || '',
+      city: row?.city || '',
+      url: row?.url || '',
+      otherInfo: row?.otherInfo || '',
     },
     validationSchema,
 
@@ -49,10 +51,10 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
   });
 
   return (
-    <Box sx={styles.container}>
-      <Typography variant='h6' fontWeight={600} marginLeft='16px'>
+    <Box>
+      {/* <Typography variant='h6' fontWeight={600} marginLeft='16px'>
         {dictionary.header}
-      </Typography>
+      </Typography> */}
       <Box
         component='form'
         sx={styles.form}
@@ -83,7 +85,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='title'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.title}
+            value={action ? baseForm.initialValues.title : baseForm.values.title}
             error={baseForm.touched.title && !!baseForm.errors.title}
             label={dictionary.title}
             helperText={baseForm.touched.title && baseForm.errors.title}
@@ -96,7 +98,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='workStart'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.workStart}
+            value={action ? baseForm.initialValues.workStart : baseForm.values.workStart}
             error={baseForm.touched.workStart && !!baseForm.errors.workStart}
             label={dictionary.workStart}
             helperText={baseForm.touched.workStart && baseForm.errors.workStart}
@@ -107,7 +109,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='workEnd'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.workEnd}
+            value={action ? baseForm.initialValues.workEnd : baseForm.values.workEnd}
             error={baseForm.touched.workEnd && !!baseForm.errors.workEnd}
             label={dictionary.workEnd}
             helperText={baseForm.touched.workEnd && baseForm.errors.workEnd}
@@ -120,7 +122,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='status'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.status}
+            value={action ? baseForm.initialValues.status : baseForm.values.status}
             error={baseForm.touched.status && !!baseForm.errors.status}
             label={dictionary.status}
             helperText={baseForm.touched.status && baseForm.errors.status}
@@ -131,7 +133,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='city'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.city}
+            value={action ? baseForm.initialValues.city : baseForm.values.city}
             error={baseForm.touched.city && !!baseForm.errors.city}
             label={dictionary.city}
             helperText={baseForm.touched.city && baseForm.errors.city}
@@ -144,7 +146,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='otherInfo'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.otherInfo}
+            value={action ? baseForm.initialValues.otherInfo : baseForm.values.otherInfo}
             error={baseForm.touched.otherInfo && !!baseForm.errors.otherInfo}
             label={dictionary.otherInfo}
             helperText={baseForm.touched.otherInfo && baseForm.errors.otherInfo}
@@ -159,7 +161,7 @@ export const CreateAssociationForm: FC<Props> = (): React.ReactElement => {
             name='url'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={baseForm.values.url}
+            value={action ? baseForm.initialValues.url : baseForm.values.url}
             error={baseForm.touched.url && !!baseForm.errors.url}
             label={dictionary.url}
             helperText={baseForm.touched.url && baseForm.errors.url}

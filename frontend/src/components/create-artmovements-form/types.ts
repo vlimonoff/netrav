@@ -1,4 +1,5 @@
-import { FormikProps } from 'formik';
+import { FormikProps } from "formik";
+import { IArtmovements } from "../../types";
 
 export interface IBaseForm {
   title: string;
@@ -7,4 +8,7 @@ export interface IBaseForm {
 
 export type IBaseFormProps = FormikProps<IBaseForm>;
 
-export type Props = {};
+export type Props = { 
+  row?: IArtmovements | null; 
+  action?: string 
+};

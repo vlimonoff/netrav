@@ -13,13 +13,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@material-ui/core/Tooltip";
 import { DeleteModal } from "../deleteModal";
 import { EditModal } from "../editModal";
+// import { DataCorrectionButtons } from "../dataCorrectionButtons";
 
 export const TableHeader: FC<IProps> = ({
+  type,
   columns,
-  handleChangeAllRows,
-  currentRows,
   rowsCount,
   checkedCount,
+  setCheckedList,
+  checkedList,
+  rows,
+  currentRows,
+  // setCurrentRows,
+  currentRow,
+  // row,
+  // setCurrentRow,
+  // setCurrentRowsArtist,
+  
 }) => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
@@ -29,6 +39,14 @@ export const TableHeader: FC<IProps> = ({
   };
   const openModalDelete = () => {
     setIsOpenDeleteModal(!isOpenDeleteModal);
+  };
+
+  const handleChangeAllRows = () => {
+    setCheckedList(
+      checkedList.length === rows?.length
+        ? []
+        : rows?.map((row) => row.id) || []
+    );
   };
 
   return (
@@ -48,7 +66,10 @@ export const TableHeader: FC<IProps> = ({
             />
           </TableCell>
           {columns.map((column) => (
-            <TableCell key={column.id} style={{ minWidth: column.minWidth }}>
+            <TableCell
+              key={column.id}
+              style={{ width: column.width, minWidth: column.minWidth }}
+            >
               {column.label}
             </TableCell>
           ))}
@@ -63,12 +84,23 @@ export const TableHeader: FC<IProps> = ({
                 <DeleteIcon />
               </IconButton>
             </Tooltip>
+            {/* <DataCorrectionButtons
+              // openModalEdit={openModalAdd()}
+              // openModalDelete={openModalDelete()}
+              setIsOpenEditModal={setIsOpenAddModal}
+              setIsOpenDeleteModal={setIsOpenDeleteModal}
+              isOpenEditModal={isOpenAddModal}
+              isOpenDeleteModal={isOpenDeleteModal}
+              setCurrentRow={setCurrentRow}
+              type="header"
+              row={currentRow}
+            /> */}
           </TableCell>
         </TableRow>
       </TableHead>
       {isOpenAddModal && (
         <EditModal
-          type="artist"
+          type={type}
           isOpenEditModal={isOpenAddModal}
           setIsOpenEditModal={setIsOpenAddModal}
           action="add"
@@ -77,10 +109,11 @@ export const TableHeader: FC<IProps> = ({
       {isOpenDeleteModal && (
         <DeleteModal
           isOpenDeleteModal={isOpenDeleteModal}
-          currentRows={currentRows}
+          // currentRows={currentRows.length > 0 ? currentRows : currentRow }
           setIsOpenDeleteModal={setIsOpenDeleteModal}
         />
       )}
+      
     </>
   );
 };

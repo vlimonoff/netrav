@@ -9,7 +9,6 @@ import {
   FormControlLabel,
   IconButton,
   TextField,
-  Typography,
 } from "@mui/material";
 import { CheckBoxOutlineBlank, CheckBox, Close } from "@mui/icons-material";
 import { IArtMovement, IBaseForm, IBaseFormProps, Props } from "./types";
@@ -23,24 +22,25 @@ export const CreateArtistForm: FC<Props> = ({
   row,
   action,
 }): React.ReactElement => {
+  
   const [artMovements, setArtMovements] = useState<Array<IArtMovement>>([]);
   const [open, setOpen] = useState<boolean>(false);
 
-  console.log(row?.artMovements);
+  // console.log(row?.artMovements);
 
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
-      lastName: row?.lastName || "",
-      firstName: row?.firstName || "",
-      patronymic: row?.patronymic || "",
+      lastName: row?.lastName || '',
+      firstName: row?.firstName || '',
+      patronymic: row?.patronymic || '',
       isArtist: row?.isArtist || true,
-      birthDate: row?.birthDate || "",
-      birthPlace: row?.birthPlace || "",
-      deathDate: row?.deathDate || "",
-      deathPlace: row?.deathPlace || "",
+      birthDate: row?.birthDate || '',
+      birthPlace: row?.birthPlace || '',
+      deathDate: row?.deathDate || '',
+      deathPlace: row?.deathPlace || '',
       artMovements: [],
-      otherInfo: row?.otherInfo || "",
-      wikiUrl: row?.wikiUrl || "",
+      otherInfo: row?.otherInfo || '',
+      wikiUrl: row?.wikiUrl || '',
     },
     validationSchema,
 
@@ -101,13 +101,11 @@ export const CreateArtistForm: FC<Props> = ({
   }, [fetchArtMovements]);
 
   useEffect(() => {
-    console.log(1);
-
     baseForm.setFieldValue(
       "artMovements",
       artMovements.filter((artmovement) =>{
-        console.log(artmovement.id);
-        console.log(row?.artMovements.includes(artmovement.id));
+        // console.log(artmovement.id);
+        // console.log(row?.artMovements.includes(artmovement.id));
         return row?.artMovements.includes(artmovement.id)}
       )
     );
@@ -121,7 +119,6 @@ export const CreateArtistForm: FC<Props> = ({
           {dictionary.header}
         </Typography>
       )} */}
-
       <Box
         component="form"
         sx={styles.form}
@@ -163,7 +160,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="firstName"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.firstName}
+            value={action ? baseForm.initialValues.firstName : baseForm.values.firstName}
             error={baseForm.touched.firstName && !!baseForm.errors.firstName}
             label={dictionary.firstName}
             helperText={baseForm.touched.firstName && baseForm.errors.firstName}
@@ -174,7 +171,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="patronymic"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.patronymic}
+            value={action ? baseForm.initialValues.patronymic : baseForm.values.patronymic}
             error={baseForm.touched.patronymic && !!baseForm.errors.patronymic}
             label={dictionary.patronymic}
             helperText={
@@ -189,7 +186,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="birthDate"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.birthDate}
+            value={action ? baseForm.initialValues.birthDate : baseForm.values.birthDate}
             error={baseForm.touched.birthDate && !!baseForm.errors.birthDate}
             label={dictionary.birthDate}
             helperText={baseForm.touched.birthDate && baseForm.errors.birthDate}
@@ -200,7 +197,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="birthPlace"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.birthPlace}
+            value={action ? baseForm.initialValues.birthPlace : baseForm.values.birthPlace}
             error={baseForm.touched.birthPlace && !!baseForm.errors.birthPlace}
             label={dictionary.birthPlace}
             helperText={
@@ -215,7 +212,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="deathDate"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.deathDate}
+            value={action ? baseForm.initialValues.deathDate : baseForm.values.deathDate}
             error={baseForm.touched.deathDate && !!baseForm.errors.deathDate}
             label={dictionary.deathDate}
             helperText={baseForm.touched.deathDate && baseForm.errors.deathDate}
@@ -226,7 +223,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="deathPlace"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.deathPlace}
+            value={action ? baseForm.initialValues.deathPlace : baseForm.values.deathPlace}
             error={baseForm.touched.deathPlace && !!baseForm.errors.deathPlace}
             label={dictionary.deathPlace}
             helperText={
@@ -258,7 +255,6 @@ export const CreateArtistForm: FC<Props> = ({
             )}
             onChange={(e, value) => {
               console.log(value);
-              
               baseForm.setFieldValue("artMovements", value);
             }}
             renderInput={(params) => (
@@ -286,7 +282,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="otherInfo"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.otherInfo}
+            value={action ? baseForm.initialValues.otherInfo : baseForm.values.otherInfo}
             error={baseForm.touched.otherInfo && !!baseForm.errors.otherInfo}
             label={dictionary.otherInfo}
             helperText={baseForm.touched.otherInfo && baseForm.errors.otherInfo}
@@ -301,7 +297,7 @@ export const CreateArtistForm: FC<Props> = ({
             name="wikiUrl"
             variant="outlined"
             onChange={baseForm.handleChange}
-            value={action ? "" : baseForm.values.wikiUrl}
+            value={action ? baseForm.initialValues.wikiUrl : baseForm.values.wikiUrl}
             error={baseForm.touched.wikiUrl && !!baseForm.errors.wikiUrl}
             label={dictionary.wikiUrl}
             helperText={baseForm.touched.wikiUrl && baseForm.errors.wikiUrl}
@@ -313,7 +309,7 @@ export const CreateArtistForm: FC<Props> = ({
           <FormControlLabel
             control={
               <Checkbox
-                checked={action ? true : baseForm.values.isArtist}
+                checked={action ? baseForm.initialValues.isArtist : baseForm.values.isArtist}
                 onChange={(e) => {
                   baseForm.setFieldValue("isArtist", e.target.checked, true);
                 }}

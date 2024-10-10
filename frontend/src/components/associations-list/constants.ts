@@ -4,6 +4,7 @@ export const columns: IColumn[] = [
   {
     id: "title",
     label: "Наименование",
+    width: 50,
   },
   {
     id: "workStart",
@@ -17,18 +18,22 @@ export const columns: IColumn[] = [
   {
     id: "city",
     label: "Город",
+    width: 150,
   },
   {
     id: "otherInfo",
     label: "Дополнительная информация",
-    minWidth: 300,
+    minWidth: 220,
   },
   {
     id: "owners",
     label: "Основатели",
+    width: 100,
   },
   {
     id: "members",
     label: "Участники",
+    width: 100,
+    maxHeight: 50,
   },
 ];

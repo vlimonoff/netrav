@@ -14,7 +14,7 @@ export interface IArtist {
   }
   
   export interface IAssociation {
-      id: string;
+      id: number;
       members: Array<IArtist>;
       owners: Array<IArtist>;
       title: string | null;
@@ -26,7 +26,7 @@ export interface IArtist {
       otherInfo: string | null;
   }
   export interface IArtmovements {
-      id: string;
+      id: number;
       title: string | null;
       info: string | null;
   }
@@ -35,4 +35,7 @@ export interface IArtist {
     id: string;
     label: string | JSX.Element;
     minWidth?: number;
+    // maxWidth?: number;
+    width?: number;
+    maxHeight?: number;
   }

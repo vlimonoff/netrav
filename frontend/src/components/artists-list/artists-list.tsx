@@ -6,8 +6,8 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Checkbox,
-  FormControlLabel,
+  // Checkbox,
+  // FormControlLabel,
   IconButton,
 } from "@mui/material";
 
@@ -15,39 +15,30 @@ import Tooltip from "@material-ui/core/Tooltip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 
-import { DataGrid } from "@mui/x-data-grid";
-
 import { endpoints } from "../../endpoints";
 import { Loader } from "../loader/loader";
-import { IArtist } from "../../types";
-import { columns, columnsForDataGrid, Artist } from "./constants";
+// import { IArtist } from "../../types";
+import { columns } from "./constants";
 import { styles } from "./styles";
 import { TableHeader } from "../tableHeader";
 import { EditModal } from "../editModal";
 import { DeleteModal } from "../deleteModal";
+// import { DataCorrectionButtons } from "../dataCorrectionButtons";
+import { CheckboxComponent } from "../checkboxComponent";
+
+
+import { IArtist, IArtmovements, IAssociation } from "../../types";
 
 export const ArtistsList = () => {
   const [rows, setRows] = useState<Array<IArtist> | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [checked, setChecked] = useState(false);
   const [checkedList, setCheckedList] = useState<Array<number>>([]);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
-  const [currentRow, setCurrentRow] = useState<IArtist>();
-  const [currentRows, setCurrentRows] = useState<Array<IArtist>>([]);
-
-  // const deleteButton = (
-  //   <IconButton aria-label="delete">
-  //     {" "}
-  //     <DeleteIcon />{" "}
-  //   </IconButton>
-  // );
-  // const editButton = (
-  //   <IconButton aria-label="edit">
-  //     {" "}
-  //     <EditIcon />{" "}
-  //   </IconButton>
-  // );
+  const [currentRow, setCurrentRow] = useState<IArtist | null>(null);
+  // const [currentRows, setCurrentRows] = useState<Array<IArtist> | null>(null);
+  const [currentRows, setCurrentRows] = useState<(IAssociation | IArtist | IArtmovements)[]>([]);
+  // const [currentRowsClick, setCurrentRowsClick] = useState(false);
 
   const fetchArtists = async () => {
     setIsLoading(true);
@@ -69,19 +60,21 @@ export const ArtistsList = () => {
     fetchArtists();
   }, []);
 
-  const handleChange = (id: number) => {
-    setCheckedList(
-      checkedList.includes(id)
-        ? checkedList.filter((currentId) => currentId !== id)
-        : [...checkedList, id]
-    );
-  };
+  // const handleChange = (id: number) => {
+  //   setCheckedList(
+  //     checkedList.includes(id)
+  //       ? checkedList.filter((currentId) => currentId !== id)
+  //       : [...checkedList, id]
+  //   );
+  // };
 
-  const handleChangeAllRows = () => {
-    setCheckedList(
-      checkedList.length === rows?.length ? [] : rows?.map((row) => row.id) || []
-    );
-  };
+  // const handleChangeAllRows = () => {
+  //   setCheckedList(
+  //     checkedList.length === rows?.length
+  //       ? []
+  //       : rows?.map((row) => row.id) || []
+  //   );
+  // };
 
   const openModalEdit = (row: IArtist) => {
     setIsOpenEditModal(!isOpenEditModal);
@@ -93,86 +86,27 @@ export const ArtistsList = () => {
     setCurrentRow(row);
   };
 
-  // const gettingArray = (rows?: Array<IArtist> | null) => {
-  //   const array: Array<Artist> = [];
-  //   // const rowsArray1: Artist[] = new Array<Artist>();
-
-  //   rows?.forEach((row: IArtist) => {
-  //     const {
-  //       id,
-  //       lastName,
-  //       firstName,
-  //       patronymic,
-  //       birthDate,
-  //       deathDate,
-  //       birthPlace,
-  //       deathPlace,
-  //     } = row;
-  //     array.push({
-  //       id,
-  //       lastName,
-  //       firstName,
-  //       patronymic,
-  //       birthDate,
-  //       deathDate,
-  //       birthPlace,
-  //       deathPlace,
-
-  //     });
-  //   });
-
-  //   const rowsArray: readonly any[] = array;
-
-  //   return rowsArray;
+  // const getCurrentRows = (row: IArtist) => {
+  //   setCurrentRows([...currentRows, row]);
   // };
-
-  // const rowsArray: readonly any[] = gettingArray(rows);
-
-  // let rowsArray;
-  // console.log(gettingArray(rows));
 
   return (
     <Paper sx={styles.paper}>
       {isLoading && <Loader />}
 
-      {/* {rows?.map((row: IArtist, idx) => {
-        const rowsArray: readonly any[] = gettingArray(rows);
-        return (
-          <DataGrid
-            rows={rowsArray}
-            columns={columnsForDataGrid}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-          />
-        );
-       
-      })} */}
-
-      {/* <DataGrid
-            rows={gettingArray(rows)}
-            columns={columnsForDataGrid}
-            initialState={{
-              pagination: {
-                paginationModel: { page: 0, pageSize: 5 },
-              },
-            }}
-            pageSizeOptions={[5, 10]}
-            checkboxSelection
-          /> */}
-
       <TableContainer sx={styles.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHeader
+            type="artist"
             columns={columns}
-            handleChangeAllRows={handleChangeAllRows}
             currentRows={currentRows}
             checkedCount={checkedList.length}
             rowsCount={rows?.length || 0}
+            setCheckedList={setCheckedList}
+            checkedList={checkedList}
+            rows={rows}
+            currentRow={currentRow}
+            // setCurrentRow={setCurrentRow}
           />
           <TableBody>
             {rows?.map((row: IArtist, idx) => {
@@ -187,13 +121,10 @@ export const ArtistsList = () => {
                 id,
               } = row;
 
-              // gettingArray(rows);
-              // const rowsArray: readonly any[] = gettingArray(rows);
-
               return (
                 <TableRow hover tabIndex={-1} key={idx}>
                   <TableCell>
-                    <FormControlLabel
+                    {/* <FormControlLabel
                       label=""
                       control={
                         <Checkbox
@@ -205,6 +136,20 @@ export const ArtistsList = () => {
                           }}
                         />
                       }
+                    /> */}
+                    <CheckboxComponent
+                      id={id}
+                      idx={idx}
+                      checkedList={checkedList}
+                      setCheckedList={setCheckedList}
+                      rows={rows}
+                      currentRows={currentRows}
+                      setCurrentRows={setCurrentRows}
+                      // rows={rows} 
+                      // currentRows={currentRows} 
+                      // setCurrentRows={setCurrentRows}    
+                      // rowsArtist={rows}
+                      // setCurrentRowsArtist={setCurrentRows}
                     />
                   </TableCell>
                   <TableCell>{lastName || "-"}</TableCell>
@@ -233,6 +178,11 @@ export const ArtistsList = () => {
                         <DeleteIcon />
                       </IconButton>
                     </Tooltip>
+                    {/* <DataCorrectionButtons
+                      // row={row}
+                      openModalEdit={openModalEdit(row)}
+                      openModalDelete={openModalDelete(row)}
+                    /> */}
                   </TableCell>
                 </TableRow>
               );
@@ -244,7 +194,7 @@ export const ArtistsList = () => {
         <EditModal
           type="artist"
           isOpenEditModal={isOpenEditModal}
-          currentRow={currentRow}
+          currentRowArtist={currentRow}
           setIsOpenEditModal={setIsOpenEditModal}
         />
       )}

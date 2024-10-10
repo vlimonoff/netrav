@@ -13,6 +13,9 @@ export const EditModal: FC<IProps> = ({
   type,
   isOpenEditModal,
   currentRow,
+  currentRowArtist,
+  currentRowAssociation,
+  currentRowArtmovements,
   setIsOpenEditModal,
   action,
 }) => {
@@ -47,23 +50,23 @@ export const EditModal: FC<IProps> = ({
           isClearForm ? (
             <CreateArtistForm action={"clear"} />
           ) : (
-            <CreateArtistForm row={currentRow} />
+            <CreateArtistForm row={currentRowArtist} />
           )
         ) : type === "associations" ? (
           isClearForm ? (
-            <CreateAssociationForm />
+            <CreateAssociationForm action={"clear"}/>
           ) : (
-            <CreateAssociationForm />
+            <CreateAssociationForm row={currentRowAssociation}/>
           )
         ) : isClearForm ? (
-          <CreateArtMovementsForm />
+          <CreateArtMovementsForm action={"clear"} />
         ) : (
-          <CreateArtMovementsForm />
+          <CreateArtMovementsForm row={currentRowArtmovements}/>
         )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseEditModal}>Отменить</Button>
-        <Button onClick={cleaningForm}>Очистить</Button>
+        <Button onClick={cleaningForm}>{ action === "add" ? 'Очистить' : 'Сбросить' }</Button>
         <Button variant="contained" type="submit">
           Сохранить
         </Button>

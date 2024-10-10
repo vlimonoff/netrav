@@ -91,26 +91,26 @@ const App = () => {
                   <Route path='/about' element={<About />} />
                   <Route path='/data' element={<Data />}>
                     <Route path='/data/artists' element={<ArtistsList />} />
-                    <Route
+                    {/* <Route
                       path='/data/artists/create'
                       element={<CreateArtistForm />}
-                    />
+                    /> */}
                     <Route
                       path='/data/associations'
                       element={<AssociationsList />}
                     />
-                    <Route
+                    {/* <Route
                       path='/data/associations/create'
                       element={<CreateAssociationForm />}
-                    />
+                    /> */}
                     <Route
                       path='/data/artmovements'
                       element={<ArtMovementsList />}
                     />
-                    <Route
+                    {/* <Route
                       path='/data/artmovements/create'
                       element={<CreateArtMovementsForm />}
-                    />
+                    /> */}
                   </Route>
                   <Route path='/graphs' element={<Graphs />}>
                     <Route path='/graphs/graph1' element={<Graph1 />} />

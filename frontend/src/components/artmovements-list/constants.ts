@@ -9,5 +9,6 @@ export const columns:  IColumn[] = [
     id: "info",
     label: "Определение",
     minWidth: 300,
+    width: 860,
   },
 ];

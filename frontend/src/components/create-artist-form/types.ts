@@ -24,6 +24,6 @@ export interface IBaseForm {
 export type IBaseFormProps = FormikProps<IBaseForm>;
 
 export type Props = {
-  row?: IArtist;
+  row?: IArtist | null;
   action?: string;
 };
