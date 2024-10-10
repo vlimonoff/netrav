@@ -67,7 +67,7 @@ export const EditModal: FC<IProps> = ({
       <DialogActions>
         <Button onClick={handleCloseEditModal}>Отменить</Button>
         <Button onClick={cleaningForm}>{ action === "add" ? 'Очистить' : 'Сбросить' }</Button>
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" form={type}>
           Сохранить
         </Button>
       </DialogActions>

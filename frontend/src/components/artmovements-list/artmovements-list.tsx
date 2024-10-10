@@ -1,33 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 import {
   Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableRow,
   // FormControlLabel,
   // Checkbox,
   IconButton,
   Checkbox,
   FormControlLabel,
-} from "@mui/material";
+} from '@mui/material';
 
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
+import Tooltip from '@material-ui/core/Tooltip';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import { endpoints } from "../../endpoints";
-import { Loader } from "../loader";
+import { endpoints } from '../../endpoints';
+import { Loader } from '../loader';
 // import { IArtmovements } from "../../types";
-import { columns } from "./constants";
-import { styles } from "./styles";
-import { TableHeader } from "../tableHeader";
-import { EditModal } from "../editModal";
-import { DeleteModal } from "../deleteModal";
+import { columns } from './constants';
+import { styles } from './styles';
+import { TableHeader } from '../tableHeader';
+import { EditModal } from '../editModal';
+import { DeleteModal } from '../deleteModal';
 // import { DataCorrectionButtons } from "../dataCorrectionButtons";
-import { CheckboxComponent } from "../checkboxComponent";
-import { IArtist, IArtmovements, IAssociation } from "../../types";
+import { CheckboxComponent } from '../checkboxComponent';
+import { IArtist, IArtmovements, IAssociation } from '../../types';
+import { DataCorrectionButtons } from '../dataCorrectionButtons';
+import { TableRow } from './table-row';
 
 export const ArtMovementsList = () => {
   const [rows, setRows] = useState<Array<IArtmovements> | null>(null);
@@ -36,7 +37,9 @@ export const ArtMovementsList = () => {
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [currentRow, setCurrentRow] = useState<IArtmovements | null>(null);
-  const [currentRows, setCurrentRows] = useState<(IAssociation | IArtist | IArtmovements)[]>([]);
+  const [currentRows, setCurrentRows] = useState<
+    (IAssociation | IArtist | IArtmovements)[]
+  >([]);
 
   const fetchArtmovements = async () => {
     setIsLoading(true);
@@ -59,17 +62,11 @@ export const ArtMovementsList = () => {
   }, []);
 
   const handleChange = (id: number) => {
-    // setCheckedList(
-    //   checkedList.includes(id)
-    //     ? checkedList.filter((currentId) => currentId !== id)
-    //     : [...checkedList, id]
-    setCheckedList((prev) =>
-      prev.includes(id)
-        ? prev.filter((currentId) => currentId !== id)
-        : [...prev, id]
-        
+    setCheckedList(
+      checkedList.includes(id)
+        ? checkedList.filter((currentId) => currentId !== id)
+        : [...checkedList, id]
     );
-    console.log(checkedList);
   };
 
   // const handleChangeAllRows = () => {
@@ -93,9 +90,9 @@ export const ArtMovementsList = () => {
       {isLoading && <Loader />}
 
       <TableContainer sx={styles.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table stickyHeader aria-label='sticky table'>
           <TableHeader
-            type="artmovements"
+            type='artmovements'
             columns={columns}
             // handleChangeAllRows={handleChangeAllRows}
             currentRows={currentRows}
@@ -106,76 +103,31 @@ export const ArtMovementsList = () => {
             rows={rows}
             currentRow={currentRow}
           />
-          <TableBody>
-            {rows?.map((row: IArtmovements, idx) => {
-              const { title, info, id } = row;
 
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={idx}>
-                  <TableCell>
-                    <FormControlLabel
-                      label=""
-                      control={
-                        <Checkbox
-                          defaultChecked
-                          checked={checkedList.includes(id)}
-                          onChange={() => handleChange(id)}
-                          inputProps={{
-                            "aria-label": `${idx}`,
-                          }}
-                        />
-                      }
-                    />
-                    {/* <CheckboxComponent
-                      id={id}
-                      idx={idx}
-                      checkedList={checkedList}
-                      setCheckedList={setCheckedList}
-                      rows={rows}
-                      currentRows={currentRows}
-                      setCurrentRows={setCurrentRows}
-                      // rowsArtist={rows}
-                      // setCurrentRowsArtist={setCurrentRows}
-                    /> */}
-                  </TableCell>
-                  <TableCell>{title || "-"}</TableCell>
-                  <TableCell>{info || "-"}</TableCell>
-                  <TableCell>
-                  <Tooltip title="Редактировать запись">
-                      <IconButton
-                        aria-label="edit"
-                        onClick={() => openModalEdit(row)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Удалить запись">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => openModalDelete(row)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                     {/* <DataCorrectionButtons
-                      openModalEdit={openModalEdit(row)}
-                      openModalDelete={openModalDelete(row)}
-                    /> */}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+          <TableBody>
+            {rows?.map((row: IArtmovements) => (
+              <TableRow
+                key={row.id}
+                row={row}
+                checked={checkedList.includes(row.id)}
+                onChange={() => handleChange(row.id)}
+                openModalEdit={openModalEdit}
+                openModalDelete={openModalDelete}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
+
       {isOpenEditModal && (
         <EditModal
-          type="artmovements"
+          type='artmovements'
           isOpenEditModal={isOpenEditModal}
           currentRowArtmovements={currentRow}
           setIsOpenEditModal={setIsOpenEditModal}
         />
       )}
+
       {isOpenDeleteModal && (
         <DeleteModal
           isOpenDeleteModal={isOpenDeleteModal}

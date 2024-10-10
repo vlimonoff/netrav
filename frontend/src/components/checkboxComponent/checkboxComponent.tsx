@@ -1,6 +1,6 @@
-import { FC } from "react";
-import { Checkbox, FormControlLabel } from "@mui/material";
-import { IProps } from "./types";
+import { FC } from 'react';
+import { Checkbox, FormControlLabel } from '@mui/material';
+import { IProps } from './types';
 
 export const CheckboxComponent: FC<IProps> = ({
   id,
@@ -13,7 +13,6 @@ export const CheckboxComponent: FC<IProps> = ({
   setCurrentRows,
   checkedListRef,
 }) => {
-
   // const checkedListRef = useRef<Array<Number>>([]);
 
   // useEffect(() => {
@@ -66,15 +65,15 @@ export const CheckboxComponent: FC<IProps> = ({
 
   return (
     <FormControlLabel
-      label=""
+      label=''
       control={
         <Checkbox
-          defaultChecked
+          // defaultChecked
           checked={checkedList.includes(id)}
           onChange={() => handleChange(id)}
-          inputProps={{
-            "aria-label": `${idx}`,
-          }}
+          // inputProps={{
+          //   "aria-label": `${idx}`,
+          // }}
         />
       }
     />

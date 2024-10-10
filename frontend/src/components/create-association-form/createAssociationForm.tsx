@@ -36,8 +36,10 @@ export const CreateAssociationForm: FC<Props> = ({
     onSubmit: async (formData) => {
       try {
         const response = await fetch(endpoints.ASSOCIATIONS, {
-          method: 'POST',
-          body: JSON.stringify(formData),
+          method: action === '' ? 'PUT' : 'POST',
+          body: JSON.stringify(
+            action === '' ? { id: '', ...formData } : formData
+          ),
           headers: {
             'content-type': 'application/json;charset=UTF-8',
           },
@@ -59,7 +61,8 @@ export const CreateAssociationForm: FC<Props> = ({
         component='form'
         sx={styles.form}
         autoComplete='off'
-        onSubmit={baseForm.submitForm}
+        onSubmit={baseForm.handleSubmit}
+        id='associations'
       >
         <Collapse in={open}>
           <Alert
@@ -85,7 +88,9 @@ export const CreateAssociationForm: FC<Props> = ({
             name='title'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={action ? baseForm.initialValues.title : baseForm.values.title}
+            value={
+              action ? baseForm.initialValues.title : baseForm.values.title
+            }
             error={baseForm.touched.title && !!baseForm.errors.title}
             label={dictionary.title}
             helperText={baseForm.touched.title && baseForm.errors.title}
@@ -98,7 +103,11 @@ export const CreateAssociationForm: FC<Props> = ({
             name='workStart'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={action ? baseForm.initialValues.workStart : baseForm.values.workStart}
+            value={
+              action
+                ? baseForm.initialValues.workStart
+                : baseForm.values.workStart
+            }
             error={baseForm.touched.workStart && !!baseForm.errors.workStart}
             label={dictionary.workStart}
             helperText={baseForm.touched.workStart && baseForm.errors.workStart}
@@ -109,7 +118,9 @@ export const CreateAssociationForm: FC<Props> = ({
             name='workEnd'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={action ? baseForm.initialValues.workEnd : baseForm.values.workEnd}
+            value={
+              action ? baseForm.initialValues.workEnd : baseForm.values.workEnd
+            }
             error={baseForm.touched.workEnd && !!baseForm.errors.workEnd}
             label={dictionary.workEnd}
             helperText={baseForm.touched.workEnd && baseForm.errors.workEnd}
@@ -122,7 +133,9 @@ export const CreateAssociationForm: FC<Props> = ({
             name='status'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={action ? baseForm.initialValues.status : baseForm.values.status}
+            value={
+              action ? baseForm.initialValues.status : baseForm.values.status
+            }
             error={baseForm.touched.status && !!baseForm.errors.status}
             label={dictionary.status}
             helperText={baseForm.touched.status && baseForm.errors.status}
@@ -146,7 +159,11 @@ export const CreateAssociationForm: FC<Props> = ({
             name='otherInfo'
             variant='outlined'
             onChange={baseForm.handleChange}
-            value={action ? baseForm.initialValues.otherInfo : baseForm.values.otherInfo}
+            value={
+              action
+                ? baseForm.initialValues.otherInfo
+                : baseForm.values.otherInfo
+            }
             error={baseForm.touched.otherInfo && !!baseForm.errors.otherInfo}
             label={dictionary.otherInfo}
             helperText={baseForm.touched.otherInfo && baseForm.errors.otherInfo}
@@ -180,7 +197,8 @@ export const CreateAssociationForm: FC<Props> = ({
           <Button
             variant='contained'
             sx={styles.button}
-            onClick={() => baseForm.handleSubmit()}
+            type='submit'
+            form='associations'
           >
             {dictionary.save}
           </Button>
