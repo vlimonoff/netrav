@@ -1,4 +1,5 @@
 import { FormikProps } from 'formik';
+import { IArtist } from '../../types';
 
 export interface IArtMovement {
   id: number;
@@ -15,11 +16,14 @@ export interface IBaseForm {
   birthPlace: string | null;
   deathDate: string;
   deathPlace: string | null;
-  artMovements: Array<IArtMovement>;
+  artMovements: Array<IArtMovement> ;
   otherInfo: string;
   wikiUrl: string;
 }
 
 export type IBaseFormProps = FormikProps<IBaseForm>;
 
-export type Props = {};
+export type Props = {
+  row?: IArtist | null;
+  action?: string;
+};

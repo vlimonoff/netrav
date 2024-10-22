@@ -1,59 +1,25 @@
-import { useEffect, useState } from 'react';
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
-import { endpoints } from '../../endpoints';
-import { Loader } from '../loader/loader';
-import { IArtist, IAssociation } from '../../types';
+import { useEffect, useState } from "react";
+import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 
-interface Column {
-  id: string;
-  label: string;
-  minWidth?: number;
-}
-
-const columns: readonly Column[] = [
-  {
-    id: 'title',
-    label: 'Наименование',
-  },
-  {
-    id: 'workStart',
-    label: 'Период работы',
-    minWidth: 100,
-  },
-  {
-    id: 'status',
-    label: 'Статус',
-  },
-  {
-    id: 'city',
-    label: 'Город',
-  },
-  {
-    id: 'otherInfo',
-    label: 'Дополнительная информация',
-    minWidth: 300,
-  },
-  {
-    id: 'owners',
-    label: 'Основатели',
-  },
-  {
-    id: 'members',
-    label: 'Участники',
-  },
-];
+import { IArtist, IArtmovements, IAssociation } from "../../types";
+import { endpoints } from "../../endpoints";
+import { Loader } from "../loader";
+import { columns } from "./constants";
+import { styles } from "./styles";
+import { TableHeader } from "../tableHeader";
+import { TableRow } from "./table-row";
+import { EditModal } from "../editModal";
+import { DeleteModal } from "../deleteModal";
 
 export const AssociationsList = () => {
   const [rows, setRows] = useState<Array<IAssociation> | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [checkedList, setCheckedList] = useState<
+    (IAssociation | IArtist | IArtmovements)[]
+  >([]);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [currentRow, setCurrentRow] = useState<IAssociation | null>(null);
 
   const fetchArtists = async () => {
     setIsLoading(true);
@@ -75,43 +41,62 @@ export const AssociationsList = () => {
     fetchArtists();
   }, []);
 
+  const openModalEdit = (row: IAssociation) => {
+    setIsOpenEditModal(!isOpenEditModal);
+    setCurrentRow(row);
+    console.log(checkedList);
+  };
+
+  const openModalDelete = (row: IAssociation) => {
+    setIsOpenDeleteModal(!isOpenDeleteModal);
+    setCurrentRow(row);
+  };
+
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={styles.paper}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: '80vh' }}>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+      <TableContainer sx={styles.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHeader
+            type="associations"
+            rows={rows}
+            columns={columns}
+            checkedCount={checkedList.length}
+            rowsCount={rows?.length || 0}
+            checkedList={checkedList}
+            setCheckedList={setCheckedList}
+          />
           <TableBody>
-            {rows?.map((row: IAssociation, idx) => {
-              const { title, workStart, workEnd, status, city, members, otherInfo, owners } = row;
-
-              return (
-                <TableRow hover role='checkbox' tabIndex={-1} key={idx}>
-                  <TableCell>{title || '-'}</TableCell>
-                  <TableCell>{`${workStart || '?'}-${workEnd || '?'}`}</TableCell>
-                  <TableCell>{status || '-'}</TableCell>
-                  <TableCell>{city || '-'}</TableCell>
-                  <TableCell>{otherInfo || '-'}</TableCell>
-                  <TableCell>{owners?.map((owner: IArtist) => `${owner.lastName} ${owner.firstName?.[0]}.${owner.patronymic ? `${owner.patronymic[0]}.` : ''}`).join(', ') || '-'}</TableCell>
-                  <TableCell>{members?.map((member: IArtist) => `${member.lastName} ${member.firstName?.[0]}.${member.patronymic ? `${member.patronymic[0]}.` : ''}`).join(', ') || '-'}</TableCell>
-                </TableRow>
-              );
-            })}
+            {rows?.map((row: IAssociation, idx) => (
+              <TableRow
+                key={row.id}
+                row={row}
+                checkedList={checkedList}
+                setCheckedList={setCheckedList}
+                openModalEdit={openModalEdit}
+                openModalDelete={openModalDelete}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {isOpenEditModal && (
+        <EditModal
+          type="associations"
+          isOpenEditModal={isOpenEditModal}
+          currentRowAssociation={currentRow}
+          setIsOpenEditModal={setIsOpenEditModal}
+        />
+      )}
+      {isOpenDeleteModal && (
+        <DeleteModal
+          type="associations"
+          isOpenDeleteModal={isOpenDeleteModal}
+          currentRow={currentRow}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+        />
+      )}
     </Paper>
   );
 };

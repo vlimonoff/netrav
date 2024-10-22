@@ -1,4 +1,5 @@
 export interface IArtist {
+  id: number;
     artMovements: Array<number>;
     lastName: string | null;
     firstName: string | null;
@@ -13,7 +14,7 @@ export interface IArtist {
   }
   
   export interface IAssociation {
-      id: string;
+      id: number;
       members: Array<IArtist>;
       owners: Array<IArtist>;
       title: string | null;
@@ -24,6 +25,17 @@ export interface IArtist {
       url: string | null;
       otherInfo: string | null;
   }
+  export interface IArtmovements {
+      id: number;
+      title: string | null;
+      info: string | null;
+  }
 
-//   TODO: разобраться потом почему ошибка экспорта
-  export {};
+  export interface IColumn {
+    id: string;
+    label: string | JSX.Element;
+    minWidth?: number;
+    // maxWidth?: number;
+    width?: number;
+    maxHeight?: number;
+  }

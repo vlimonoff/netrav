@@ -1,49 +1,25 @@
-import { useEffect, useState } from 'react';
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from '@mui/material';
-import { endpoints } from '../../endpoints';
-import { Loader } from '../loader/loader';
-import { IArtist } from '../../types';
+import { useEffect, useState } from "react";
+import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 
-interface Column {
-  id: string;
-  label: string;
-  minWidth?: number;
-}
-
-const columns: readonly Column[] = [
-  {
-    id: 'lastName',
-    label: 'Фамилия',
-  },
-  {
-    id: 'firstName',
-    label: 'Имя',
-  },
-  {
-    id: 'patronymic',
-    label: 'Отчество',
-  },
-  {
-    id: 'birthDate',
-    label: 'Дата рождения',
-  },
-  {
-    id: 'deathDate',
-    label: 'Дата смерти',
-  },
-];
+import { IArtist, IArtmovements, IAssociation } from "../../types";
+import { endpoints } from "../../endpoints";
+import { Loader } from "../loader/loader";
+import { columns } from "./constants";
+import { styles } from "./styles";
+import { TableHeader } from "../tableHeader";
+import { TableRow } from "./table-row";
+import { EditModal } from "../editModal";
+import { DeleteModal } from "../deleteModal";
 
 export const ArtistsList = () => {
   const [rows, setRows] = useState<Array<IArtist> | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [checkedList, setCheckedList] = useState<
+    (IAssociation | IArtist | IArtmovements)[]
+  >([]);
+  const [isOpenEditModal, setIsOpenEditModal] = useState(false);
+  const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
+  const [currentRow, setCurrentRow] = useState<IArtist | null>(null);
 
   const fetchArtists = async () => {
     setIsLoading(true);
@@ -65,43 +41,61 @@ export const ArtistsList = () => {
     fetchArtists();
   }, []);
 
+  const openModalEdit = (row: IArtist) => {
+    setIsOpenEditModal(!isOpenEditModal);
+    setCurrentRow(row);
+  };
+
+  const openModalDelete = (row: IArtist) => {
+    setIsOpenDeleteModal(!isOpenDeleteModal);
+    setCurrentRow(row);
+  };
+
   return (
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+    <Paper sx={styles.paper}>
       {isLoading && <Loader />}
 
-      <TableContainer sx={{ maxHeight: '80vh' }}>
-        <Table stickyHeader aria-label='sticky table'>
-          <TableHead>
-            <TableRow>
-              {columns.map((column) => (
-                <TableCell
-                  key={column.id}
-                  style={{ minWidth: column.minWidth }}
-                >
-                  {column.label}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
+      <TableContainer sx={styles.container}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHeader
+            type="artist"
+            rows={rows}
+            columns={columns}
+            checkedCount={checkedList.length}
+            rowsCount={rows?.length || 0}
+            checkedList={checkedList}
+            setCheckedList={setCheckedList}
+          />
           <TableBody>
-            {rows?.map((row: IArtist, idx) => {
-              const {
-                lastName, firstName, patronymic, birthDate, deathDate, birthPlace, deathPlace
-              } = row;
-
-              return (
-                <TableRow hover tabIndex={-1} key={idx}>
-                  <TableCell>{lastName || '-'}</TableCell>
-                  <TableCell>{firstName || '-'}</TableCell>
-                  <TableCell>{patronymic || '-'}</TableCell>
-                  <TableCell>{`${birthDate || '-'}${birthPlace ? `\n(${birthPlace})` : ''}`}</TableCell>
-                  <TableCell>{`${deathDate || '-'}${deathPlace ? `\n(${deathPlace})` : ''}`}</TableCell>
-                </TableRow>
-              );
-            })}
+            {rows?.map((row: IArtist) => (
+              <TableRow
+                key={row.id}
+                row={row}
+                checkedList={checkedList}
+                setCheckedList={setCheckedList}
+                openModalEdit={openModalEdit}
+                openModalDelete={openModalDelete}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
+      {isOpenEditModal && (
+        <EditModal
+          type="artist"
+          isOpenEditModal={isOpenEditModal}
+          currentRowArtist={currentRow}
+          setIsOpenEditModal={setIsOpenEditModal}
+        />
+      )}
+      {isOpenDeleteModal && (
+        <DeleteModal
+          type={"artist"}
+          isOpenDeleteModal={isOpenDeleteModal}
+          currentRow={currentRow}
+          setIsOpenDeleteModal={setIsOpenDeleteModal}
+        />
+      )}
     </Paper>
   );
 };

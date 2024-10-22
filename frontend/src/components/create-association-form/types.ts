@@ -1,4 +1,5 @@
 import { FormikProps } from 'formik';
+import { IAssociation } from '../../types';
 
 export interface IBaseForm {
   title: string;
@@ -12,4 +13,7 @@ export interface IBaseForm {
 
 export type IBaseFormProps = FormikProps<IBaseForm>;
 
-export type Props = {};
+export type Props = {
+  row?: IAssociation | null; 
+  action?: string 
+};
