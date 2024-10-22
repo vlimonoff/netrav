@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import {
   Alert,
   Box,
-  Button,
   Collapse,
   IconButton,
   TextField
@@ -20,6 +19,9 @@ export const CreateArtMovementsForm: FC<Props> = ({
   action,
 }): React.ReactElement => {
   const [open, setOpen] = useState<boolean>(false);
+  const endpoint = row
+    ? `${endpoints.ART_MOVEMENTS}/{${row.id}}`
+    : endpoints.ART_MOVEMENTS;
 
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
@@ -30,8 +32,8 @@ export const CreateArtMovementsForm: FC<Props> = ({
 
     onSubmit: async (formData) => {
       try {
-        const response = await fetch(endpoints.ART_MOVEMENTS, {
-          method: "POST",
+        const response = await fetch(endpoint, {
+          method:  row ? "PUT" : "POST",
           body: JSON.stringify(formData),
           headers: {
             "content-type": "application/json;charset=UTF-8",
@@ -47,14 +49,13 @@ export const CreateArtMovementsForm: FC<Props> = ({
 
   return (
     <Box>
-      {/* <Typography variant="h6" fontWeight={600} marginLeft="16px">
-        {dictionary.header}
-      </Typography> */}
       <Box
         component="form"
         sx={styles.form}
         autoComplete="off"
-        onSubmit={baseForm.submitForm}
+        // onSubmit={baseForm.submitForm}
+        onSubmit={baseForm.handleSubmit}
+        id="artmovements"
       >
         <Collapse in={open}>
           <Alert

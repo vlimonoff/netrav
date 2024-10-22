@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef } from 'react';
+import { FC } from "react";
 import {
   Box,
   Typography,
@@ -6,233 +6,266 @@ import {
   CardActionArea,
   CardContent,
   CardMedia,
-} from '@mui/material';
-import { OpenInNew, Announcement } from '@mui/icons-material';
-import { styles } from './styles';
+} from "@mui/material";
+import { OpenInNew, Announcement } from "@mui/icons-material";
+import { styles } from "./styles";
+import { Navigate } from "./navigate";
 
-import img1 from '../../images/img1.png';
+import img1 from "../../images/img1.png";
 // import img2 from '../../images/img2.png';
-import img3 from '../../images/img3.png';
-import img4 from '../../images/img4.png';
-import img5 from '../../images/img5.png';
-import img6 from '../../images/img6.png';
+import img3 from "../../images/img3.png";
+import img4 from "../../images/img4.png";
+import img5 from "../../images/img5.png";
+import img6 from "../../images/img6.png";
 
-import card1 from '../../images/card1.png';
-import card2 from '../../images/card2.png';
-import card3 from '../../images/card3.png';
-import card4 from '../../images/card4.png';
-import card5 from '../../images/card5.png';
-import card6 from '../../images/card6.png';
-import card7 from '../../images/card7.png';
-import card8 from '../../images/card8.png';
-import card9 from '../../images/card9.png';
-import card10 from '../../images/card10.png';
-import card11 from '../../images/card11.png';
+import card1 from "../../images/card1.png";
+import card2 from "../../images/card2.png";
+import card3 from "../../images/card3.png";
+import card4 from "../../images/card4.png";
+import card5 from "../../images/card5.png";
+import card6 from "../../images/card6.png";
+import card7 from "../../images/card7.png";
+import card8 from "../../images/card8.png";
+import card9 from "../../images/card9.png";
+import card10 from "../../images/card10.png";
+import card11 from "../../images/card11.png";
+import { IPropsManual } from "./types";
 
-export const Manual = () => {
-  const ref1 = useRef<HTMLDivElement>();
-  const ref2 = useRef<HTMLDivElement>();
-  const ref3 = useRef<HTMLDivElement>();
-  const ref4 = useRef<HTMLDivElement>();
-  const ref5 = useRef<HTMLDivElement>();
-  const ref6 = useRef<HTMLDivElement>();
-  const ref7 = useRef<HTMLDivElement>();
+export const Manual: FC<IPropsManual> = ({
+  ref1,
+  ref2,
+  ref3,
+  ref4,
+  ref5,
+  ref6,
+  ref7,
+  width,
+  height,
+}) => {
+  // const useWindowSize = () => {
+  //   const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
 
-  const executeScroll = (ref: MutableRefObject<HTMLDivElement | undefined>) =>
-    ref?.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  //   useEffect(() => {
+  //     const resizeHandler = () =>
+  //       setSize([window.innerWidth, window.innerHeight]);
+  //     window.addEventListener("resize", resizeHandler);
+  //     return () => window.removeEventListener("resize", resizeHandler);
+  //   }, []);
+
+  //   return size;
+  // };
+
+  // const [width, height] = useWindowSize();
+
+  // function MyResponsiveComponent() {
+  //   const [width, height] = useWindowSize();
+  //   return (
+  //     <div>
+  //       Ширина: {width}, Высота: {height}
+  //     </div>
+  //   );
+  // }
+  // const ref1 = useRef<HTMLDivElement>();
+  // const ref2 = useRef<HTMLDivElement>();
+  // const ref3 = useRef<HTMLDivElement>();
+  // const ref4 = useRef<HTMLDivElement>();
+  // const ref5 = useRef<HTMLDivElement>();
+  // const ref6 = useRef<HTMLDivElement>();
+  // const ref7 = useRef<HTMLDivElement>();
 
   const navigateToLink = (link: string) => {
-    window.open(link, '_blank');
+    window.open(link, "_blank");
   };
 
   return (
     <Box>
+      {/* {MyResponsiveComponent()} */}
       <Box sx={styles.navigation}>
-        <Typography fontWeight={600} fontSize={24} mb={2}>Навигация</Typography>
-
-        <Typography onClick={() => executeScroll(ref7)}>Предисловие</Typography>
-
-        <Typography onClick={() => executeScroll(ref1)}>
-          Понятийный аппарат
+        {width > 1338 && height > 324 && (
+          <>
+          <Typography fontWeight={600} fontSize={24} mb={2}>
+          Навигация
         </Typography>
-
-        <Typography onClick={() => executeScroll(ref2)}>
-          Техническая часть
-        </Typography>
-
-        <Typography onClick={() => executeScroll(ref3)}>
-          Глобальные характеристики
-        </Typography>
-
-        <Typography onClick={() => executeScroll(ref4)}>
-          Этический момент
-        </Typography>
-
-        <Typography onClick={() => executeScroll(ref5)}>Заключение</Typography>
-
-        <Typography onClick={() => executeScroll(ref6)}>
-          Case studies
-        </Typography>
+          <Navigate
+            ref1={ref1}
+            ref2={ref2}
+            ref3={ref3}
+            ref4={ref4}
+            ref5={ref5}
+            ref6={ref6}
+            ref7={ref7}
+          />
+           </>
+        )}
       </Box>
-
       <Box sx={styles.wrapper}>
         <Box ref={ref7}>
-          <Typography variant='h2' textAlign='center'>
+          <Typography variant="h2" textAlign="center">
             Мы живём в сетевом мире.
           </Typography>
         </Box>
 
-        <Typography variant='h6' textAlign='center' mt={4} mb={10}>
+        <Typography variant="h6" textAlign="center" mt={4} mb={10}>
           Сетевой анализ – это метод исследования взаимосвязей и взаимодействий
           между различными объектами или участниками в сети.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Практически любые системы связей можно представить в виде сети. 
-          Интернет и онлайн-платформы переопределяют коннективность, 
-          демонстрируя её в ещё более явной форме. Сети, традиционно 
-          изучаемые в компьютерных науках и смежных областях, теперь 
-          также становятся объектом и средством исследований в области 
-          гуманитарных наук и искусств.
+        <Typography variant="body1" mb={2}>
+          Практически любые системы связей можно представить в виде сети.
+          Интернет и онлайн-платформы переопределяют коннективность,
+          демонстрируя её в ещё более явной форме. Сети, традиционно изучаемые в
+          компьютерных науках и смежных областях, теперь также становятся
+          объектом и средством исследований в области гуманитарных наук и
+          искусств.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          Сети преодолевают традиционные академические границы. 
-          Представители различных дисциплин принимают сетевую перспективу: 
-          они раскрывают закономерности, отношения и скрытые структуры. 
-          Например, исследователи-гуманитарии используют визуальный и 
-          количественный анализ для раскрытия неявных, не-изучаемых 
-          другими способами, аспектов культуры и общества.
+        <Typography variant="body1" mb={4}>
+          Сети преодолевают традиционные академические границы. Представители
+          различных дисциплин принимают сетевую перспективу: они раскрывают
+          закономерности, отношения и скрытые структуры. Например,
+          исследователи-гуманитарии используют визуальный и количественный
+          анализ для раскрытия неявных, не-изучаемых другими способами, аспектов
+          культуры и общества.
         </Typography>
 
-        <Card sx={{ mb: 4, background: 'rgba(213, 0, 0, 0.1)' }}>
-          <CardContent sx={{ display: 'flex', gap: '16px' }}>
-            <Announcement color='primary' />
-            <Typography variant='body1'>
-              <b>Сетевой анализ</b> – это метод исследования взаимосвязей и 
-              взаимодействий между различными объектами или участниками в сети. 
+        <Card sx={{ mb: 4, background: "rgba(213, 0, 0, 0.1)" }}>
+          <CardContent sx={{ display: "flex", gap: "16px" }}>
+            <Announcement color="primary" />
+            <Typography variant="body1">
+              <b>Сетевой анализ</b> – это метод исследования взаимосвязей и
+              взаимодействий между различными объектами или участниками в сети.
             </Typography>
           </CardContent>
         </Card>
 
-        <Box justifyContent='center' display='flex' mt={8} mb={2}>
-          <img src={img1} alt='' style={styles.image} />
+        <Box justifyContent="center" display="flex" mt={8} mb={2}>
+          <img src={img1} alt="" style={styles.image} />
         </Box>
 
-        <Typography variant='body2' mb={4} textAlign='center'>
+        <Typography variant="body2" mb={4} textAlign="center">
           Рис. 1
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Сеть представляет собой множество <Typography display='inline' color='primary'>вершин</Typography>, 
-          соединенных <Typography display='inline' color='primary'>ребрами</Typography>. 
-          От обычной статистики анализ сетей отличается тем, что единицей
-          наблюдения является не единичный элемент (какой угодно объект – 
-          то, что мы изучаем), а как минимум два таких элемента (диада) и 
-          возможные связи между ними, по которым возможен обмен любыми 
-          ресурсами, в том числе информацией. 
+        <Typography variant="body1" mb={2}>
+          Сеть представляет собой множество{" "}
+          <Typography display="inline" color="primary">
+            вершин
+          </Typography>
+          , соединенных{" "}
+          <Typography display="inline" color="primary">
+            ребрами
+          </Typography>
+          . От обычной статистики анализ сетей отличается тем, что единицей
+          наблюдения является не единичный элемент (какой угодно объект – то,
+          что мы изучаем), а как минимум два таких элемента (диада) и возможные
+          связи между ними, по которым возможен обмен любыми ресурсами, в том
+          числе информацией.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Сетевой анализ способен решать множество задач в зависимости от 
-          дисциплины и цели исследования. Мы выделили основные задачи, 
-          довольно универсальные для гуманитарных наук, но в первую очередь 
-          характерные для нашего графа:
+        <Typography variant="body1" mb={2}>
+          Сетевой анализ способен решать множество задач в зависимости от
+          дисциплины и цели исследования. Мы выделили основные задачи, довольно
+          универсальные для гуманитарных наук, но в первую очередь характерные
+          для нашего графа:
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Идентификация ключевых элементов графа (фигур и объединений);
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Изучение распространения влияния (идей, стилей);
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Анализ коллабораций и взаимоотношений элементов;
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Обнаружение скрытых элементов (неочевидных связей);
         </Typography>
 
-        <Typography variant='body1' mb={10} ml={4}>
+        <Typography variant="body1" mb={10} ml={4}>
           - Изучение динамики эволюции сети.
         </Typography>
 
         <Box ref={ref1}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Понятийный аппарат
           </Typography>
         </Box>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Вершины и ребра
         </Typography>
 
-        <Typography variant='body1' mb={2}>
+        <Typography variant="body1" mb={2}>
           Во введении мы уже называли определение сетевого анализа. Теперь
           разберемся с его элементами – вершинами и ребрами. Обычно они
           определяются в начале работы.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          <Typography display='inline' color='primary'>Вершина (или узел)</Typography> – отдельный актор исследования. Вершинами могут
-          быть, например:
+        <Typography variant="body1" mb={2}>
+          <Typography display="inline" color="primary">
+            Вершина (или узел)
+          </Typography>{" "}
+          – отдельный актор исследования. Вершинами могут быть, например:
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Художники-авангардисты;
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Художественные школы и группы;
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Идеи и концепции;
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
+        <Typography variant="body1" mb={1} ml={4}>
           - Отдельно взятые работы художников;
         </Typography>
 
-        <Typography variant='body1' mb={2} ml={4}>
+        <Typography variant="body1" mb={2} ml={4}>
           и т.д.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          <Typography display='inline' color='primary'>Ребро</Typography> – 
-          олицетворение связи между осязаемыми и/или неосязаемыми объектами 
+        <Typography variant="body1" mb={2}>
+          <Typography display="inline" color="primary">
+            Ребро
+          </Typography>{" "}
+          – олицетворение связи между осязаемыми и/или неосязаемыми объектами
           (изучаемыми узлами). Примеры:
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          - Влияние и взаимодействие между художниками: коллаборации, обмен 
+        <Typography variant="body1" mb={1} ml={4}>
+          - Влияние и взаимодействие между художниками: коллаборации, обмен
           идеями и методами.
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          - Взаимодействие с культурными движениями: литературные группы, 
-          театральные коллективы, музыкальные объединения, отдельно взятые 
+        <Typography variant="body1" mb={1} ml={4}>
+          - Взаимодействие с культурными движениями: литературные группы,
+          театральные коллективы, музыкальные объединения, отдельно взятые
           движения в искусстве и т. д.
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          - Реакция на социальные и политические события: революционные движения, 
-          войны, технологические изменения и т. д. (уехал/не уехал, поддержал 
-          что-то/нет, участвовал в событии/нет).
+        <Typography variant="body1" mb={1} ml={4}>
+          - Реакция на социальные и политические события: революционные
+          движения, войны, технологические изменения и т. д. (уехал/не уехал,
+          поддержал что-то/нет, участвовал в событии/нет).
         </Typography>
 
-        <Typography variant='body1' mb={2} ml={4}>
-          - Взаимодействие с публикой и критиками: реакция общества и критиков, 
+        <Typography variant="body1" mb={2} ml={4}>
+          - Взаимодействие с публикой и критиками: реакция общества и критиков,
           дискуссии и споры вокруг их значимости и смысла.
         </Typography>
 
-        <Card sx={{ mb: 2, background: 'rgba(213, 0, 0, 0.1)' }}>
-          <CardContent sx={{ display: 'flex', gap: '16px' }}>
-            <Announcement color='primary' />
-            <Typography variant='body1'>
+        <Card sx={{ mb: 2, background: "rgba(213, 0, 0, 0.1)" }}>
+          <CardContent sx={{ display: "flex", gap: "16px" }}>
+            <Announcement color="primary" />
+            <Typography variant="body1">
               NB! Прежде всего, стоит определить цель нашего анализа, то есть
               что именно мы хотим узнать или выяснить с помощью сетевого
               анализа.
@@ -240,71 +273,92 @@ export const Manual = () => {
           </CardContent>
         </Card>
 
-        <Typography variant='body1' mb={4}>
-          После определения сети (вершин и рёбер) начинается этап
-          сбора данных и представления сети в виде <Typography display='inline' color='primary'>графа</Typography>, 
-          где <Typography display='inline' color='primary'>узлы</Typography> –
-          объекты, а <Typography display='inline' color='primary'>ребра</Typography> – 
-          связи между ними.
+        <Typography variant="body1" mb={4}>
+          После определения сети (вершин и рёбер) начинается этап сбора данных и
+          представления сети в виде{" "}
+          <Typography display="inline" color="primary">
+            графа
+          </Typography>
+          , где{" "}
+          <Typography display="inline" color="primary">
+            узлы
+          </Typography>{" "}
+          – объекты, а{" "}
+          <Typography display="inline" color="primary">
+            ребра
+          </Typography>{" "}
+          – связи между ними.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Граф
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          <Typography display='inline' color='primary'>Граф</Typography> – 
-          это абстрактная математическая структура, которая состоит из множества 
-          вершин (узлов) и множества рёбер (связей), соединяющих эти вершины. В 
-          контексте сетевого анализа граф используется для визуализации и анализа 
-          взаимосвязей между объектами.
+        <Typography variant="body1" mb={2}>
+          <Typography display="inline" color="primary">
+            Граф
+          </Typography>{" "}
+          – это абстрактная математическая структура, которая состоит из
+          множества вершин (узлов) и множества рёбер (связей), соединяющих эти
+          вершины. В контексте сетевого анализа граф используется для
+          визуализации и анализа взаимосвязей между объектами.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          На графе вершины представляют собой отдельных участников (например, 
-          художников или литераторов), а связи между узлами отображают различные 
-          виды взаимодействий или отношений между ними (например, сотрудничество, 
-          влияние, схожие идеи и т.д.).
+        <Typography variant="body1" mb={4}>
+          На графе вершины представляют собой отдельных участников (например,
+          художников или литераторов), а связи между узлами отображают различные
+          виды взаимодействий или отношений между ними (например,
+          сотрудничество, влияние, схожие идеи и т.д.).
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Индексы
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Другой важный элемент графа – система <Typography display='inline' color='primary'>индексов</Typography>. 
-          Индексы помогут идентифицировать каждый элемент и их взаимосвязи внутри сети.
+        <Typography variant="body1" mb={2}>
+          Другой важный элемент графа – система{" "}
+          <Typography display="inline" color="primary">
+            индексов
+          </Typography>
+          . Индексы помогут идентифицировать каждый элемент и их взаимосвязи
+          внутри сети.
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          1. Уникальные идентификаторы элементов для однозначного 
-          идентифицирования их в зачастую комплексной и запутанной сетевой модели.
+        <Typography variant="body1" mb={1} ml={4}>
+          1. Уникальные идентификаторы элементов для однозначного
+          идентифицирования их в зачастую комплексной и запутанной сетевой
+          модели.
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          2. Индексы связей для обозначения типов связей между элементами. Это 
-          могут быть числовые или буквенные значения различных типов взаимосвязей, 
-          например "1" для прямых связей, "2" для непрямых и "3" для взвешенных.
+        <Typography variant="body1" mb={1} ml={4}>
+          2. Индексы связей для обозначения типов связей между элементами. Это
+          могут быть числовые или буквенные значения различных типов
+          взаимосвязей, например "1" для прямых связей, "2" для непрямых и "3"
+          для взвешенных.
         </Typography>
 
-        <Typography variant='body1' mb={4} ml={4}>
-          3. Индексы свойств элементов: нужны, если у сущностей есть какие-то важные 
-          дополнительные свойства. В нашем случае это могут быть такие свойства как 
-          годы жизни, место рождения, направление творчества и т. д.
+        <Typography variant="body1" mb={4} ml={4}>
+          3. Индексы свойств элементов: нужны, если у сущностей есть какие-то
+          важные дополнительные свойства. В нашем случае это могут быть такие
+          свойства как годы жизни, место рождения, направление творчества и т.
+          д.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Типы связи
         </Typography>
 
-        <Typography variant='body1' mb={2}>
+        <Typography variant="body1" mb={2}>
           Связи внутри графа бывают трех видов:
         </Typography>
 
-        <Typography variant='body1' mb={2} ml={4}>
-          1. <Typography display='inline' color='primary'>Directed network</Typography> (направленные) – используются для изучения
-          конкретных сотрудничеств между участниками, такие как совместные
-          проекты или работы.
+        <Typography variant="body1" mb={2} ml={4}>
+          1.{" "}
+          <Typography display="inline" color="primary">
+            Directed network
+          </Typography>{" "}
+          (направленные) – используются для изучения конкретных сотрудничеств
+          между участниками, такие как совместные проекты или работы.
         </Typography>
 
         {/* <Box justifyContent='center' display='flex' mt={4} mb={2}>
@@ -315,940 +369,947 @@ export const Manual = () => {
           Рис. 2
         </Typography> */}
 
-        <Typography variant='body1' mb={2} ml={4}>
-          2. <Typography display='inline' color='primary'>Undirected network</Typography> (ненаправленные) – используются для выявления
-          общих идей и взаимного влияния между участниками, даже если они не работали 
-          непосредственно вместе. Непрямые связи могут помочь выявить общие идеи и 
-          концепции, которые были важны для развития авангардизма. Пример: проект 
-          “Forgotten heritage”, посвященный европейским художникам-авангардистам. 
-          В графе присутствует возможность выбрать связь по институциям, тем самым 
-          выявляя художников, которые могли быть знакомы друг с другом, при этом 
-          не имея других типов связей.
+        <Typography variant="body1" mb={2} ml={4}>
+          2.{" "}
+          <Typography display="inline" color="primary">
+            Undirected network
+          </Typography>{" "}
+          (ненаправленные) – используются для выявления общих идей и взаимного
+          влияния между участниками, даже если они не работали непосредственно
+          вместе. Непрямые связи могут помочь выявить общие идеи и концепции,
+          которые были важны для развития авангардизма. Пример: проект
+          “Forgotten heritage”, посвященный европейским
+          художникам-авангардистам. В графе присутствует возможность выбрать
+          связь по институциям, тем самым выявляя художников, которые могли быть
+          знакомы друг с другом, при этом не имея других типов связей.
         </Typography>
 
         <Card
-            sx={{ mb: 4, ml: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://www.forgottenheritage.eu/relations'
-              )
-            }
+          sx={{ mb: 4, ml: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink("https://www.forgottenheritage.eu/relations")
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Forgotten Heritage
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">Forgotten Heritage</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-        <Box justifyContent='center' display='flex' mt={4} mb={2}>
-          <img src={img3} alt='' style={styles.image} />
+        <Box justifyContent="center" display="flex" mt={4} mb={2}>
+          <img src={img3} alt="" style={styles.image} />
         </Box>
 
-        <Typography variant='body2' mb={4} textAlign='center'>
+        <Typography variant="body2" mb={4} textAlign="center">
           Рис. 2
         </Typography>
 
-
-        <Typography variant='body1' mb={2} ml={4}>
-          3. <Typography display='inline' color='primary'>Weighted network</Typography> (взвешенные) – этот тип подходит, если нам надо
-          учитывать степень влияния каждого участника на конечный результат или, 
-          в нашем случае, направление развития авангардистского движения. 
-          Взвешенные связи могут помочь определить ключевые элементы или 
-          группы, которые оказали наибольшее влияние на формирование сети. 
-          Пример: “Tudor Networks”. Проект представляет собой архив переписки 
-          эпохи Тюдоров в Англии. В данном случае, чем больше “черточка” человека, 
-          тем больше писем связано с ним.
+        <Typography variant="body1" mb={2} ml={4}>
+          3.{" "}
+          <Typography display="inline" color="primary">
+            Weighted network
+          </Typography>{" "}
+          (взвешенные) – этот тип подходит, если нам надо учитывать степень
+          влияния каждого участника на конечный результат или, в нашем случае,
+          направление развития авангардистского движения. Взвешенные связи могут
+          помочь определить ключевые элементы или группы, которые оказали
+          наибольшее влияние на формирование сети. Пример: “Tudor Networks”.
+          Проект представляет собой архив переписки эпохи Тюдоров в Англии. В
+          данном случае, чем больше “черточка” человека, тем больше писем
+          связано с ним.
         </Typography>
 
         <Card
-            sx={{ mb: 4, ml: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://tudornetworks.net/'
-              )
-            }
+          sx={{ mb: 4, ml: 4, width: "100%", height: 50 }}
+          onClick={() => navigateToLink("https://tudornetworks.net/")}
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Tudor Networks
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">Tudor Networks</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-
-        <Box justifyContent='center' display='flex' mt={4} mb={2}>
-          <img src={img4} alt='' style={styles.image} />
+        <Box justifyContent="center" display="flex" mt={4} mb={2}>
+          <img src={img4} alt="" style={styles.image} />
         </Box>
 
-        <Typography variant='body2' mb={4} textAlign='center'>
+        <Typography variant="body2" mb={4} textAlign="center">
           Рис. 3
         </Typography>
 
-        <Typography variant='body1' mb={10}>
+        <Typography variant="body1" mb={10}>
           Выбор типа связи зависит от цели вашего сетевого анализа и теории.
         </Typography>
 
         <Box ref={ref2}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Техническая часть
           </Typography>
         </Box>
 
-        <Typography variant='body1' mb={4}>
-          Возможно, из-за того, что графики так просты в определении и работе 
-          с ними, был изучен огромный спектр графо-теоретических понятий; 
-          социолог Джон Барнс однажды описал теорию графов как “терминологические 
-          джунгли, в которых любой новичок может посадить дерево”. К счастью, 
-          для наших целей мы сможем начать с краткого обсуждения некоторых 
+        <Typography variant="body1" mb={4}>
+          Возможно, из-за того, что графики так просты в определении и работе с
+          ними, был изучен огромный спектр графо-теоретических понятий; социолог
+          Джон Барнс однажды описал теорию графов как “терминологические
+          джунгли, в которых любой новичок может посадить дерево”. К счастью,
+          для наших целей мы сможем начать с краткого обсуждения некоторых
           наиболее важных концепций.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Как собирать данные
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Бурный рост исследований крупномасштабных сетей в последние годы в 
-          значительной степени был вызван растущей доступностью больших и 
-          подробных наборов данных (датасетов). Мы касались примеров таких 
-          наборов данных на протяжении первых двух глав, и на этом этапе 
-          полезно сделать шаг назад и более систематически подумать о том, 
-          откуда люди брали данные, которые они используют в крупномасштабных 
-          исследованиях сетей.
+        <Typography variant="body1" mb={2}>
+          Бурный рост исследований крупномасштабных сетей в последние годы в
+          значительной степени был вызван растущей доступностью больших и
+          подробных наборов данных (датасетов). Мы касались примеров таких
+          наборов данных на протяжении первых двух глав, и на этом этапе полезно
+          сделать шаг назад и более систематически подумать о том, откуда люди
+          брали данные, которые они используют в крупномасштабных исследованиях
+          сетей.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Дисклеймер: если в вашей работе вы собираетесь воспользоваться данными 
-          из свободного цифрового пространства, лучше сразу принимайте во внимание, 
-          насколько легко эти данные будет собрать (спарсить), так как с этим могут 
-          возникнуть проблемы.
+        <Typography variant="body1" mb={2}>
+          Дисклеймер: если в вашей работе вы собираетесь воспользоваться данными
+          из свободного цифрового пространства, лучше сразу принимайте во
+          внимание, насколько легко эти данные будет собрать (спарсить), так как
+          с этим могут возникнуть проблемы.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Мы советуем начинать поиск с открытых источников и обращать внимание на 
-          внутреннее устройство сайтов, чтобы оценить, насколько сложным будет в 
-          итоге алгоритм парсинга. Сложности могут представлять различные факторы, 
-          такие как динамическая подгрузка контента, сложные структуры данных, 
-          использование JavaScript для отображения данных, а также наличие капч и 
-          других мер защиты от автоматического сбора информации. Также следует 
-          учитывать возможные юридические ограничения на использование данных, 
-          которые могут накладывать владельцы сайтов (более подробно об этом 
-          расскажем в разделе об этике). Важно заранее провести анализ и 
-          тестирование, чтобы определить, насколько эффективными будут ваши 
-          инструменты парсинга в конкретных условиях, и учесть возможные риски и 
-          затраты времени.
+        <Typography variant="body1" mb={2}>
+          Мы советуем начинать поиск с открытых источников и обращать внимание
+          на внутреннее устройство сайтов, чтобы оценить, насколько сложным
+          будет в итоге алгоритм парсинга. Сложности могут представлять
+          различные факторы, такие как динамическая подгрузка контента, сложные
+          структуры данных, использование JavaScript для отображения данных, а
+          также наличие капч и других мер защиты от автоматического сбора
+          информации. Также следует учитывать возможные юридические ограничения
+          на использование данных, которые могут накладывать владельцы сайтов
+          (более подробно об этом расскажем в разделе об этике). Важно заранее
+          провести анализ и тестирование, чтобы определить, насколько
+          эффективными будут ваши инструменты парсинга в конкретных условиях, и
+          учесть возможные риски и затраты времени.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          В нашем проекте мы использовали такие открытые источники, как wikipedia, 
-          сайты открытых энциклопедий об искусстве и аукционов. При помощи инструментов 
-          python мы разработали алгоритм сбора информации с отобранных сайтов, при 
-          помощи которого данные автоматически попадали в единую таблицу.
+        <Typography variant="body1" mb={2}>
+          В нашем проекте мы использовали такие открытые источники, как
+          wikipedia, сайты открытых энциклопедий об искусстве и аукционов. При
+          помощи инструментов python мы разработали алгоритм сбора информации с
+          отобранных сайтов, при помощи которого данные автоматически попадали в
+          единую таблицу.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Процесс парсинга не всегда проходит идеально, даже если алгоритм в целом 
-          составлен верно. Часто бывает, что с первого взгляда идентичные страницы 
-          имеют мелкие структурные различия, в результате чего данные парсятся не в 
-          полном объеме. Нередко также возникают проблемы с кодировкой, когда символы 
-          отображаются некорректно, или с изменением форматов данных на стороне 
-          сервера, что требует постоянной корректировки алгоритма. Более того, сайты 
-          могут менять свою структуру без предупреждения, что приводит к необходимости 
-          регулярного обновления парсеров. Кроме того, могут возникать трудности с 
-          доступом к данным из-за ограничений на количество запросов или блокировок 
-          IP-адресов, что делает процесс сбора данных еще более сложным и трудоемким. 
-          Важно быть готовым к таким неожиданностям и иметь план действий на случай 
-          возникновения подобных проблем.
+        <Typography variant="body1" mb={2}>
+          Процесс парсинга не всегда проходит идеально, даже если алгоритм в
+          целом составлен верно. Часто бывает, что с первого взгляда идентичные
+          страницы имеют мелкие структурные различия, в результате чего данные
+          парсятся не в полном объеме. Нередко также возникают проблемы с
+          кодировкой, когда символы отображаются некорректно, или с изменением
+          форматов данных на стороне сервера, что требует постоянной
+          корректировки алгоритма. Более того, сайты могут менять свою структуру
+          без предупреждения, что приводит к необходимости регулярного
+          обновления парсеров. Кроме того, могут возникать трудности с доступом
+          к данным из-за ограничений на количество запросов или блокировок
+          IP-адресов, что делает процесс сбора данных еще более сложным и
+          трудоемким. Важно быть готовым к таким неожиданностям и иметь план
+          действий на случай возникновения подобных проблем.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Мы советуем заранее прописать в пайплайне работы этап для ручного отсмотра 
-          полученных данных. Это позволит выявить и устранить мелкие артефакты парсинга, 
-          которые могут повлиять на качество итогового набора данных. Некоторые 
-          незначительные ошибки и несоответствия можно исправить вручную. Однако, если 
-          данные содержат более масштабные несоответствия желаемому формату, будет 
-          эффективнее разрабатывать и применять автоматизированные методы очистки. 
-          Автоматическая очистка данных не только экономит время, но и обеспечивает 
-          высокую степень точности и согласованности результатов. Включение этапа 
-          проверки и очистки в пайплайн вашего исследования поможет гарантировать, что 
-          собранные данные будут соответствовать требованиям и стандартам, необходимым 
-          для дальнейшего анализа, использования и хранения.
+        <Typography variant="body1" mb={2}>
+          Мы советуем заранее прописать в пайплайне работы этап для ручного
+          отсмотра полученных данных. Это позволит выявить и устранить мелкие
+          артефакты парсинга, которые могут повлиять на качество итогового
+          набора данных. Некоторые незначительные ошибки и несоответствия можно
+          исправить вручную. Однако, если данные содержат более масштабные
+          несоответствия желаемому формату, будет эффективнее разрабатывать и
+          применять автоматизированные методы очистки. Автоматическая очистка
+          данных не только экономит время, но и обеспечивает высокую степень
+          точности и согласованности результатов. Включение этапа проверки и
+          очистки в пайплайн вашего исследования поможет гарантировать, что
+          собранные данные будут соответствовать требованиям и стандартам,
+          необходимым для дальнейшего анализа, использования и хранения.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          В ходе работы над нашим проектом вопрос очистки данных и их приведения к 
-          единому формату, в один момент, стал одной из ключевых и наиболее срочных 
-          задач. Чтобы обуздать хаос из форматов записи имен и названий художественных 
-          объединений, мы вновь обратились к инструментарию python. И провели 
-          полноценный воркшоп по очистке и организации текстовых и табличных данных 
-          для всех участников нашего проекта. Подробнее ознакомиться с шагами, которые 
-          мы предпринимали в ходе воркшопа, можно в этой тетрадке с кодом: 
+        <Typography variant="body1" mb={2}>
+          В ходе работы над нашим проектом вопрос очистки данных и их приведения
+          к единому формату, в один момент, стал одной из ключевых и наиболее
+          срочных задач. Чтобы обуздать хаос из форматов записи имен и названий
+          художественных объединений, мы вновь обратились к инструментарию
+          python. И провели полноценный воркшоп по очистке и организации
+          текстовых и табличных данных для всех участников нашего проекта.
+          Подробнее ознакомиться с шагами, которые мы предпринимали в ходе
+          воркшопа, можно в этой тетрадке с кодом:
         </Typography>
 
         <Card
-            sx={{ mb: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://colab.research.google.com/drive/1DVYfF0m-Ry32uNkgD-SDyYPcZJqhMEnW?usp=sharing'
-              )
-            }
+          sx={{ mb: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://colab.research.google.com/drive/1DVYfF0m-Ry32uNkgD-SDyYPcZJqhMEnW?usp=sharing"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Google Colab: материалы воркшопа «(О)чистки данных»
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">
+                Google Colab: материалы воркшопа «(О)чистки данных»
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-
-
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Как визуализировать данные
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          На свете существует огромное количество инструментов для визуализации; 
-          чуть менее огромное число инструментов подходит для визуализации сетей. 
-          Среди них можно выделить такие популярные решения, как Gephi, NodeXL и 
-          Cytoscape, которые предоставляют широкие возможности для анализа и 
-          представления данных в виде графов. Gephi, например, позволяет 
-          интерактивно исследовать сложные сети, предлагая разнообразные 
-          алгоритмы кластеризации и стилизации графов. NodeXL интегрируется с 
-          Excel, что упрощает работу с данными для тех, кто предпочитает таблицы. 
-          Cytoscape, изначально разработанный для биологических сетей, также 
-          отлично подходит для анализа и визуализации разнообразных сетевых 
-          структур. Дополнительно существуют онлайн-инструменты, такие как 
-          Graphistry и Polinode, которые позволяют визуализировать графы без 
-          необходимости установки специализированного ПО. Выбор подходящего 
-          инструмента зависит от конкретных требований проекта, таких как объем 
-          данных, необходимость интерактивности и доступность дополнительных 
-          аналитических функций.
+        <Typography variant="body1" mb={2}>
+          На свете существует огромное количество инструментов для визуализации;
+          чуть менее огромное число инструментов подходит для визуализации
+          сетей. Среди них можно выделить такие популярные решения, как Gephi,
+          NodeXL и Cytoscape, которые предоставляют широкие возможности для
+          анализа и представления данных в виде графов. Gephi, например,
+          позволяет интерактивно исследовать сложные сети, предлагая
+          разнообразные алгоритмы кластеризации и стилизации графов. NodeXL
+          интегрируется с Excel, что упрощает работу с данными для тех, кто
+          предпочитает таблицы. Cytoscape, изначально разработанный для
+          биологических сетей, также отлично подходит для анализа и визуализации
+          разнообразных сетевых структур. Дополнительно существуют
+          онлайн-инструменты, такие как Graphistry и Polinode, которые позволяют
+          визуализировать графы без необходимости установки специализированного
+          ПО. Выбор подходящего инструмента зависит от конкретных требований
+          проекта, таких как объем данных, необходимость интерактивности и
+          доступность дополнительных аналитических функций.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          В ходе нашего проекта мы успели ознакомиться со многими инструментами, 
-          но в итоге остановили выбор на связке из нескольких библиотек (networkx 
-          и pyvis) в среде python. При выборе инструмента для нас были наиболее 
-          важны такие факторы как: возможность кастомизации визуальных элементов 
-          графа, удобство работы с табличными данными, интерактивность формата 
-          итогового графа, возможность встроить его в веб-среду.
+        <Typography variant="body1" mb={2}>
+          В ходе нашего проекта мы успели ознакомиться со многими инструментами,
+          но в итоге остановили выбор на связке из нескольких библиотек
+          (networkx и pyvis) в среде python. При выборе инструмента для нас были
+          наиболее важны такие факторы как: возможность кастомизации визуальных
+          элементов графа, удобство работы с табличными данными, интерактивность
+          формата итогового графа, возможность встроить его в веб-среду.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Графы можно по-разному настраивать в зависимости от желаемого результата, 
-          структуры данных и возможностей выбранного инструмента. Эти настройки 
-          позволяют адаптировать визуализацию под конкретные задачи и улучшить 
-          качество итоговой репрезентации данных. Мы настоятельно советуем обращаться 
-          к документации инструментов для получения полной информации о доступных 
-          опциях и их применении.
+        <Typography variant="body1" mb={2}>
+          Графы можно по-разному настраивать в зависимости от желаемого
+          результата, структуры данных и возможностей выбранного инструмента.
+          Эти настройки позволяют адаптировать визуализацию под конкретные
+          задачи и улучшить качество итоговой репрезентации данных. Мы
+          настоятельно советуем обращаться к документации инструментов для
+          получения полной информации о доступных опциях и их применении.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Используя библиотеки NetworkX и Pyvis, можно задать множество настроек для 
-          графа, чтобы визуализация данных была максимально информативной и 
-          эстетически привлекательной. В NetworkX можно настроить различные параметры 
-          графа, начиная от структуры и заканчивая внешним видом узлов и ребер. 
-          Например, можно использовать разные алгоритмы для расположения узлов 
-          (layouts), такие как spring layout, spectral layout, и shell layout. Spring 
-          layout, основанный на физической модели притяжения и отталкивания, позволяет 
-          расположить узлы таким образом, чтобы минимизировать пересечения ребер, 
-          создавая визуально понятную структуру. Spectral layout использует 
-          спектральные свойства графа для определения позиции узлов, что может быть 
-          полезно для анализа крупных и сложных сетей. Shell layout, в свою очередь, 
-          располагает узлы в концентрических кругах, что удобно для визуализации 
-          иерархических структур.
+        <Typography variant="body1" mb={2}>
+          Используя библиотеки NetworkX и Pyvis, можно задать множество настроек
+          для графа, чтобы визуализация данных была максимально информативной и
+          эстетически привлекательной. В NetworkX можно настроить различные
+          параметры графа, начиная от структуры и заканчивая внешним видом узлов
+          и ребер. Например, можно использовать разные алгоритмы для
+          расположения узлов (layouts), такие как spring layout, spectral
+          layout, и shell layout. Spring layout, основанный на физической модели
+          притяжения и отталкивания, позволяет расположить узлы таким образом,
+          чтобы минимизировать пересечения ребер, создавая визуально понятную
+          структуру. Spectral layout использует спектральные свойства графа для
+          определения позиции узлов, что может быть полезно для анализа крупных
+          и сложных сетей. Shell layout, в свою очередь, располагает узлы в
+          концентрических кругах, что удобно для визуализации иерархических
+          структур.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          С помощью Pyvis можно детально настраивать визуальные элементы графа, делая 
-          его интерактивным и удобным для пользователя. Можно изменять цвета узлов и 
-          ребер, задавать их размеры и формы, а также добавлять подписи и подсказки. 
-          Pyvis также позволяет настраивать физические параметры графа, такие как сила 
-          притяжения и отталкивания между узлами, чтобы улучшить визуальное восприятие 
-          структуры сети. Дополнительно можно включить или отключить элементы управления, 
-          такие как масштабирование и панорамирование, что дает пользователю возможность 
-          подробно изучить интересующие его части графа. Эти настройки позволяют создавать 
-          наглядные и легко интерпретируемые визуализации, которые могут быть адаптированы 
-          под конкретные требования исследования.
+        <Typography variant="body1" mb={2}>
+          С помощью Pyvis можно детально настраивать визуальные элементы графа,
+          делая его интерактивным и удобным для пользователя. Можно изменять
+          цвета узлов и ребер, задавать их размеры и формы, а также добавлять
+          подписи и подсказки. Pyvis также позволяет настраивать физические
+          параметры графа, такие как сила притяжения и отталкивания между
+          узлами, чтобы улучшить визуальное восприятие структуры сети.
+          Дополнительно можно включить или отключить элементы управления, такие
+          как масштабирование и панорамирование, что дает пользователю
+          возможность подробно изучить интересующие его части графа. Эти
+          настройки позволяют создавать наглядные и легко интерпретируемые
+          визуализации, которые могут быть адаптированы под конкретные
+          требования исследования.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Подробнее о других инструментах для визуализации сетей можно прочитать на странице 
-          нашего проекта в notion, в разделе “инструменты”: 
-        </Typography>
-
-        <Card
-            sx={{ mb: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://www.notion.so/dhcenteritmo/08d7f0a3d0934f12b65d37da88c7e35c'
-              )
-            }
-          >
-            <CardActionArea
-              sx={{
-                height: '100%',
-              }}
-            >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  НЕТРАВ: Инструменты и референсы
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-
-        <Typography variant='body1' mb={2}>
-          Кроме того, в тетради с кодом по составлению финальной версии 
-          графа можно найти полный список настроек визуальных и физических 
-          параметров, который мы применили на нашем графе:
+        <Typography variant="body1" mb={2}>
+          Подробнее о других инструментах для визуализации сетей можно прочитать
+          на странице нашего проекта в notion, в разделе “инструменты”:
         </Typography>
 
         <Card
-            sx={{ mb: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://colab.research.google.com/drive/1j6IsLMVipPapvDeIBDXDW9YEmrgBqA-p?usp=sharing'
-              )
-            }
+          sx={{ mb: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://www.notion.so/dhcenteritmo/08d7f0a3d0934f12b65d37da88c7e35c"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Google Colab: финальная версия графа
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">
+                НЕТРАВ: Инструменты и референсы
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-        <Typography variant='body1' mb={2}>
-          Документация библиотек, которыми мы пользовались для построения 
-          сетевых визуализаций, доступна по ссылкам: 
+        <Typography variant="body1" mb={2}>
+          Кроме того, в тетради с кодом по составлению финальной версии графа
+          можно найти полный список настроек визуальных и физических параметров,
+          который мы применили на нашем графе:
         </Typography>
 
         <Card
-            sx={{ mb: 2, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://networkx.org/documentation/stable/reference/index.html'
-              )
-            }
+          sx={{ mb: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://colab.research.google.com/drive/1j6IsLMVipPapvDeIBDXDW9YEmrgBqA-p?usp=sharing"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Документация NetworkX
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">
+                Google Colab: финальная версия графа
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-          <Card
-            sx={{ mb: 2, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://pyvis.readthedocs.io/en/latest/documentation.html'
-              )
-            }
+        <Typography variant="body1" mb={2}>
+          Документация библиотек, которыми мы пользовались для построения
+          сетевых визуализаций, доступна по ссылкам:
+        </Typography>
+
+        <Card
+          sx={{ mb: 2, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://networkx.org/documentation/stable/reference/index.html"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Документация pyvis 
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">Документация NetworkX</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-          <Card
-            sx={{ mb: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://pyvis.readthedocs.io/en/latest/tutorial.html'
-              )
-            }
+        <Card
+          sx={{ mb: 2, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://pyvis.readthedocs.io/en/latest/documentation.html"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Туториал по pyvis
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">Документация pyvis</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
+        <Card
+          sx={{ mb: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://pyvis.readthedocs.io/en/latest/tutorial.html"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
+          >
+            <CardContent
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
+              }}
+            >
+              <OpenInNew color="primary" />
+              <Typography variant="body2">Туториал по pyvis</Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-
-        <Typography variant='body1' mb={2}>
+        <Typography variant="body1" mb={2}>
           Принципы проектирования эффективных сетей:
         </Typography>
 
-        <Typography variant='body1' mb={1} ml={4}>
-          - <Typography display='inline' color='primary'>Четкость и читаемость</Typography>:
-          использование цветов, размеров узлов и толщины ребер для выделения 
+        <Typography variant="body1" mb={1} ml={4}>
+          -{" "}
+          <Typography display="inline" color="primary">
+            Четкость и читаемость
+          </Typography>
+          : использование цветов, размеров узлов и толщины ребер для выделения
           ключевых элементов сети.
         </Typography>
 
-        <Typography variant='body1' mb={4} ml={4}>
-          - <Typography display='inline' color='primary'>Масштабируемость</Typography>:
-          адаптация визуализации к различным размерам сетей, от небольших до очень крупных.
+        <Typography variant="body1" mb={4} ml={4}>
+          -{" "}
+          <Typography display="inline" color="primary">
+            Масштабируемость
+          </Typography>
+          : адаптация визуализации к различным размерам сетей, от небольших до
+          очень крупных.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Проектирование удобных сетевых визуализаций требует учета нескольких 
-          ключевых принципов, направленных на улучшение восприятия и интерпретации 
-          данных. В первую очередь, необходимо обеспечить ясность и читабельность 
-          графа. Это можно достичь за счет минимизации пересечений ребер и 
-          использования интуитивных алгоритмов расположения узлов, таких как 
-          spring layout или force-directed layout, которые распределяют узлы таким 
-          образом, чтобы их позиции соответствовали логической структуре данных. 
-          Важно также выбирать контрастные цвета и различные формы для узлов и 
-          ребер, чтобы различать разные типы связей и объектов, особенно в сложных 
-          сетях с большим количеством элементов.
+        <Typography variant="body1" mb={2}>
+          Проектирование удобных сетевых визуализаций требует учета нескольких
+          ключевых принципов, направленных на улучшение восприятия и
+          интерпретации данных. В первую очередь, необходимо обеспечить ясность
+          и читабельность графа. Это можно достичь за счет минимизации
+          пересечений ребер и использования интуитивных алгоритмов расположения
+          узлов, таких как spring layout или force-directed layout, которые
+          распределяют узлы таким образом, чтобы их позиции соответствовали
+          логической структуре данных. Важно также выбирать контрастные цвета и
+          различные формы для узлов и ребер, чтобы различать разные типы связей
+          и объектов, особенно в сложных сетях с большим количеством элементов.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Еще один принцип - интерактивность визуализации. Пользователям должно быть 
-          удобно исследовать граф, что подразумевает возможность масштабирования, 
-          панорамирования и взаимодействия с узлами и ребрами (например, отображение 
-          всплывающих подсказок или дополнительной информации при наведении курсора). 
-          Такие функции значительно улучшают пользовательский опыт и позволяют глубже 
-          погружаться в данные. Не менее важно предусмотреть возможность фильтрации и 
-          выделения определенных подгрупп узлов или связей, что помогает сосредоточиться 
-          на интересующих аспектах сети. Применение анимации для отображения изменений 
-          или перемещений внутри графа также может способствовать лучшему пониманию 
-          динамики и структуры сети. Следуя этим принципам, можно создать удобную и 
-          информативную сетевую визуализацию, которая будет эффективно служить целям 
-          анализа и представления данных.
+        <Typography variant="body1" mb={2}>
+          Еще один принцип - интерактивность визуализации. Пользователям должно
+          быть удобно исследовать граф, что подразумевает возможность
+          масштабирования, панорамирования и взаимодействия с узлами и ребрами
+          (например, отображение всплывающих подсказок или дополнительной
+          информации при наведении курсора). Такие функции значительно улучшают
+          пользовательский опыт и позволяют глубже погружаться в данные. Не
+          менее важно предусмотреть возможность фильтрации и выделения
+          определенных подгрупп узлов или связей, что помогает сосредоточиться
+          на интересующих аспектах сети. Применение анимации для отображения
+          изменений или перемещений внутри графа также может способствовать
+          лучшему пониманию динамики и структуры сети. Следуя этим принципам,
+          можно создать удобную и информативную сетевую визуализацию, которая
+          будет эффективно служить целям анализа и представления данных.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          На начальных этапах проекта нам удалось провести полноценное ux-исследование 
-          проектов-референсов, в результате которого мы сформулировали ключевые выводы 
-          относительно графовых интерфейсов и составили список рекомендаций по их 
-          реализации. Ознакомиться с нашими материалами можно по ссылке: 
+        <Typography variant="body1" mb={2}>
+          На начальных этапах проекта нам удалось провести полноценное
+          ux-исследование проектов-референсов, в результате которого мы
+          сформулировали ключевые выводы относительно графовых интерфейсов и
+          составили список рекомендаций по их реализации. Ознакомиться с нашими
+          материалами можно по ссылке:
         </Typography>
 
         <Card
-            sx={{ mb: 4, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://www.notion.so/dhcenteritmo/UX-6e9039a2a63542098bab3d144bf4ce55'
-              )
-            }
+          sx={{ mb: 4, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://www.notion.so/dhcenteritmo/UX-6e9039a2a63542098bab3d144bf4ce55"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  НЕТРАВ: UX-исследование о взаимодействии пользователей с графом
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">
+                НЕТРАВ: UX-исследование о взаимодействии пользователей с графом
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Как анализировать данные
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Просто по их внешнему виду мы уже можем видеть некоторую сложность, 
-          которую содержат сетевые структуры. Как правило, сложно кратко описать 
-          всю сеть; есть части, которые более или менее плотно связаны между собой, 
-          иногда с центральными “ядрами”, содержащими большинство ссылок, а иногда 
-          с естественными разделениями на множество тесно связанных регионов. 
+        <Typography variant="body1" mb={2}>
+          Просто по их внешнему виду мы уже можем видеть некоторую сложность,
+          которую содержат сетевые структуры. Как правило, сложно кратко описать
+          всю сеть; есть части, которые более или менее плотно связаны между
+          собой, иногда с центральными “ядрами”, содержащими большинство ссылок,
+          а иногда с естественными разделениями на множество тесно связанных
+          регионов.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Участники сети могут быть более центральными или более периферийными; они 
-          могут пересекать границы различных тесно связанных регионов или располагаться 
-          прямо в центре одного из них. Разработка языка для описания типичных 
-          структурных особенностей сетей будет важным первым шагом в их понимании.
+        <Typography variant="body1" mb={2}>
+          Участники сети могут быть более центральными или более периферийными;
+          они могут пересекать границы различных тесно связанных регионов или
+          располагаться прямо в центре одного из них. Разработка языка для
+          описания типичных структурных особенностей сетей будет важным первым
+          шагом в их понимании.
         </Typography>
 
-        <Typography variant='body1' mb={10}>
-          Фундаментальный момент здесь заключается в том, что в условиях сети вы 
-          должны оценивать свои действия не изолированно, а с ожиданием, что мир 
-          отреагирует на то, что вы делаете. Это означает, что причинно-следственные 
-          связи могут стать довольно тонкими. Изменения в продукте, веб-сайте или 
-          государственной программе могут показаться хорошими идеями, если оценивать 
-          их исходя из предположения, что все остальное останется неизменным, но на 
-          самом деле такие изменения могут легко создать стимулы, которые изменят 
-          поведение в сети таким образом, который изначально был непреднамеренным.
+        <Typography variant="body1" mb={10}>
+          Фундаментальный момент здесь заключается в том, что в условиях сети вы
+          должны оценивать свои действия не изолированно, а с ожиданием, что мир
+          отреагирует на то, что вы делаете. Это означает, что
+          причинно-следственные связи могут стать довольно тонкими. Изменения в
+          продукте, веб-сайте или государственной программе могут показаться
+          хорошими идеями, если оценивать их исходя из предположения, что все
+          остальное останется неизменным, но на самом деле такие изменения могут
+          легко создать стимулы, которые изменят поведение в сети таким образом,
+          который изначально был непреднамеренным.
         </Typography>
 
         <Box ref={ref3}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Глобальные характеристики
           </Typography>
         </Box>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Расстояние и ширина
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          В дополнение к простому вопросу о том, соединены ли два узла путем, 
-          также интересно в большинстве ситуаций, какой длины такой путь. Часто 
-          важно, должно ли что-то, проходящее через сеть, проходить всего 
-          несколько переходов или много. Чтобы иметь возможность точно говорить 
-          об этом понятии, мы определяем длину пути как количество шагов, которые 
-          он содержит от начала до конца – другими словами, количество ребер в 
-          последовательности, которая его содержит.
+        <Typography variant="body1" mb={2}>
+          В дополнение к простому вопросу о том, соединены ли два узла путем,
+          также интересно в большинстве ситуаций, какой длины такой путь. Часто
+          важно, должно ли что-то, проходящее через сеть, проходить всего
+          несколько переходов или много. Чтобы иметь возможность точно говорить
+          об этом понятии, мы определяем длину пути как количество шагов,
+          которые он содержит от начала до конца – другими словами, количество
+          ребер в последовательности, которая его содержит.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          С помощью длины пути мы можем говорить о том, находятся ли два узла 
-          близко друг к другу или далеко друг от друга в графике: мы определяем 
-          расстояние между двумя узлами в графике как длину кратчайшего пути 
+        <Typography variant="body1" mb={2}>
+          С помощью длины пути мы можем говорить о том, находятся ли два узла
+          близко друг к другу или далеко друг от друга в графике: мы определяем
+          расстояние между двумя узлами в графике как длину кратчайшего пути
           между ними.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          Для некоторых графиков, мы обычно можем вычислить расстояние между 
+        <Typography variant="body1" mb={4}>
+          Для некоторых графиков, мы обычно можем вычислить расстояние между
           двумя узлами, взглянув на картинку.
         </Typography>
 
-        <Box justifyContent='center' display='flex' mt={4} mb={2}>
-          <img src={img5} alt='' style={styles.image} />
+        <Box justifyContent="center" display="flex" mt={4} mb={2}>
+          <img src={img5} alt="" style={styles.image} />
         </Box>
 
-        <Typography variant='body2' mb={4} textAlign='center'>
+        <Typography variant="body2" mb={4} textAlign="center">
           Рис. 4
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Но для графиков, которые немного сложнее, нам нужен какой-то 
-          систематический метод определения расстояний. Самый естественный 
-          способ сделать это – а также самый эффективный способ рассчитать 
-          расстояния для большого набора сетевых данных с помощью компьютера – 
-          это то, как вы, вероятно, поступили бы, если бы вам действительно 
-          нужно было определить расстояния в глобальной сети дружбы (и если 
-          бы у вас было безграничное терпение и сотрудничество со всеми 
-          людьми в мире).
+        <Typography variant="body1" mb={2}>
+          Но для графиков, которые немного сложнее, нам нужен какой-то
+          систематический метод определения расстояний. Самый естественный
+          способ сделать это – а также самый эффективный способ рассчитать
+          расстояния для большого набора сетевых данных с помощью компьютера –
+          это то, как вы, вероятно, поступили бы, если бы вам действительно
+          нужно было определить расстояния в глобальной сети дружбы (и если бы у
+          вас было безграничное терпение и сотрудничество со всеми людьми в
+          мире).
         </Typography>
 
-        <Box justifyContent='center' display='flex' mt={4} mb={2}>
-          <img src={img6} alt='' style={styles.image} />
+        <Box justifyContent="center" display="flex" mt={4} mb={2}>
+          <img src={img6} alt="" style={styles.image} />
         </Box>
 
-        <Typography variant='body2' mb={4} textAlign='center'>
+        <Typography variant="body2" mb={4} textAlign="center">
           Рис. 5
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Сначала вы заявляете, что все ваши настоящие друзья находятся на 
-          расстоянии 1. Затем вы находите всех их друзей (не считая людей, 
-          которые уже являются вашими друзьями), и объявите, что они находятся 
-          на расстоянии 2. Затем вы находите всех их друзей (опять же, не 
-          считая людей, которых вы уже нашли на расстояниях 1 и 2) и объявите, 
-          что они находятся на расстоянии 3. Продолжая таким образом, вы 
-          выполняете поиск в последовательных слоях, каждый из которых 
-          представляет следующий дистанцироваться. Каждый новый слой строится 
-          из всех тех узлов, которые еще не были обнаружены в более ранних 
-          слоях и которые имеют ребро к некоторому узлу в предыдущем слое.
+        <Typography variant="body1" mb={2}>
+          Сначала вы заявляете, что все ваши настоящие друзья находятся на
+          расстоянии 1. Затем вы находите всех их друзей (не считая людей,
+          которые уже являются вашими друзьями), и объявите, что они находятся
+          на расстоянии 2. Затем вы находите всех их друзей (опять же, не считая
+          людей, которых вы уже нашли на расстояниях 1 и 2) и объявите, что они
+          находятся на расстоянии 3. Продолжая таким образом, вы выполняете
+          поиск в последовательных слоях, каждый из которых представляет
+          следующий дистанцироваться. Каждый новый слой строится из всех тех
+          узлов, которые еще не были обнаружены в более ранних слоях и которые
+          имеют ребро к некоторому узлу в предыдущем слое.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Этот метод называется поиском вширь, поскольку он выполняет поиск по 
-          графу вширь от начального узла, сначала достигая ближайших узлов. В 
-          дополнение к предоставлению метода определения расстояний, он также 
-          может служить полезной концептуальной основой для организации 
-          структуры графа, располагая узлы на основе их расстояний от 
+        <Typography variant="body1" mb={2}>
+          Этот метод называется поиском вширь, поскольку он выполняет поиск по
+          графу вширь от начального узла, сначала достигая ближайших узлов. В
+          дополнение к предоставлению метода определения расстояний, он также
+          может служить полезной концептуальной основой для организации
+          структуры графа, располагая узлы на основе их расстояний от
           фиксированной начальной точки.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Если возвращаться к кейсу нашего проекта, то на данном этапе разработки 
-          мы успели произвести одну ключевую версию графа, который основан на данных 
-          о причастности персоналий к художественным объединениям. Наш нынешний граф 
-          отражает одну из самых базовых разновидностей связей – то, что можно назвать 
-          вхождением в уже определенную группу. В связи с этими особенностями, нам не 
-          пришлось пока иметь дело с более сложными и автоматизированными алгоритмами 
-          по организации сетевых моделей (вроде выделения отдельных кластеров сущностей) 
-          на основе статистических показателей. Погружение в более сложные операции в 
-          рамках нашего проекта планируется на более поздних этапах, когда у нас будет 
-          достаточно данных для реализации задумки.
+        <Typography variant="body1" mb={2}>
+          Если возвращаться к кейсу нашего проекта, то на данном этапе
+          разработки мы успели произвести одну ключевую версию графа, который
+          основан на данных о причастности персоналий к художественным
+          объединениям. Наш нынешний граф отражает одну из самых базовых
+          разновидностей связей – то, что можно назвать вхождением в уже
+          определенную группу. В связи с этими особенностями, нам не пришлось
+          пока иметь дело с более сложными и автоматизированными алгоритмами по
+          организации сетевых моделей (вроде выделения отдельных кластеров
+          сущностей) на основе статистических показателей. Погружение в более
+          сложные операции в рамках нашего проекта планируется на более поздних
+          этапах, когда у нас будет достаточно данных для реализации задумки.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Однако это не помешало нам уже на нынешнем этапе проанализировать ключевые 
-          базовые математические метрики, важные и обнаруживаемые именно в контексте 
-          наших данных. Так, мы визуализировали показатели центральности для нашего 
-          графа и предложили их осмысление. Выводы, полученные на этом этапе, 
-          натолкнули нас на важные теоретические вопросы, относящиеся уже к сфере 
-          искусствоведения; их дальнейшее изучение мы запланировали на последующие 
-          этапы проекта. Описание этого аналитического процесса доступно в 
-          завершительных частях тетради по ссылке: 
+        <Typography variant="body1" mb={2}>
+          Однако это не помешало нам уже на нынешнем этапе проанализировать
+          ключевые базовые математические метрики, важные и обнаруживаемые
+          именно в контексте наших данных. Так, мы визуализировали показатели
+          центральности для нашего графа и предложили их осмысление. Выводы,
+          полученные на этом этапе, натолкнули нас на важные теоретические
+          вопросы, относящиеся уже к сфере искусствоведения; их дальнейшее
+          изучение мы запланировали на последующие этапы проекта. Описание этого
+          аналитического процесса доступно в завершительных частях тетради по
+          ссылке:
         </Typography>
 
         <Card
-            sx={{ mb: 10, width: '100%', height: 50 }}
-            onClick={() =>
-              navigateToLink(
-                'https://colab.research.google.com/drive/1j6IsLMVipPapvDeIBDXDW9YEmrgBqA-p?usp=sharing'
-              )
-            }
+          sx={{ mb: 10, width: "100%", height: 50 }}
+          onClick={() =>
+            navigateToLink(
+              "https://colab.research.google.com/drive/1j6IsLMVipPapvDeIBDXDW9YEmrgBqA-p?usp=sharing"
+            )
+          }
+        >
+          <CardActionArea
+            sx={{
+              height: "100%",
+            }}
           >
-            <CardActionArea
+            <CardContent
               sx={{
-                height: '100%',
+                display: "flex",
+                alignItems: "center",
+                gap: "16px",
+                padding: "0 16px",
+                height: "100%",
               }}
             >
-              <CardContent
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
-                }}
-              >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
-                  Google Colab: финальная версия графа
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+              <OpenInNew color="primary" />
+              <Typography variant="body2">
+                Google Colab: финальная версия графа
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
 
         <Box ref={ref4}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Этические аспекты (на следующий семестр)
           </Typography>
         </Box>
 
-        <Typography variant='body1' mb={2} color='primary'>
+        <Typography variant="body1" mb={2} color="primary">
           ДИСКЛЕЙМЕР: данный раздел находится в разработке и будет
-          дорабатываться в следующем семестре. Мы продолжаем работать над 
-          его содержанием, чтобы предоставить вам наиболее полную и 
-          актуальную информацию. На данный момент мы расписали примерное 
-          содержание, чтобы показать важность этических вопросов при работе 
-          с данными.
+          дорабатываться в следующем семестре. Мы продолжаем работать над его
+          содержанием, чтобы предоставить вам наиболее полную и актуальную
+          информацию. На данный момент мы расписали примерное содержание, чтобы
+          показать важность этических вопросов при работе с данными.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          Этические аспекты в отношении данных при изучении исторических и 
-          культурных связей с помощью построения графов и визуализации данных 
-          многогранны и требуют особого внимания, об этом важно помнить на 
-          всех этапах создания своего проекта. Вопросы этики могут касаться 
-          как самих данных, влияния на восприятие этих данных и создание некой 
-          картины мира, так и окружающих людей, исследователей и т.д. Мы 
-          разберем несколько наиболее важных аспектов:
+        <Typography variant="body1" mb={4}>
+          Этические аспекты в отношении данных при изучении исторических и
+          культурных связей с помощью построения графов и визуализации данных
+          многогранны и требуют особого внимания, об этом важно помнить на всех
+          этапах создания своего проекта. Вопросы этики могут касаться как самих
+          данных, влияния на восприятие этих данных и создание некой картины
+          мира, так и окружающих людей, исследователей и т.д. Мы разберем
+          несколько наиболее важных аспектов:
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Достоверность и целостность данных
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          Спецификой использования графа для изучения социальных связей 
-          является создание сетей на основе большого количества данных, 
-          собранных и извлеченных преимущественно с помощью методов 
-          автоматической обработки текстовых данных и парсинга. Это означает, 
-          что собранные данные о связях и их объектах могут иметь погрешности 
-          и даже высокую степень недостоверности. Примером этого может служить 
-          проект “Six Degree of Francis Bacon”, отражающий идею шести рукопожатий. 
-          Первично данные для этого проекта извлечены из Oxford Dictionary National 
-          Biography (оцифрован в начале 2000-х) автоматическими методами. Из этого 
-          словаря-энциклопедии с помощью методов компьютерной автоматической 
+        <Typography variant="body1" mb={2}>
+          Спецификой использования графа для изучения социальных связей является
+          создание сетей на основе большого количества данных, собранных и
+          извлеченных преимущественно с помощью методов автоматической обработки
+          текстовых данных и парсинга. Это означает, что собранные данные о
+          связях и их объектах могут иметь погрешности и даже высокую степень
+          недостоверности. Примером этого может служить проект “Six Degree of
+          Francis Bacon”, отражающий идею шести рукопожатий. Первично данные для
+          этого проекта извлечены из Oxford Dictionary National Biography
+          (оцифрован в начале 2000-х) автоматическими методами. Из этого
+          словаря-энциклопедии с помощью методов компьютерной автоматической
           обработки текстовых данных извлекли все упоминания людей (более 13 000
-          человек!), а связи между ними построили с помощью вероятностных моделей
-          (выявлено более 200 000 связей!). Этический момент по отношению к данным 
-          и всему исследованию в этом случае заключается в том, что только в 6 
-          случаях из 10 взаимосвязь действительно подтверждается исследователями. 
-          Эта вероятность очень маленькая, чтобы безоговорочно доверять полученной 
-          информации. В связи с этим создатели проекта сделали два очень важных шага. 
-          Во-первых, при визуализации данных связи выявленные только статистикой и 
-          подтвержденные людьми (исследователями, научными сотрудниками и т.д.) 
-          выделяются двумя разными цветами, во втором случае более яркой и жирной 
-          линией, как бы подтверждая эти связи. Во-вторых, проект в итоге вылился в 
-          открытый краудсорсинговый проект, в который приходят эксперты и проверяют 
-          данные, таким образом постепенно данные пополняются и становятся 
-          проверенными. Тем не менее не стоит думать, что с помощью компьютерных 
-          методов может возникнуть слишком много “ложных” связей. Безусловно такие 
-          связи будут, но с исследовательской точки зрения возможно открытие тех 
-          данных, о которых никто не подозревал (например, взаимосвязь людей через 
-          неизвестных издателей, церковных деятелей, меценатов и т.д.).
+          человек!), а связи между ними построили с помощью вероятностных
+          моделей (выявлено более 200 000 связей!). Этический момент по
+          отношению к данным и всему исследованию в этом случае заключается в
+          том, что только в 6 случаях из 10 взаимосвязь действительно
+          подтверждается исследователями. Эта вероятность очень маленькая, чтобы
+          безоговорочно доверять полученной информации. В связи с этим создатели
+          проекта сделали два очень важных шага. Во-первых, при визуализации
+          данных связи выявленные только статистикой и подтвержденные людьми
+          (исследователями, научными сотрудниками и т.д.) выделяются двумя
+          разными цветами, во втором случае более яркой и жирной линией, как бы
+          подтверждая эти связи. Во-вторых, проект в итоге вылился в открытый
+          краудсорсинговый проект, в который приходят эксперты и проверяют
+          данные, таким образом постепенно данные пополняются и становятся
+          проверенными. Тем не менее не стоит думать, что с помощью компьютерных
+          методов может возникнуть слишком много “ложных” связей. Безусловно
+          такие связи будут, но с исследовательской точки зрения возможно
+          открытие тех данных, о которых никто не подозревал (например,
+          взаимосвязь людей через неизвестных издателей, церковных деятелей,
+          меценатов и т.д.).
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          При использовании, обработке и визуализации данных важно помнить об объеме 
-          используемых данных и достоверности/ целостности демонстрируемых сетей в итоге. 
-          Для этого вы можете чистить и сокращать количество анализируемых данных или 
-          добавлять специальные обозначения и разделители для проверенных и непроверенных 
-          данных. В нашем случае мы выбрали путь сокращения количества данных на первом 
-          этапе исследования, чтобы иметь возможность проверить данные вручную и 
-          отработать стратегии взаимодействия с ними. 
+        <Typography variant="body1" mb={4}>
+          При использовании, обработке и визуализации данных важно помнить об
+          объеме используемых данных и достоверности/ целостности
+          демонстрируемых сетей в итоге. Для этого вы можете чистить и сокращать
+          количество анализируемых данных или добавлять специальные обозначения
+          и разделители для проверенных и непроверенных данных. В нашем случае
+          мы выбрали путь сокращения количества данных на первом этапе
+          исследования, чтобы иметь возможность проверить данные вручную и
+          отработать стратегии взаимодействия с ними.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Источники данных и авторское право
         </Typography>
 
-        <Typography variant='body1' mb={2} color='primary'>
+        <Typography variant="body1" mb={2} color="primary">
           ДИСКЛЕЙМЕР: данный раздел находится в разработке и будет
-          дорабатываться в следующем семестре. Мы продолжаем работать над 
-          его содержанием, чтобы предоставить вам наиболее полную и 
-          актуальную информацию.
+          дорабатываться в следующем семестре. Мы продолжаем работать над его
+          содержанием, чтобы предоставить вам наиболее полную и актуальную
+          информацию.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          Источники данных и авторское право не менее важный вопрос при 
-          автоматическом сборе и последующем использовании полученной 
-          информации. В России (и на русском языке) не так много официальных, 
-          проверенных источников, имеющихся в доступе для подобных исследований, 
-          если мы говорим именно об исторических, искусствоведческих, 
-          музыковедческих и литературных базах данных. Это не только в некоторой 
-          степени осложняет процесс создания проектов, но и вынуждает использовать 
-          “непроверенные” или платные ресурсы. С юридической точки зрения это 
-          может быть еще одной опасностью для создателей проектов – то, что данные 
-          есть в открытом доступе, не значит, что их можно просто так использовать 
-          и уж тем более коммерциализировать. Необходимо ознакомиться с политикой 
-          сайтов и убедиться в наличии разрешений на использование этих данных. 
-          Нарушение авторских прав может привести к серьезным юридическим 
-          последствиям, включая штрафы и судебные иски. Если ваш проект как-то 
-          связан с данными о современности, стоит также задуматься об этических и 
-          правовых нормах в отношении третьих лиц. 
+        <Typography variant="body1" mb={4}>
+          Источники данных и авторское право не менее важный вопрос при
+          автоматическом сборе и последующем использовании полученной
+          информации. В России (и на русском языке) не так много официальных,
+          проверенных источников, имеющихся в доступе для подобных исследований,
+          если мы говорим именно об исторических, искусствоведческих,
+          музыковедческих и литературных базах данных. Это не только в некоторой
+          степени осложняет процесс создания проектов, но и вынуждает
+          использовать “непроверенные” или платные ресурсы. С юридической точки
+          зрения это может быть еще одной опасностью для создателей проектов –
+          то, что данные есть в открытом доступе, не значит, что их можно просто
+          так использовать и уж тем более коммерциализировать. Необходимо
+          ознакомиться с политикой сайтов и убедиться в наличии разрешений на
+          использование этих данных. Нарушение авторских прав может привести к
+          серьезным юридическим последствиям, включая штрафы и судебные иски.
+          Если ваш проект как-то связан с данными о современности, стоит также
+          задуматься об этических и правовых нормах в отношении третьих лиц.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Передача данных через новые медиа
         </Typography>
 
-        <Typography variant='body1' mb={2} color='primary'>
+        <Typography variant="body1" mb={2} color="primary">
           ДИСКЛЕЙМЕР: данный раздел находится в разработке и будет
-          дорабатываться в следующем семестре. Мы продолжаем работать над 
-          его содержанием, чтобы предоставить вам наиболее полную и 
-          актуальную информацию.
+          дорабатываться в следующем семестре. Мы продолжаем работать над его
+          содержанием, чтобы предоставить вам наиболее полную и актуальную
+          информацию.
         </Typography>
 
-        <Typography variant='body1' mb={4}>
-          Новые медиа постоянно приходят в нашу жизнь, упрощают ее, дают 
-          возможность работать с большим объемом данных одновременно, не 
-          тратя при этом всю жизнь. Тем не менее новые медиа не только 
-          упрощают нашу жизнь, но и меняют нашу жизнь, наше восприятие 
-          передаваемой информации и ее суть … а может и нет? Во многом это и 
-          есть центральный вопрос нашего исследования – А есть ли смысл и 
-          необходимость передавать данные и как-то их анализировать их через 
-          новые медиа? Что если старые варианты работают и отлично используются 
-          искусствоведами, историками, студентами и обывателями. Будет ли сайт 
-          полезен всем им? Не будут ли данные искажаться? Чем это лучше 
-          классической книги или учебника?
+        <Typography variant="body1" mb={4}>
+          Новые медиа постоянно приходят в нашу жизнь, упрощают ее, дают
+          возможность работать с большим объемом данных одновременно, не тратя
+          при этом всю жизнь. Тем не менее новые медиа не только упрощают нашу
+          жизнь, но и меняют нашу жизнь, наше восприятие передаваемой информации
+          и ее суть … а может и нет? Во многом это и есть центральный вопрос
+          нашего исследования – А есть ли смысл и необходимость передавать
+          данные и как-то их анализировать их через новые медиа? Что если старые
+          варианты работают и отлично используются искусствоведами, историками,
+          студентами и обывателями. Будет ли сайт полезен всем им? Не будут ли
+          данные искажаться? Чем это лучше классической книги или учебника?
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Культурная чувствительность и сохранение контекста
         </Typography>
 
-        <Typography variant='body1' mb={2} color='primary'>
+        <Typography variant="body1" mb={2} color="primary">
           ДИСКЛЕЙМЕР: данный раздел находится в разработке и будет
-          дорабатываться в следующем семестре. Мы надеемся, что доработка и 
-          расширение наших графов поможет лучше отразить сенситивные аспекты 
-          работы с данными о художниках-авангардистах и сделает нашу работу 
+          дорабатываться в следующем семестре. Мы надеемся, что доработка и
+          расширение наших графов поможет лучше отразить сенситивные аспекты
+          работы с данными о художниках-авангардистах и сделает нашу работу
           более точной и репрезентативной.
         </Typography>
 
-        <Typography variant='body1' mb={2}>
-          В современном мире все большее внимание уделяется вопросам этики, 
-          национального самосознания, а также чувствительности к культурным 
-          и социальным феноменам. Важно заранее определить, как эти факторы 
-          повлияют на ваш проект, отразятся ли они в нем и будут ли искажать 
-          реальность или, наоборот, приоткрывать ее новые грани. Необходимо 
+        <Typography variant="body1" mb={2}>
+          В современном мире все большее внимание уделяется вопросам этики,
+          национального самосознания, а также чувствительности к культурным и
+          социальным феноменам. Важно заранее определить, как эти факторы
+          повлияют на ваш проект, отразятся ли они в нем и будут ли искажать
+          реальность или, наоборот, приоткрывать ее новые грани. Необходимо
           тщательно продумать, какими средствами будут реализованы эти аспекты.
         </Typography>
 
-        <Typography variant='body1' mb={10}>
-          В нашем случае данные – это художники. Они работали в определенном 
-          стиле и направлении, они общались с другими людьми, они могли жить в одной 
-          стране и иметь гражданство другой страны, некоторые из них были гонимы по 
-          политическим причинам. Наша глобальная цель заключалась в том, чтобы 
-          подсветить эти аспекты, но из этих же аспектов вытекали важные вопросы – 
-          а кого считать или не считать русским авангардистом и почему, как сделать 
-          данные наиболее репрезентативными. К этому добавляется стремление к 
-          национальному самосознанию и культурная чувствительность бывших стран СССР 
-          и других регионов. Возникает вопрос: а можем ли мы причислять украинских, 
-          белорусских, армянских, грузинских художников к русскому авангарду, если в 
-          то время они были частью единого крупного государства, или значительную 
-          часть жизни работали в Москве, Петербурге или другом российском городе? 
-          Также стоит задуматься, можно ли считать художников из СССР, которые большую 
-          часть жизни прожили и работали за границей, частью русского авангарда, или 
-          их влияние на отечественное искусство уже не так значимо?
+        <Typography variant="body1" mb={10}>
+          В нашем случае данные – это художники. Они работали в определенном
+          стиле и направлении, они общались с другими людьми, они могли жить в
+          одной стране и иметь гражданство другой страны, некоторые из них были
+          гонимы по политическим причинам. Наша глобальная цель заключалась в
+          том, чтобы подсветить эти аспекты, но из этих же аспектов вытекали
+          важные вопросы – а кого считать или не считать русским авангардистом и
+          почему, как сделать данные наиболее репрезентативными. К этому
+          добавляется стремление к национальному самосознанию и культурная
+          чувствительность бывших стран СССР и других регионов. Возникает
+          вопрос: а можем ли мы причислять украинских, белорусских, армянских,
+          грузинских художников к русскому авангарду, если в то время они были
+          частью единого крупного государства, или значительную часть жизни
+          работали в Москве, Петербурге или другом российском городе? Также
+          стоит задуматься, можно ли считать художников из СССР, которые большую
+          часть жизни прожили и работали за границей, частью русского авангарда,
+          или их влияние на отечественное искусство уже не так значимо?
         </Typography>
 
         <Box ref={ref5}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Заключение
           </Typography>
         </Box>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Некоторые перспективы сетевого моделирования
         </Typography>
 
-        <Typography variant='body1' mb={10}>
-          Сетевое моделирование исторических исследований – перспективное 
-          направление работы и изучения социальных связей в различных 
-          отрезках времени. В отличие от классических методов изучения, 
-          сетевое моделирование позволяет использовать и визуализировать 
-          большой объем данных, на основе которого можно выдвигать и 
-          проверять гипотезы, исследовать отдельные феномены и мн. др. 
-          Главный вопрос заключается в том, в каком объеме, как и для кого 
-          будут представлены данные, к какому масштабу проекта приведет 
-          изначальное исследование.
+        <Typography variant="body1" mb={10}>
+          Сетевое моделирование исторических исследований – перспективное
+          направление работы и изучения социальных связей в различных отрезках
+          времени. В отличие от классических методов изучения, сетевое
+          моделирование позволяет использовать и визуализировать большой объем
+          данных, на основе которого можно выдвигать и проверять гипотезы,
+          исследовать отдельные феномены и мн. др. Главный вопрос заключается в
+          том, в каком объеме, как и для кого будут представлены данные, к
+          какому масштабу проекта приведет изначальное исследование.
         </Typography>
 
-
         <Box ref={ref6}>
-          <Typography variant='h4' mb={4} textAlign='center'>
+          <Typography variant="h4" mb={4} textAlign="center">
             Case studies (наши референсы)
           </Typography>
         </Box>
 
-        <Typography variant='body1' mb={4}>
+        <Typography variant="body1" mb={4}>
           Мы предлагаем вам посмотреть следующие проектов, чтобы ближе
           познакомиться с графами. Эти проекты легли в основу нашего
           исследования.
         </Typography>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Проекты:
         </Typography>
 
-        <Box display='flex' flexWrap='wrap' gap='24px' mb={4}>
+        <Box display="flex" flexWrap="wrap" gap="24px" mb={4}>
           <Card
             sx={{ width: 250, height: 220 }}
             onClick={() =>
-              navigateToLink('https://www.forgottenheritage.eu/artists')
+              navigateToLink("https://www.forgottenheritage.eu/artists")
             }
           >
             <CardActionArea>
               <CardMedia
                 sx={{ height: 140 }}
                 image={card1}
-                title='Forgotten Heritage'
+                title="Forgotten Heritage"
               />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Forgotten Heritage
                 </Typography>
               </CardContent>
@@ -1259,7 +1320,7 @@ export const Manual = () => {
             sx={{ width: 250, height: 220 }}
             onClick={() =>
               navigateToLink(
-                'https://kumu.io/GOliveira/philosophers-web#philosophers/bernard-henri-levy'
+                "https://kumu.io/GOliveira/philosophers-web#philosophers/bernard-henri-levy"
               )
             }
           >
@@ -1267,10 +1328,10 @@ export const Manual = () => {
               <CardMedia
                 sx={{ height: 140 }}
                 image={card2}
-                title='Philosofers Web'
+                title="Philosofers Web"
               />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Philosofers Web
                 </Typography>
               </CardContent>
@@ -1279,12 +1340,12 @@ export const Manual = () => {
 
           <Card
             sx={{ width: 250, height: 220 }}
-            onClick={() => navigateToLink('https://www.visualizingsep.com/#')}
+            onClick={() => navigateToLink("https://www.visualizingsep.com/#")}
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card3} title='' />
+              <CardMedia sx={{ height: 140 }} image={card3} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Visualizing Stanford Encyclopedia of Philosophy
                 </Typography>
               </CardContent>
@@ -1293,12 +1354,12 @@ export const Manual = () => {
 
           <Card
             sx={{ width: 250, height: 220 }}
-            onClick={() => navigateToLink('https://www.connectedpapers.com/')}
+            onClick={() => navigateToLink("https://www.connectedpapers.com/")}
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card4} title='' />
+              <CardMedia sx={{ height: 140 }} image={card4} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Explore connected papers in a visual graph
                 </Typography>
               </CardContent>
@@ -1309,14 +1370,14 @@ export const Manual = () => {
             sx={{ width: 250, height: 220 }}
             onClick={() =>
               navigateToLink(
-                'http://www.sixdegreesoffrancisbacon.com/?ids=10000473&min_confidence=60&type=network'
+                "http://www.sixdegreesoffrancisbacon.com/?ids=10000473&min_confidence=60&type=network"
               )
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card5} title='' />
+              <CardMedia sx={{ height: 140 }} image={card5} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Six Degrees of Fransis Bacon
                 </Typography>
               </CardContent>
@@ -1325,12 +1386,12 @@ export const Manual = () => {
 
           <Card
             sx={{ width: 250, height: 220 }}
-            onClick={() => navigateToLink('https://tudornetworks.net/')}
+            onClick={() => navigateToLink("https://tudornetworks.net/")}
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card6} title='' />
+              <CardMedia sx={{ height: 140 }} image={card6} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Tudor Network
                 </Typography>
               </CardContent>
@@ -1340,13 +1401,13 @@ export const Manual = () => {
           <Card
             sx={{ width: 250, height: 220 }}
             onClick={() =>
-              navigateToLink('https://mappingthemedievalwoman.com/')
+              navigateToLink("https://mappingthemedievalwoman.com/")
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card7} title='' />
+              <CardMedia sx={{ height: 140 }} image={card7} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Mapping the Medieval Woman
                 </Typography>
               </CardContent>
@@ -1356,13 +1417,13 @@ export const Manual = () => {
           <Card
             sx={{ width: 250, height: 220 }}
             onClick={() =>
-              navigateToLink('https://ling.hse.ru/announcements/205337340.html')
+              navigateToLink("https://ling.hse.ru/announcements/205337340.html")
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card8} title='' />
+              <CardMedia sx={{ height: 140 }} image={card8} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Лев Толстой и сетевой анализ
                 </Typography>
               </CardContent>
@@ -1373,14 +1434,14 @@ export const Manual = () => {
             sx={{ width: 250, height: 220 }}
             onClick={() =>
               navigateToLink(
-                'https://www.martingrandjean.ch/network-visualization-shakespeare/'
+                "https://www.martingrandjean.ch/network-visualization-shakespeare/"
               )
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card9} title='' />
+              <CardMedia sx={{ height: 140 }} image={card9} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Network visualization: mapping Shakespeare’s tragedies
                 </Typography>
               </CardContent>
@@ -1391,14 +1452,14 @@ export const Manual = () => {
             sx={{ width: 250, height: 220 }}
             onClick={() =>
               navigateToLink(
-                'https://www.martingrandjean.ch/star-wars-data-visualization/</Box>'
+                "https://www.martingrandjean.ch/star-wars-data-visualization/</Box>"
               )
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card10} title='' />
+              <CardMedia sx={{ height: 140 }} image={card10} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   Data visualization: the Star Wars ‘social network’
                 </Typography>
               </CardContent>
@@ -1409,14 +1470,14 @@ export const Manual = () => {
             sx={{ width: 250, height: 220 }}
             onClick={() =>
               navigateToLink(
-                'http://www.digitalhumanities.org/dhq/vol/16/1/000598/000598.html'
+                "http://www.digitalhumanities.org/dhq/vol/16/1/000598/000598.html"
               )
             }
           >
             <CardActionArea>
-              <CardMedia sx={{ height: 140 }} image={card11} title='' />
+              <CardMedia sx={{ height: 140 }} image={card11} title="" />
               <CardContent>
-                <Typography variant='body2' mb={4}>
+                <Typography variant="body2" mb={4}>
                   A Text Network Analysis of Discursive Changes in German,
                   Austrian and Swiss New Year’s Speeches 2000-2021
                 </Typography>
@@ -1425,33 +1486,33 @@ export const Manual = () => {
           </Card>
         </Box>
 
-        <Typography variant='h6' mb={4}>
+        <Typography variant="h6" mb={4}>
           Статьи о проектах:
         </Typography>
 
-        <Box display='flex' flexDirection='column' gap='24px'>
+        <Box display="flex" flexDirection="column" gap="24px">
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
-              navigateToLink('https://sysblok.github.io/DuvakinGraph/')
+              navigateToLink("https://sysblok.github.io/DuvakinGraph/")
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   Интерактивный граф социальных связей эпохи Серебряного века
                 </Typography>
               </CardContent>
@@ -1459,29 +1520,29 @@ export const Manual = () => {
           </Card>
 
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
               navigateToLink(
-                'https://sysblok.ru/arts/netvorking-pikasso-i-uorhola-setevoj-analiz-vystavok-v-moma/'
+                "https://sysblok.ru/arts/netvorking-pikasso-i-uorhola-setevoj-analiz-vystavok-v-moma/"
               )
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   Нетворкинг Пикассо и Уорхола: сетевой анализ выставок в МоМА
                 </Typography>
               </CardContent>
@@ -1489,29 +1550,29 @@ export const Manual = () => {
           </Card>
 
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
               navigateToLink(
-                'https://sysblok.ru/history/ot-razobshhennosti-k-vojne-chto-pokazyvaet-setevoj-analiz-vizantijskih-pisem/'
+                "https://sysblok.ru/history/ot-razobshhennosti-k-vojne-chto-pokazyvaet-setevoj-analiz-vizantijskih-pisem/"
               )
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   От разобщенности к войне: что показывает сетевой анализ
                   византийских писем
                 </Typography>
@@ -1520,29 +1581,29 @@ export const Manual = () => {
           </Card>
 
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
               navigateToLink(
-                'https://sysblok.ru/philology/stilometrija-kinodialogov-shest-zhanrov-v-poiskah-avtora/'
+                "https://sysblok.ru/philology/stilometrija-kinodialogov-shest-zhanrov-v-poiskah-avtora/"
               )
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   Стилометрия кинодиалогов: шесть жанров в поисках автора
                 </Typography>
               </CardContent>
@@ -1550,29 +1611,29 @@ export const Manual = () => {
           </Card>
 
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
               navigateToLink(
-                'https://sysblok.ru/philology/kod-mastera-i-margarity/'
+                "https://sysblok.ru/philology/kod-mastera-i-margarity/"
               )
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   Код «Мастера и Маргариты»
                 </Typography>
               </CardContent>
@@ -1580,27 +1641,27 @@ export const Manual = () => {
           </Card>
 
           <Card
-            sx={{ width: '100%', height: 50 }}
+            sx={{ width: "100%", height: 50 }}
             onClick={() =>
-              navigateToLink('https://docs.lib.purdue.edu/artlas/vol6/iss3/2/')
+              navigateToLink("https://docs.lib.purdue.edu/artlas/vol6/iss3/2/")
             }
           >
             <CardActionArea
               sx={{
-                height: '100%',
+                height: "100%",
               }}
             >
               <CardContent
                 sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '16px',
-                  padding: '0 16px',
-                  height: '100%',
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0 16px",
+                  height: "100%",
                 }}
               >
-                <OpenInNew color='primary' />
-                <Typography variant='body2'>
+                <OpenInNew color="primary" />
+                <Typography variant="body2">
                   Continuity and Disruption in European Networks of Print
                   Production, 1550-1750
                 </Typography>

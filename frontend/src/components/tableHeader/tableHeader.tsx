@@ -6,30 +6,23 @@ import {
   TableRow,
   Checkbox,
   FormControlLabel,
+  Tooltip,
   IconButton,
 } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import DeleteIcon from "@mui/icons-material/Delete";
-import Tooltip from "@material-ui/core/Tooltip";
+
 import { DeleteModal } from "../deleteModal";
 import { EditModal } from "../editModal";
-// import { DataCorrectionButtons } from "../dataCorrectionButtons";
+import { DataCorrectionButtons } from "../dataCorrectionButtons";
+import LinkIcon from "@mui/icons-material/Link";
 
 export const TableHeader: FC<IProps> = ({
   type,
-  columns,
-  rowsCount,
-  checkedCount,
-  setCheckedList,
-  checkedList,
   rows,
-  currentRows,
-  // setCurrentRows,
-  currentRow,
-  // row,
-  // setCurrentRow,
-  // setCurrentRowsArtist,
-  
+  columns,
+  checkedCount,
+  rowsCount,
+  checkedList,
+  setCheckedList,
 }) => {
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [isOpenAddModal, setIsOpenAddModal] = useState(false);
@@ -43,9 +36,7 @@ export const TableHeader: FC<IProps> = ({
 
   const handleChangeAllRows = () => {
     setCheckedList(
-      checkedList.length === rows?.length
-        ? []
-        : rows?.map((row) => row.id) || []
+      checkedList.length === rows?.length ? [] : rows?.map((row) => row) || []
     );
   };
 
@@ -72,29 +63,22 @@ export const TableHeader: FC<IProps> = ({
             >
               {column.label}
             </TableCell>
-          ))}
+          ))}{" "}
+          {type === "artist" && (
+            <TableCell>
+              <Tooltip title={"Ссылка на Wiki"}>
+                <IconButton aria-label="link">
+                  <LinkIcon />
+                </IconButton>
+              </Tooltip>
+            </TableCell>
+          )}
           <TableCell>
-            <Tooltip title="Добавить запись">
-              <IconButton aria-label="add" onClick={() => openModalAdd()}>
-                <AddIcon />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title="Удалить выбранные записи">
-              <IconButton aria-label="delete" onClick={() => openModalDelete()}>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
-            {/* <DataCorrectionButtons
-              // openModalEdit={openModalAdd()}
-              // openModalDelete={openModalDelete()}
-              setIsOpenEditModal={setIsOpenAddModal}
-              setIsOpenDeleteModal={setIsOpenDeleteModal}
-              isOpenEditModal={isOpenAddModal}
-              isOpenDeleteModal={isOpenDeleteModal}
-              setCurrentRow={setCurrentRow}
+            <DataCorrectionButtons
+              openModalEdit={openModalAdd}
+              openModalDelete={openModalDelete}
               type="header"
-              row={currentRow}
-            /> */}
+            />
           </TableCell>
         </TableRow>
       </TableHead>
@@ -108,12 +92,12 @@ export const TableHeader: FC<IProps> = ({
       )}
       {isOpenDeleteModal && (
         <DeleteModal
+          type={type}
           isOpenDeleteModal={isOpenDeleteModal}
-          // currentRows={currentRows.length > 0 ? currentRows : currentRow }
+          currentRows={checkedList}
           setIsOpenDeleteModal={setIsOpenDeleteModal}
         />
       )}
-      
     </>
   );
 };

@@ -3,7 +3,7 @@ import {
   Alert,
   Autocomplete,
   Box,
-  Button,
+  // Button,
   Checkbox,
   Collapse,
   FormControlLabel,
@@ -25,8 +25,9 @@ export const CreateArtistForm: FC<Props> = ({
   
   const [artMovements, setArtMovements] = useState<Array<IArtMovement>>([]);
   const [open, setOpen] = useState<boolean>(false);
-
-  // console.log(row?.artMovements);
+  const endpoint = row
+    ? `${endpoints.ARTISTS}/{${row.id}}`
+    : endpoints.ARTISTS;
 
   const baseForm: IBaseFormProps = useFormik<IBaseForm>({
     initialValues: {
@@ -58,8 +59,8 @@ export const CreateArtistForm: FC<Props> = ({
       wikiUrl,
     }) => {
       try {
-        const response = await fetch(endpoints.ARTISTS, {
-          method: "POST",
+        const response = await fetch(endpoint, {
+          method: row ? "PUT" : "POST",
           body: JSON.stringify({
             artMovements: artMovements.map((movement) => movement.id),
             lastName,
@@ -114,16 +115,13 @@ export const CreateArtistForm: FC<Props> = ({
 
   return (
     <Box>
-      {/* {!row && !action && (
-        <Typography variant="h6" fontWeight={600} marginLeft="16px">
-          {dictionary.header}
-        </Typography>
-      )} */}
       <Box
         component="form"
         sx={styles.form}
         autoComplete="off"
-        onSubmit={baseForm.submitForm}
+        // onSubmit={baseForm.submitForm}
+        onSubmit={baseForm.handleSubmit}
+         id="artist"
       >
         <Collapse in={open}>
           <Alert
@@ -319,7 +317,7 @@ export const CreateArtistForm: FC<Props> = ({
           />
         </Box>
 
-        {!row && !action && (
+        {/* {!row && !action && (
           <Box sx={styles.buttonsWrapper}>
             <Button
               variant="outlined"
@@ -336,7 +334,7 @@ export const CreateArtistForm: FC<Props> = ({
               {dictionary.save}
             </Button>
           </Box>
-        )}
+        )} */}
       </Box>
     </Box>
   );

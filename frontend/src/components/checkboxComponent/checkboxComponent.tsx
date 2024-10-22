@@ -1,66 +1,20 @@
 import { FC } from 'react';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { IProps } from './types';
+import { IArtist, IArtmovements, IAssociation } from '../../types';
 
 export const CheckboxComponent: FC<IProps> = ({
-  id,
-  idx,
+  row,
   checkedList,
   setCheckedList,
-  // setCurrentRowsClick,
-  rows,
-  currentRows,
-  setCurrentRows,
-  checkedListRef,
 }) => {
-  // const checkedListRef = useRef<Array<Number>>([]);
 
-  // useEffect(() => {
-  //   checkedListRef.current = checkedList;
-  // }, [checkedList]);
-
-  const handleChange = (id: number) => {
-    setCheckedList((prev) =>
-      prev.includes(id)
-        ? prev.filter((currentId) => currentId !== id)
-        : [...prev, id]
+  const handleChange = (row: IArtist | IAssociation | IArtmovements) => {
+    setCheckedList(
+      checkedList?.find((elem) => elem.id === row.id) 
+      ? checkedList?.filter((elem) => elem.id !== row.id) 
+      : [...checkedList, row]
     );
-
-    // checkedListRef.current = checkedList;
-    // console.log(checkedListRef);
-
-    getRowsChecked();
-    // console.log(currentRows);
-    // console.log(checkedList);
-    // setCurrentRows([]);
-    // console.log(currentRows);
-    // rows?.forEach((row) => {
-    //   checkedList.forEach((currentId) => {
-    //     currentId === row.id && setCurrentRows([...currentRows, row]);
-    //   });
-    // });
-    // console.log(currentRows);
-
-    // let arr : SetStateAction<IArtist[]> | SetStateAction<IAssociation[]> | SetStateAction<IArtmovements[]> = [];
-
-    // setCurrentRows(rows?.filter((row) => row.id === checkedList.indexOf(row.id)));
-    // rows.forEach((row) =>
-    //   checkedList.forEach((currentId) => {
-    //     currentId === row.id && arr.push(row);
-    //   })
-    // );
-    // setCurrentRows(arr);
-  };
-
-  const getRowsChecked = () => {
-    console.log(checkedList);
-    console.log(checkedListRef);
-    rows?.forEach((row) => {
-      checkedListRef?.current.forEach((currentId) => {
-        currentId === row.id && setCurrentRows([...currentRows, row]);
-      });
-    });
-    // console.log(currentRows);
   };
 
   return (
@@ -68,12 +22,8 @@ export const CheckboxComponent: FC<IProps> = ({
       label=''
       control={
         <Checkbox
-          // defaultChecked
-          checked={checkedList.includes(id)}
-          onChange={() => handleChange(id)}
-          // inputProps={{
-          //   "aria-label": `${idx}`,
-          // }}
+          checked={checkedList.some((elem) => elem.id === row.id)}
+          onChange={() => handleChange(row)}
         />
       }
     />

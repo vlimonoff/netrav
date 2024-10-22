@@ -1,44 +1,25 @@
 import { useEffect, useState } from "react";
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableRow,
-  // Checkbox,
-  // FormControlLabel,
-  IconButton,
-} from "@mui/material";
+import { Paper, Table, TableBody, TableContainer } from "@mui/material";
 
-import Tooltip from "@material-ui/core/Tooltip";
-import DeleteIcon from "@mui/icons-material/Delete";
-import EditIcon from "@mui/icons-material/Edit";
-
+import { IArtist, IArtmovements, IAssociation } from "../../types";
 import { endpoints } from "../../endpoints";
 import { Loader } from "../loader/loader";
-// import { IArtist } from "../../types";
 import { columns } from "./constants";
 import { styles } from "./styles";
 import { TableHeader } from "../tableHeader";
+import { TableRow } from "./table-row";
 import { EditModal } from "../editModal";
 import { DeleteModal } from "../deleteModal";
-// import { DataCorrectionButtons } from "../dataCorrectionButtons";
-import { CheckboxComponent } from "../checkboxComponent";
-
-
-import { IArtist, IArtmovements, IAssociation } from "../../types";
 
 export const ArtistsList = () => {
   const [rows, setRows] = useState<Array<IArtist> | null>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [checkedList, setCheckedList] = useState<Array<number>>([]);
+  const [checkedList, setCheckedList] = useState<
+    (IAssociation | IArtist | IArtmovements)[]
+  >([]);
   const [isOpenEditModal, setIsOpenEditModal] = useState(false);
   const [isOpenDeleteModal, setIsOpenDeleteModal] = useState(false);
   const [currentRow, setCurrentRow] = useState<IArtist | null>(null);
-  // const [currentRows, setCurrentRows] = useState<Array<IArtist> | null>(null);
-  const [currentRows, setCurrentRows] = useState<(IAssociation | IArtist | IArtmovements)[]>([]);
-  // const [currentRowsClick, setCurrentRowsClick] = useState(false);
 
   const fetchArtists = async () => {
     setIsLoading(true);
@@ -60,22 +41,6 @@ export const ArtistsList = () => {
     fetchArtists();
   }, []);
 
-  // const handleChange = (id: number) => {
-  //   setCheckedList(
-  //     checkedList.includes(id)
-  //       ? checkedList.filter((currentId) => currentId !== id)
-  //       : [...checkedList, id]
-  //   );
-  // };
-
-  // const handleChangeAllRows = () => {
-  //   setCheckedList(
-  //     checkedList.length === rows?.length
-  //       ? []
-  //       : rows?.map((row) => row.id) || []
-  //   );
-  // };
-
   const openModalEdit = (row: IArtist) => {
     setIsOpenEditModal(!isOpenEditModal);
     setCurrentRow(row);
@@ -86,10 +51,6 @@ export const ArtistsList = () => {
     setCurrentRow(row);
   };
 
-  // const getCurrentRows = (row: IArtist) => {
-  //   setCurrentRows([...currentRows, row]);
-  // };
-
   return (
     <Paper sx={styles.paper}>
       {isLoading && <Loader />}
@@ -98,95 +59,24 @@ export const ArtistsList = () => {
         <Table stickyHeader aria-label="sticky table">
           <TableHeader
             type="artist"
+            rows={rows}
             columns={columns}
-            currentRows={currentRows}
             checkedCount={checkedList.length}
             rowsCount={rows?.length || 0}
-            setCheckedList={setCheckedList}
             checkedList={checkedList}
-            rows={rows}
-            currentRow={currentRow}
-            // setCurrentRow={setCurrentRow}
+            setCheckedList={setCheckedList}
           />
           <TableBody>
-            {rows?.map((row: IArtist, idx) => {
-              const {
-                lastName,
-                firstName,
-                patronymic,
-                birthDate,
-                deathDate,
-                birthPlace,
-                deathPlace,
-                id,
-              } = row;
-
-              return (
-                <TableRow hover tabIndex={-1} key={idx}>
-                  <TableCell>
-                    {/* <FormControlLabel
-                      label=""
-                      control={
-                        <Checkbox
-                          defaultChecked
-                          checked={checkedList.includes(id)}
-                          onChange={() => handleChange(id)}
-                          inputProps={{
-                            "aria-label": `${idx}`,
-                          }}
-                        />
-                      }
-                    /> */}
-                    <CheckboxComponent
-                      id={id}
-                      idx={idx}
-                      checkedList={checkedList}
-                      setCheckedList={setCheckedList}
-                      rows={rows}
-                      currentRows={currentRows}
-                      setCurrentRows={setCurrentRows}
-                      // rows={rows} 
-                      // currentRows={currentRows} 
-                      // setCurrentRows={setCurrentRows}    
-                      // rowsArtist={rows}
-                      // setCurrentRowsArtist={setCurrentRows}
-                    />
-                  </TableCell>
-                  <TableCell>{lastName || "-"}</TableCell>
-                  <TableCell>{firstName || "-"}</TableCell>
-                  <TableCell>{patronymic || "-"}</TableCell>
-                  <TableCell>{`${birthDate || "-"}${
-                    birthPlace ? `\n(${birthPlace})` : ""
-                  }`}</TableCell>
-                  <TableCell>{`${deathDate || "-"}${
-                    deathPlace ? `\n(${deathPlace})` : ""
-                  }`}</TableCell>
-                  <TableCell>
-                    <Tooltip title="Редактировать запись">
-                      <IconButton
-                        aria-label="edit"
-                        onClick={() => openModalEdit(row)}
-                      >
-                        <EditIcon />
-                      </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Удалить запись">
-                      <IconButton
-                        aria-label="delete"
-                        onClick={() => openModalDelete(row)}
-                      >
-                        <DeleteIcon />
-                      </IconButton>
-                    </Tooltip>
-                    {/* <DataCorrectionButtons
-                      // row={row}
-                      openModalEdit={openModalEdit(row)}
-                      openModalDelete={openModalDelete(row)}
-                    /> */}
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {rows?.map((row: IArtist) => (
+              <TableRow
+                key={row.id}
+                row={row}
+                checkedList={checkedList}
+                setCheckedList={setCheckedList}
+                openModalEdit={openModalEdit}
+                openModalDelete={openModalDelete}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -200,6 +90,7 @@ export const ArtistsList = () => {
       )}
       {isOpenDeleteModal && (
         <DeleteModal
+          type={"artist"}
           isOpenDeleteModal={isOpenDeleteModal}
           currentRow={currentRow}
           setIsOpenDeleteModal={setIsOpenDeleteModal}

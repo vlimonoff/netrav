@@ -1,30 +1,30 @@
-import { FC } from 'react';
+import { FC } from "react";
 import {
   TableCell,
   TableRow as MuiTableRow,
-  Checkbox,
-  FormControlLabel,
-} from '@mui/material';
-import { DataCorrectionButtons } from '../dataCorrectionButtons';
-import { IRowProps } from './types';
+} from "@mui/material";
+import { DataCorrectionButtons } from "../dataCorrectionButtons";
+import { IRowProps } from "./types";
+import { CheckboxComponent } from "../checkboxComponent";
 
 export const TableRow: FC<IRowProps> = ({
   row,
-  checked,
-  onChange,
+  checkedList,
+  setCheckedList,
   openModalEdit,
   openModalDelete,
 }) => {
   return (
-    <MuiTableRow hover role='checkbox' tabIndex={-1}>
+    <MuiTableRow hover role="checkbox" tabIndex={-1}>
       <TableCell>
-        <FormControlLabel
-          label=''
-          control={<Checkbox checked={checked} onChange={onChange} />}
+        <CheckboxComponent
+          row={row}
+          checkedList={checkedList}
+          setCheckedList={setCheckedList}
         />
       </TableCell>
-      <TableCell>{row.title || '-'}</TableCell>
-      <TableCell>{row.info || '-'}</TableCell>
+      <TableCell>{row.title || "-"}</TableCell>
+      <TableCell>{row.info || "-"}</TableCell>
       <TableCell>
         <DataCorrectionButtons
           openModalEdit={() => openModalEdit(row)}

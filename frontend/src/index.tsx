@@ -1,27 +1,27 @@
-import ReactDOM from 'react-dom/client';
-import { useState, useMemo } from 'react';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { ThemeProvider } from '@mui/material/styles';
-import { ColorModeContext, getDesignTokens } from './theme';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { PaletteMode, Paper, createTheme } from '@mui/material';
-import { MuiPickersUtilsProvider } from 'material-ui-pickers';
-import ruLocale from 'date-fns/locale/ru';
-import DateFnsUtils from '@date-io/date-fns';
-import { Navigation } from './components/navigation/navigation';
-import './styles.css';
-import { Manual } from './pages/manual';
-import { Graph1, Graph2, Graph3, Graph4, Graphs } from './pages/graphs';
-import { Data } from './pages/data';
-import { ArtistsList } from './components/artists-list';
-import { CreateArtistForm } from './components';
-import { AssociationsList } from './components/associations-list';
-import { CreateAssociationForm } from './components/create-association-form';
-import { ArtMovementsList } from './components/artmovements-list';
-import { CreateArtMovementsForm } from './components/create-artmovements-form';
-import { About } from './pages/about';
-import { ScrollToTop } from './components/scrollToTop';
+import ReactDOM from "react-dom/client";
+import { useState, useMemo, useRef, useEffect } from "react";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { ThemeProvider } from "@mui/material/styles";
+import { ColorModeContext, getDesignTokens } from "./theme";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { PaletteMode, Paper, createTheme } from "@mui/material";
+import { MuiPickersUtilsProvider } from "material-ui-pickers";
+import ruLocale from "date-fns/locale/ru";
+import DateFnsUtils from "@date-io/date-fns";
+import { Navigation } from "./components/navigation/navigation";
+import "./styles.css";
+import { Manual } from "./pages/manual";
+import { Graph1, Graph2, Graph3, Graph4, Graphs } from "./pages/graphs";
+import { Data } from "./pages/data";
+import { ArtistsList } from "./components/artists-list";
+// import { CreateArtistForm } from "./components";
+import { AssociationsList } from "./components/associations-list";
+// import { CreateAssociationForm } from "./components/create-association-form";
+import { ArtMovementsList } from "./components/artmovements-list";
+// import { CreateArtMovementsForm } from "./components/create-artmovements-form";
+import { About } from "./pages/about";
+import { ScrollToTop } from "./components/scrollToTop";
 
 // how to use theme in components
 
@@ -61,13 +61,13 @@ import { ScrollToTop } from './components/scrollToTop';
 // TODO: НА БУДУЩЕЕ - подобрать библиотеку для создания графов на js, реализовать построение графов
 
 const App = () => {
-  const [mode, setMode] = useState<PaletteMode>('light');
+  const [mode, setMode] = useState<PaletteMode>("light");
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode: PaletteMode) =>
-          prevMode === 'light' ? 'dark' : 'light'
+          prevMode === "light" ? "dark" : "light"
         );
       },
     }),
@@ -76,49 +76,105 @@ const App = () => {
 
   const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
 
+  const useWindowSize = () => {
+    const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
+
+    useEffect(() => {
+      const resizeHandler = () =>
+        setSize([window.innerWidth, window.innerHeight]);
+      window.addEventListener("resize", resizeHandler);
+      return () => window.removeEventListener("resize", resizeHandler);
+    }, []);
+
+    return size;
+  };
+
+  const [width, height] = useWindowSize();
+
+  // const [isAddingNavigation, setIsAddingNavigation] = useState(false);
+
+  const ref1 = useRef<HTMLDivElement>();
+  const ref2 = useRef<HTMLDivElement>();
+  const ref3 = useRef<HTMLDivElement>();
+  const ref4 = useRef<HTMLDivElement>();
+  const ref5 = useRef<HTMLDivElement>();
+  const ref6 = useRef<HTMLDivElement>();
+  const ref7 = useRef<HTMLDivElement>();
+
+  // const addingNavigationManual = () => {
+  //   setIsAddingNavigation(!isAddingNavigation);
+  // };
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ruLocale}>
           <ThemeProvider theme={theme}>
             <BrowserRouter>
-              <Paper className='root-wrapper'>
-              <ScrollToTop />
-                <Navigation />
-
+              <Paper className="root-wrapper">
+                <ScrollToTop />
+                <Navigation
+                  ref1={ref1}
+                  ref2={ref2}
+                  ref3={ref3}
+                  ref4={ref4}
+                  ref5={ref5}
+                  ref6={ref6}
+                  ref7={ref7}
+                  width={width}
+                  height={height}
+                />
                 <Routes>
-                  <Route path='/' element={<Manual />} />
-                  <Route path='/about' element={<About />} />
-                  <Route path='/data' element={<Data />}>
-                    <Route path='/data/artists' element={<ArtistsList />} />
-                    {/* <Route
-                      path='/data/artists/create'
-                      element={<CreateArtistForm />}
-                    /> */}
+                  <Route
+                    path="/"
+                    element={
+                      <Manual
+                        ref1={ref1}
+                        ref2={ref2}
+                        ref3={ref3}
+                        ref4={ref4}
+                        ref5={ref5}
+                        ref6={ref6}
+                        ref7={ref7}
+                        width={width}
+                        height={height}
+                      />
+                    }
+                  />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/data" element={<Data />}>
+                    <Route path="/data/artists" element={<ArtistsList />} />
                     <Route
-                      path='/data/associations'
+                      path="/data/associations"
                       element={<AssociationsList />}
                     />
-                    {/* <Route
-                      path='/data/associations/create'
-                      element={<CreateAssociationForm />}
-                    /> */}
                     <Route
-                      path='/data/artmovements'
+                      path="/data/artmovements"
                       element={<ArtMovementsList />}
                     />
-                    {/* <Route
-                      path='/data/artmovements/create'
-                      element={<CreateArtMovementsForm />}
-                    /> */}
                   </Route>
-                  <Route path='/graphs' element={<Graphs />}>
-                    <Route path='/graphs/graph1' element={<Graph1 />} />
-                    <Route path='/graphs/graph2' element={<Graph2 />} />
-                    <Route path='/graphs/graph3' element={<Graph3 />} />
-                    <Route path='/graphs/graph4' element={<Graph4 />} />
+                  <Route path="/graphs" element={<Graphs />}>
+                    <Route path="/graphs/graph1" element={<Graph1 />} />
+                    <Route path="/graphs/graph2" element={<Graph2 />} />
+                    <Route path="/graphs/graph3" element={<Graph3 />} />
+                    <Route path="/graphs/graph4" element={<Graph4 />} />
                   </Route>
-                  <Route path='*' element={<Manual />} />
+                  <Route
+                    path="*"
+                    element={
+                      <Manual
+                        ref1={ref1}
+                        ref2={ref2}
+                        ref3={ref3}
+                        ref4={ref4}
+                        ref5={ref5}
+                        ref6={ref6}
+                        ref7={ref7}
+                        width={width}
+                        height={height}
+                      />
+                    }
+                  />
                 </Routes>
               </Paper>
             </BrowserRouter>
@@ -130,6 +186,6 @@ const App = () => {
 };
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+  document.getElementById("root") as HTMLElement
 );
 root.render(<App />);
